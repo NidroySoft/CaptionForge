@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path="src/CaptionForge.Core/VERIFICACION.json" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/CaptionForge.Application/CaptionForge.Application.csproj" />
+    <Project Path="src/CaptionForge.Core/CaptionForge.Core.csproj" />
+    <Project Path="src/CaptionForge.Infrastructure/CaptionForge.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CaptionForge.Tests/CaptionForge.Tests.csproj" />
+  </Folder>
+</Solution>
