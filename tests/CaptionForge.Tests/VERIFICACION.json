@@ -1,0 +1,2603 @@
+{
+  "status": "passed",
+  "sdk": "10.0.401",
+  "runtime": "10.0.12",
+  "platform": "Linux x64",
+  "configuration": "Release",
+  "buildWarnings": 0,
+  "buildErrors": 0,
+  "framework": "xUnit 2.9.3",
+  "nativeEnabledRun": {
+    "passed": 225,
+    "failed": 0,
+    "skipped": 1,
+    "total": 226,
+    "cases": [
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.AdaptadoresIncoherentesNoProducenPlan",
+        "outcome": "Passed",
+        "duration": "00:00:00.0040535"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.AutodeteccionSilencioYPalabrasInvalidas",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022247"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.CancelacionAntesYDespuesDelCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0030290"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.CommitInciertoNoSeReintenta",
+        "outcome": "Passed",
+        "duration": "00:00:00.0016675"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.ContratosYResultadosInmutables",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043093"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.DosAplicacionesConcurrentesSoloEscribenUnaVez",
+        "outcome": "Passed",
+        "duration": "00:00:00.0279529"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.ExclusionRelocalizacionYRegistroPrevio",
+        "outcome": "Passed",
+        "duration": "00:00:00.0451608"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.FlujoCompletoDeEstadosYAplicacionExplicita",
+        "outcome": "Passed",
+        "duration": "00:00:00.0026796"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.GoldenDtwProduceLosQuinceCaptionsExactos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0231874"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.ModosNoSoportadosSeRechazanAntesDelTrabajo",
+        "outcome": "Passed",
+        "duration": "00:00:00.0014201"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.PlanesInvalidosYFallosDePersistencia",
+        "outcome": "Passed",
+        "duration": "00:00:00.0073634"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.PlannerLimitaFrasesYRespetaFpsRacional",
+        "outcome": "Passed",
+        "duration": "00:00:00.0024367"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.RechazosPreviosAlCommitMantienenEstadoCorrecto",
+        "outcome": "Passed",
+        "duration": "00:00:00.0059476"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.RecibosInvalidosYFalloDeFinalizacionExigenRecuperacion",
+        "outcome": "Passed",
+        "duration": "00:00:00.0025225"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.SeleccionYCancelacionInicialDuranteAudioYWhisper",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022014"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.SrtE_HilosDeCpuRespetanLimites",
+        "outcome": "Passed",
+        "duration": "00:00:00.0026352"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.CoreRegressionTests.GoldenDtwYRegularCoincidenConLasReferencias",
+        "outcome": "Passed",
+        "duration": "00:00:00.0102090"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.CoreRegressionTests.IdentidadesYColeccionesSonIndependientes",
+        "outcome": "Passed",
+        "duration": "00:00:00.0036214"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.CoreRegressionTests.TiemposYPalabrasRechazanRangosInvalidos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0176574"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"beyond-duration\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000101"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"ending-space\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000142"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"leading-space\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004528"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"no-space\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000083"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"overlap\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000086"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"wrong-space-time\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002682"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionYTranscripcionCopianSusColecciones",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006509"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 24, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0079164"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 24000, denominator: 1001)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0071149"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 25, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0108913"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 30, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0078118"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 30000, denominator: 1001)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0070693"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 60, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0078282"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 60000, denominator: 1001)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0088627"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.DefaultsYParametrosNulosNoInventanTiempos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0020931"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001003"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"\\n\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002486"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"\\t\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000152"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"one two\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000143"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"one two\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0007588"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 0, ms: 0)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000020"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 1499, ms: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003293"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 1500, ms: 2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000015"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 1999, ms: 2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000053"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 499, ms: 0)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000029"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 500, ms: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000017"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 999, ms: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000787"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"<tag>&\\\"quoted\\\"\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000068"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"\\ud83d\\udc69\\ud83c\\udffd‍\\ud83d\\udcbb\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000238"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"acción\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0040651"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"can't\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000068"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"é\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000058"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"¿Hola?\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000060"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"العربية\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005707"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"中文\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000061"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"empty-effect\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0066853"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"empty-template\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0061174"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"missing-animation\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0104783"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"missing-font\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0050312"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"missing-template\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0048619"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.DosPlanesConLaMismaCapturaNoPuedenAplicarseSobreUnEstadoYaCambiado",
+        "outcome": "Passed",
+        "duration": "00:00:00.1305493"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.FuenteDesaparecidaDespuesDePrepararNoCambiaOriginales",
+        "outcome": "Passed",
+        "duration": "00:00:00.1876633"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.NumeroDeCaptionsCambiaSinDuplicarPistaNiPerderIdsRetenidos",
+        "outcome": "Passed",
+        "duration": "00:00:00.1991151"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.ObjetoDuplicadoEnJsonSeRechazaSinEscribir",
+        "outcome": "Passed",
+        "duration": "00:00:00.0315942"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.ResolverNoEscogeArbitrariamenteEntreHashesAlternativos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0152591"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.ResolverUsaAlternativaUnicaCuandoNoEstaElHashConocido",
+        "outcome": "Passed",
+        "duration": "00:00:00.0682675"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 12, state: 768, textLayers: 12, mels: 80, expected: SmallEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002407"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 24, state: 1024, textLayers: 24, mels: 80, expected: MediumEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002234"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 4, state: 384, textLayers: 4, mels: 80, expected: TinyEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002236"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 6, state: 512, textLayers: 6, mels: 80, expected: BaseEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0007178"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 12, state: 768, textLayers: 12, mels: 80, expected: Small)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0097605"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 24, state: 1024, textLayers: 24, mels: 80, expected: Medium)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002170"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 4, state: 384, textLayers: 4, mels: 80, expected: Tiny)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002495"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 6, state: 512, textLayers: 6, mels: 80, expected: Base)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002438"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51866, layers: 32, state: 1280, textLayers: 32, mels: 128, expected: LargeV3)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002301"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51866, layers: 32, state: 1280, textLayers: 4, mels: 128, expected: LargeV3Turbo)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002553"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.LargeV1V2ExigeIdentificarSuVersion(name: \"ggml-large-v2-q5.bin\", expected: LargeV2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005545"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.LargeV1V2ExigeIdentificarSuVersion(name: \"large-v1.bin\", expected: LargeV1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005812"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"architecture\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002730"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"large-ambiguous\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002097"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"magic\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004144"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"mels\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022505"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"preset-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006742"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"short\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003431"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"vocab\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002260"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.TokenControlIgnoraOffsetsNegativosPeroTokenLexicoNo(english: False, controlId: 50257)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005976"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.TokenControlIgnoraOffsetsNegativosPeroTokenLexicoNo(english: True, controlId: 50256)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005855"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavAceptaChunkDesconocidoConPaddingYCuentaMuestras",
+        "outcome": "Passed",
+        "duration": "00:00:00.0114664"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"align\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002425"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"bits\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002517"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"empty\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003162"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"float\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002325"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"fmt-short\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003520"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"multiple-data\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003019"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"no-data\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003318"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"no-fmt\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002193"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"odd-data\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003000"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"rate\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003156"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"rf64\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0007368"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"riff\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0030328"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"stereo\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003180"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"truncated\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002178"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"wave\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003268"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.BomUtf8YCamposDesconocidosSeLeen",
+        "outcome": "Passed",
+        "duration": "00:00:00.0135549"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.CambioDeIdentidadDelCatalogoSeRechaza(identity: \"project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0066059"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.CambioDeIdentidadDelCatalogoSeRechaza(identity: \"registry\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0075744"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.DistingueRecortesYDestinoDeVariosArchivos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0056457"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.FpsDecimalNoSeConvierteSilenciosamenteEnBroadcast",
+        "outcome": "Passed",
+        "duration": "00:00:00.0085465"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.RegistroConTimelineDuplicadaSeRechaza",
+        "outcome": "Passed",
+        "duration": "00:00:00.0777986"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"compound\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0057794"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"empty-path\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0142825"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"negative-source\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0061348"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"speed-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0079454"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"unresolved\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0112785"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"corrupt-draft\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0080667"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0134789"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"high-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0078924"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"id-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0100903"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"missing-draft\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0053522"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"negative-duration\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0113814"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"negative-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0042562"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"precision-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0098461"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"zero-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0132998"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"corrupt-source\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0431520"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"duration-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043569"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"missing-source\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0068946"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"mute\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0045862"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"outside-media\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0496725"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"reverse\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0074687"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"speed\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0054494"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"start-at-end\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0456889"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"variable\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0053600"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.RecortesDecimalesNoDependenDeCulturaYNoEditanFuente(culture: \"en-US\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.1009592"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.RecortesDecimalesNoDependenDeCulturaYNoEditanFuente(culture: \"es-ES\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0998176"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.RecortesDecimalesNoDependenDeCulturaYNoEditanFuente(culture: \"fr-FR\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0984375"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegRegressionTests.FfmpegRecortaRellenaYExtraeAudioDeVideo",
+        "outcome": "Passed",
+        "duration": "00:00:00.4549912"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.BakExistenteSeRespaldaYSeRestaura",
+        "outcome": "Passed",
+        "duration": "00:00:00.0608766"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.CapCutAbiertoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0578991"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.CatalogoDiagnosticaCarpetasCorruptas",
+        "outcome": "Passed",
+        "duration": "00:00:00.0028314"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.CatalogoGoldenBackupYRestauracionCompleta",
+        "outcome": "Passed",
+        "duration": "00:00:00.0753523"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.DraftIdDuplicadoSeExcluye",
+        "outcome": "Passed",
+        "duration": "00:00:00.0735521"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.EdicionPosteriorBloqueaRestauracion",
+        "outcome": "Passed",
+        "duration": "00:00:00.0551982"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.EspejoConMismoIdDiscordanteSeRechaza",
+        "outcome": "Passed",
+        "duration": "00:00:00.1847478"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.EsquemaFuturoSeRechaza",
+        "outcome": "Passed",
+        "duration": "00:00:00.0087368"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FalloDeRollbackQuedaEnJournal",
+        "outcome": "Passed",
+        "duration": "00:00:00.0508652"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FalloParcialProduceRollback",
+        "outcome": "Passed",
+        "duration": "00:00:00.0527082"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FinalizacionTardiaNoSobrescribeIdsNuevos",
+        "outcome": "Passed",
+        "duration": "00:00:00.1773316"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FuenteAusenteImpidePreparar",
+        "outcome": "Passed",
+        "duration": "00:00:00.0164593"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.OriginalAlteradoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0673638"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.PlanAlteradoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0494893"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.RaizDeOtraTimelineSeConserva",
+        "outcome": "Passed",
+        "duration": "00:00:00.0378556"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.SettingsSeGuardanYRecuperan",
+        "outcome": "Passed",
+        "duration": "00:00:00.0037108"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.StagingAlteradoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0446808"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.TextoAjenoActualizacionDeIdsYRestauracionAnterior",
+        "outcome": "Passed",
+        "duration": "00:00:00.2104784"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.TokensNativosUsanDiezMilisegundos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022443"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.TransicionIlegalYCancelacionNoModificanManifiesto",
+        "outcome": "Passed",
+        "duration": "00:00:00.0069877"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.IsolationAndLockTests.LockOcupadoRespetaCancelacionOTiempoLimiteSinModificarEstado(cancel: False)",
+        "outcome": "Passed",
+        "duration": "00:00:02.8206478"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.IsolationAndLockTests.LockOcupadoRespetaCancelacionOTiempoLimiteSinModificarEstado(cancel: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.1560956"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.IsolationAndLockTests.TimelineSecundariaNoCambiaPrincipalRegistroNiEspejo",
+        "outcome": "Passed",
+        "duration": "00:00:00.3402047"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperNativeTests.VozRealConDtwGeneraJsonV3YAutoEnReutilizaLaFabrica",
+        "outcome": "Passed",
+        "duration": "00:00:02.5668538"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"cancelled\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0701804"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"disposed\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0180227"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"duration\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0065104"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"english-with-es\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0106906"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"invalid-header\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0062988"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"missing-model\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0067583"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"outside\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0141678"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: Cancelled)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0149598"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: Completed)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0071026"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: Failed)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0115300"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: RecoveryRequired)",
+        "outcome": "Passed",
+        "duration": "00:00:00.1086002"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.ManifiestoIncoherenteNoSeReescribe(flaw: \"run-id\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0084617"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.ManifiestoIncoherenteNoSeReescribe(flaw: \"schema\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0072485"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.ManifiestoIncoherenteNoSeReescribe(flaw: \"status\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0106492"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"../escape\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000639"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"COM1\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0024037"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"CON\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000646"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"LPT9\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005883"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"aux\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000833"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"id/child\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000509"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"id\\\\child\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001013"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"名字\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000670"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"invalid-json\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0061052"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"schema\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0037341"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"wrong-project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0033590"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"wrong-timeline\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0205640"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RelojFijoNoProduceIdsDeEjecucionDuplicados",
+        "outcome": "Passed",
+        "duration": "00:00:00.0544795"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCanceladosNoCambianBytesYJsonConcurrenteNoQuedaParcial",
+        "outcome": "Passed",
+        "duration": "00:00:00.0250553"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCorruptosNoSeSustituyenPorDefaultsSilenciosos(flaw: \"invalid-json\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0021109"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCorruptosNoSeSustituyenPorDefaultsSilenciosos(flaw: \"schema\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0146276"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCorruptosNoSeSustituyenPorDefaultsSilenciosos(flaw: \"zero-threads\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0056708"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.TransicionesConcurrentesSoloUnaGanaLaComparacionDeEstado",
+        "outcome": "Passed",
+        "duration": "00:00:00.0524703"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"ancestor\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0037913"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"inside-project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0038767"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"inside-projects-root\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0038728"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0034971"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"same-project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0041701"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"foreign-in-own-track\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0739414"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"foreign-material-ref\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0728068"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"foreign-track-ref\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0867001"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"own-text-deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0823239"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"track-deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0726922"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"bak-created\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0400297"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"draft-deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0321092"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"metadata\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0372312"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"registry\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0413515"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"root\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0319063"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CancelacionDuranteCommitNoDejaAplicacionParcial",
+        "outcome": "Passed",
+        "duration": "00:00:00.0462174"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CanvasHorizontalSeConservaYAdvierteAjusteVisualPendiente",
+        "outcome": "Passed",
+        "duration": "00:00:00.0523161"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0351935"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0369958"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 3)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0385780"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 4)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0395100"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"<tag>&\\\"quoted\\\"\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0131622"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"\\ud83d\\udc69\\ud83c\\udffd‍\\ud83d\\udcbb\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0174650"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"acción\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0144976"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"é\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0122788"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"中文\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0137212"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.PlanConRutaFueraDeSuEjecucionNoEscribeAunqueSuHashCoincida(field: \"backupPath\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0288667"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.PlanConRutaFueraDeSuEjecucionNoEscribeAunqueSuHashCoincida(field: \"registryPath\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0268093"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.PlanConRutaFueraDeSuEjecucionNoEscribeAunqueSuHashCoincida(field: \"stagedPath\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0279249"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionEsIdempotenteSobreElMismoEstado",
+        "outcome": "Passed",
+        "duration": "00:00:00.0467104"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"backup\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.3114191"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"journal-files\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0881669"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"journal-version\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0561596"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"plan\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0546598"
+      },
+      {
+        "name": "CaptionForge.Tests.Integration.CapCutRealProjectTests.ProyectoRealSeProcesaEnCopiaYAparecenBakYRestauracionExacta",
+        "outcome": "NotExecuted",
+        "duration": "00:00:00.0010000"
+      }
+    ]
+  },
+  "defaultEnvironmentRun": {
+    "passed": 224,
+    "failed": 0,
+    "skipped": 2,
+    "total": 226,
+    "cases": [
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.AdaptadoresIncoherentesNoProducenPlan",
+        "outcome": "Passed",
+        "duration": "00:00:00.0025215"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.AutodeteccionSilencioYPalabrasInvalidas",
+        "outcome": "Passed",
+        "duration": "00:00:00.0018550"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.CancelacionAntesYDespuesDelCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0016357"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.CommitInciertoNoSeReintenta",
+        "outcome": "Passed",
+        "duration": "00:00:00.0011317"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.ContratosYResultadosInmutables",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043859"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.DosAplicacionesConcurrentesSoloEscribenUnaVez",
+        "outcome": "Passed",
+        "duration": "00:00:00.0148978"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.ExclusionRelocalizacionYRegistroPrevio",
+        "outcome": "Passed",
+        "duration": "00:00:00.0384067"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.FlujoCompletoDeEstadosYAplicacionExplicita",
+        "outcome": "Passed",
+        "duration": "00:00:00.0023668"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.GoldenDtwProduceLosQuinceCaptionsExactos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0123770"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.ModosNoSoportadosSeRechazanAntesDelTrabajo",
+        "outcome": "Passed",
+        "duration": "00:00:00.0013521"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.PlanesInvalidosYFallosDePersistencia",
+        "outcome": "Passed",
+        "duration": "00:00:00.0053404"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.PlannerLimitaFrasesYRespetaFpsRacional",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043809"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.RechazosPreviosAlCommitMantienenEstadoCorrecto",
+        "outcome": "Passed",
+        "duration": "00:00:00.0015393"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.RecibosInvalidosYFalloDeFinalizacionExigenRecuperacion",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022742"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.SeleccionYCancelacionInicialDuranteAudioYWhisper",
+        "outcome": "Passed",
+        "duration": "00:00:00.0021638"
+      },
+      {
+        "name": "CaptionForge.Tests.Application.ApplicationRegressionTests.SrtE_HilosDeCpuRespetanLimites",
+        "outcome": "Passed",
+        "duration": "00:00:00.0021819"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.CoreRegressionTests.GoldenDtwYRegularCoincidenConLasReferencias",
+        "outcome": "Passed",
+        "duration": "00:00:00.0189474"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.CoreRegressionTests.IdentidadesYColeccionesSonIndependientes",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043225"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.CoreRegressionTests.TiemposYPalabrasRechazanRangosInvalidos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0177987"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"beyond-duration\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000072"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"ending-space\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000122"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"leading-space\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003159"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"no-space\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000061"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"overlap\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000069"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionRechazaPatronesDePalabrasInvalidos(scenario: \"wrong-space-time\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002207"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CaptionYTranscripcionCopianSusColecciones",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005685"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 24, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0078733"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 24000, denominator: 1001)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0051770"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 25, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0052192"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 30, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0054462"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 30000, denominator: 1001)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0051828"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 60, denominator: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0053676"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.CuantizacionConservaLosLimitesSinDeriva(numerator: 60000, denominator: 1001)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0084564"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.DefaultsYParametrosNulosNoInventanTiempos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0010905"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000885"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"\\n\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001844"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"\\t\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000090"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"one two\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000083"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.PalabraVaciaOConSeparadoresSeRechaza(text: \"one two\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003540"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 0, ms: 0)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000010"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 1499, ms: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002399"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 1500, ms: 2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000009"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 1999, ms: 2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000045"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 499, ms: 0)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000011"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 500, ms: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000010"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.RedondeoDeMicrosegundosEnLimitesDeMedioMilisegundo(us: 999, ms: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000592"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"<tag>&\\\"quoted\\\"\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000062"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"\\ud83d\\udc69\\ud83c\\udffd‍\\ud83d\\udcbb\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000217"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"acción\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0010392"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"can't\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000094"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"é\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000086"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"¿Hola?\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000087"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"العربية\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004887"
+      },
+      {
+        "name": "CaptionForge.Tests.Core.TemporalAndUnicodeTests.UnicodeNoSeNormalizaNiSePierde(text: \"中文\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000097"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"empty-effect\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0041566"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"empty-template\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043790"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"missing-animation\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0045842"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"missing-font\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0049138"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.AssetsAusentesOVaciosNoSeAceptan(flaw: \"missing-template\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0036579"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.DosPlanesConLaMismaCapturaNoPuedenAplicarseSobreUnEstadoYaCambiado",
+        "outcome": "Passed",
+        "duration": "00:00:00.1241051"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.FuenteDesaparecidaDespuesDePrepararNoCambiaOriginales",
+        "outcome": "Passed",
+        "duration": "00:00:00.1585189"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.NumeroDeCaptionsCambiaSinDuplicarPistaNiPerderIdsRetenidos",
+        "outcome": "Passed",
+        "duration": "00:00:00.2343126"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.ObjetoDuplicadoEnJsonSeRechazaSinEscribir",
+        "outcome": "Passed",
+        "duration": "00:00:00.0363285"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.ResolverNoEscogeArbitrariamenteEntreHashesAlternativos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0123673"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.AssetAndOwnershipEdgeTests.ResolverUsaAlternativaUnicaCuandoNoEstaElHashConocido",
+        "outcome": "Passed",
+        "duration": "00:00:00.0062321"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 12, state: 768, textLayers: 12, mels: 80, expected: SmallEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002233"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 24, state: 1024, textLayers: 24, mels: 80, expected: MediumEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001726"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 4, state: 384, textLayers: 4, mels: 80, expected: TinyEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001579"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51864, layers: 6, state: 512, textLayers: 6, mels: 80, expected: BaseEn)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006300"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 12, state: 768, textLayers: 12, mels: 80, expected: Small)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0058342"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 24, state: 1024, textLayers: 24, mels: 80, expected: Medium)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001626"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 4, state: 384, textLayers: 4, mels: 80, expected: Tiny)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002040"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51865, layers: 6, state: 512, textLayers: 6, mels: 80, expected: Base)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001989"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51866, layers: 32, state: 1280, textLayers: 32, mels: 128, expected: LargeV3)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004628"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.CabeceraGgmlSeleccionaPresetDtwCorrecto(vocab: 51866, layers: 32, state: 1280, textLayers: 4, mels: 128, expected: LargeV3Turbo)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002213"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.LargeV1V2ExigeIdentificarSuVersion(name: \"ggml-large-v2-q5.bin\", expected: LargeV2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006383"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.LargeV1V2ExigeIdentificarSuVersion(name: \"large-v1.bin\", expected: LargeV1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006905"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"architecture\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002031"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"large-ambiguous\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002947"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"magic\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003290"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"mels\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022887"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"preset-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006281"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"short\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003152"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.ModeloInvalidoOAmbiguoNoSeCarga(scenario: \"vocab\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002537"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.TokenControlIgnoraOffsetsNegativosPeroTokenLexicoNo(english: False, controlId: 50257)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0094384"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.TokenControlIgnoraOffsetsNegativosPeroTokenLexicoNo(english: True, controlId: 50256)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0007720"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavAceptaChunkDesconocidoConPaddingYCuentaMuestras",
+        "outcome": "Passed",
+        "duration": "00:00:00.0127373"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"align\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001892"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"bits\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002086"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"empty\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002553"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"float\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002757"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"fmt-short\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002665"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"multiple-data\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002407"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"no-data\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002705"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"no-fmt\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002407"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"odd-data\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0010192"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"rate\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002515"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"rf64\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0007205"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"riff\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0123585"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"stereo\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002054"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"truncated\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002086"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.BinaryFormatTests.WavIncompatibleOCorruptoSeRechaza(scenario: \"wave\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002262"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.BomUtf8YCamposDesconocidosSeLeen",
+        "outcome": "Passed",
+        "duration": "00:00:00.0130636"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.CambioDeIdentidadDelCatalogoSeRechaza(identity: \"project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0068514"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.CambioDeIdentidadDelCatalogoSeRechaza(identity: \"registry\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0045517"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.DistingueRecortesYDestinoDeVariosArchivos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0083830"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.FpsDecimalNoSeConvierteSilenciosamenteEnBroadcast",
+        "outcome": "Passed",
+        "duration": "00:00:00.0073340"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.RegistroConTimelineDuplicadaSeRechaza",
+        "outcome": "Passed",
+        "duration": "00:00:00.0984694"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"compound\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0093025"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"empty-path\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0068167"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"negative-source\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0121685"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"speed-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0077469"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.SegmentoNoInterpretableSeOmiteConDiagnostico(scenario: \"unresolved\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0047904"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"corrupt-draft\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0051912"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0130396"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"high-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0066879"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"id-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0066498"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"missing-draft\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0042019"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"negative-duration\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0053762"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"negative-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0041500"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"precision-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0069622"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.CatalogEdgeTests.TimelineNoValidaNoSeOfrece(scenario: \"zero-fps\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0084469"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"corrupt-source\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0489877"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"duration-mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0057780"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"missing-source\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0071732"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"mute\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0065112"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"outside-media\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0514770"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"reverse\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0057910"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"speed\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0060247"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"start-at-end\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0513816"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.AudioInvalidoNoPublicaWav(flaw: \"variable\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0049674"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.RecortesDecimalesNoDependenDeCulturaYNoEditanFuente(culture: \"en-US\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0960133"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.RecortesDecimalesNoDependenDeCulturaYNoEditanFuente(culture: \"es-ES\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0976572"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegEdgeTests.RecortesDecimalesNoDependenDeCulturaYNoEditanFuente(culture: \"fr-FR\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0964856"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.FfmpegRegressionTests.FfmpegRecortaRellenaYExtraeAudioDeVideo",
+        "outcome": "Passed",
+        "duration": "00:00:00.4767314"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.BakExistenteSeRespaldaYSeRestaura",
+        "outcome": "Passed",
+        "duration": "00:00:00.0778479"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.CapCutAbiertoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0569405"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.CatalogoDiagnosticaCarpetasCorruptas",
+        "outcome": "Passed",
+        "duration": "00:00:00.0037111"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.CatalogoGoldenBackupYRestauracionCompleta",
+        "outcome": "Passed",
+        "duration": "00:00:00.0763345"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.DraftIdDuplicadoSeExcluye",
+        "outcome": "Passed",
+        "duration": "00:00:00.0851602"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.EdicionPosteriorBloqueaRestauracion",
+        "outcome": "Passed",
+        "duration": "00:00:00.0592124"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.EspejoConMismoIdDiscordanteSeRechaza",
+        "outcome": "Passed",
+        "duration": "00:00:00.1981710"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.EsquemaFuturoSeRechaza",
+        "outcome": "Passed",
+        "duration": "00:00:00.0054081"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FalloDeRollbackQuedaEnJournal",
+        "outcome": "Passed",
+        "duration": "00:00:00.0449266"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FalloParcialProduceRollback",
+        "outcome": "Passed",
+        "duration": "00:00:00.0503054"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FinalizacionTardiaNoSobrescribeIdsNuevos",
+        "outcome": "Passed",
+        "duration": "00:00:00.1744765"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.FuenteAusenteImpidePreparar",
+        "outcome": "Passed",
+        "duration": "00:00:00.0132733"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.OriginalAlteradoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0367814"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.PlanAlteradoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0486551"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.RaizDeOtraTimelineSeConserva",
+        "outcome": "Passed",
+        "duration": "00:00:00.0533851"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.SettingsSeGuardanYRecuperan",
+        "outcome": "Passed",
+        "duration": "00:00:00.0037569"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.StagingAlteradoBloqueaCommit",
+        "outcome": "Passed",
+        "duration": "00:00:00.0540865"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.TextoAjenoActualizacionDeIdsYRestauracionAnterior",
+        "outcome": "Passed",
+        "duration": "00:00:00.2233498"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.TokensNativosUsanDiezMilisegundos",
+        "outcome": "Passed",
+        "duration": "00:00:00.0013083"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.InfrastructureRegressionTests.TransicionIlegalYCancelacionNoModificanManifiesto",
+        "outcome": "Passed",
+        "duration": "00:00:00.0068187"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.IsolationAndLockTests.LockOcupadoRespetaCancelacionOTiempoLimiteSinModificarEstado(cancel: False)",
+        "outcome": "Passed",
+        "duration": "00:00:02.8158485"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.IsolationAndLockTests.LockOcupadoRespetaCancelacionOTiempoLimiteSinModificarEstado(cancel: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.1574437"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.IsolationAndLockTests.TimelineSecundariaNoCambiaPrincipalRegistroNiEspejo",
+        "outcome": "Passed",
+        "duration": "00:00:00.3794931"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperNativeTests.VozRealConDtwGeneraJsonV3YAutoEnReutilizaLaFabrica",
+        "outcome": "NotExecuted",
+        "duration": "00:00:00.0010000"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"cancelled\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.1524657"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"disposed\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0146754"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"duration\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0138433"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"english-with-es\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0072054"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"invalid-header\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0103027"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"missing-model\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0098289"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WhisperValidationTests.ValidacionRechazaErroresAntesDeCargarMotorNativo(flaw: \"outside\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0058527"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: Cancelled)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0072366"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: Completed)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0105796"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: Failed)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0136337"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.EstadosTerminalesNoVuelvenAGenerarOAplicar(terminal: RecoveryRequired)",
+        "outcome": "Passed",
+        "duration": "00:00:00.1164080"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.ManifiestoIncoherenteNoSeReescribe(flaw: \"run-id\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0138567"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.ManifiestoIncoherenteNoSeReescribe(flaw: \"schema\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0060258"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.ManifiestoIncoherenteNoSeReescribe(flaw: \"status\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0079485"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"../escape\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001048"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"COM1\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0022047"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"CON\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001208"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"LPT9\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0003541"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"aux\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001066"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"id/child\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000992"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"id\\\\child\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000911"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroNoAceptaIdsQuePuedanEscaparOCrearNombresInvalidos(id: \"名字\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001124"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"invalid-json\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0284705"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"schema\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0016043"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"wrong-project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0013039"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RegistroPropioInvalidoNoSeUsa(flaw: \"wrong-timeline\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0520957"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.RelojFijoNoProduceIdsDeEjecucionDuplicados",
+        "outcome": "Passed",
+        "duration": "00:00:00.0405174"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCanceladosNoCambianBytesYJsonConcurrenteNoQuedaParcial",
+        "outcome": "Passed",
+        "duration": "00:00:00.0216179"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCorruptosNoSeSustituyenPorDefaultsSilenciosos(flaw: \"invalid-json\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0024361"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCorruptosNoSeSustituyenPorDefaultsSilenciosos(flaw: \"schema\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0244912"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.SettingsCorruptosNoSeSustituyenPorDefaultsSilenciosos(flaw: \"zero-threads\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043166"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.TransicionesConcurrentesSoloUnaGanaLaComparacionDeEstado",
+        "outcome": "Passed",
+        "duration": "00:00:00.0401565"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"ancestor\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0052692"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"inside-project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0043580"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"inside-projects-root\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0038672"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"mismatch\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0040055"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WorkspaceAndSettingsEdgeTests.WorkspaceDebeEstarSeparadoYCoincidirConPeticion(scenario: \"same-project\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0046165"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"foreign-in-own-track\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0784339"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"foreign-material-ref\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0938190"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"foreign-track-ref\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0834701"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"own-text-deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0766186"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.ActualizacionNoBorraObjetosConAutoriaIncierta(scenario: \"track-deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0741173"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"bak-created\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0344434"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"draft-deleted\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0295860"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"metadata\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0422812"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"registry\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0378033"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CambioEnCualquierArchivoLeidoRechazaAntesDeEscribir(changed: \"root\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0389420"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CancelacionDuranteCommitNoDejaAplicacionParcial",
+        "outcome": "Passed",
+        "duration": "00:00:00.0488844"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.CanvasHorizontalSeConservaYAdvierteAjusteVisualPendiente",
+        "outcome": "Passed",
+        "duration": "00:00:00.0592310"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 1)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0375573"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 2)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0490880"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 3)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0404768"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.FalloEnCadaReemplazoRecuperaTodosLosBytes(failAt: 4)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0393653"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"<tag>&\\\"quoted\\\"\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0150033"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"\\ud83d\\udc69\\ud83c\\udffd‍\\ud83d\\udcbb\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0158048"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"acción\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0190529"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"é\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0257878"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.JsonContentEscapaTextoYPreservaRangosUtf16(text: \"中文\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0123357"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.PlanConRutaFueraDeSuEjecucionNoEscribeAunqueSuHashCoincida(field: \"backupPath\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0326520"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.PlanConRutaFueraDeSuEjecucionNoEscribeAunqueSuHashCoincida(field: \"registryPath\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0285420"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.PlanConRutaFueraDeSuEjecucionNoEscribeAunqueSuHashCoincida(field: \"stagedPath\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0292781"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionEsIdempotenteSobreElMismoEstado",
+        "outcome": "Passed",
+        "duration": "00:00:00.0547169"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"backup\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.3913703"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"journal-files\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0675208"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"journal-version\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0782328"
+      },
+      {
+        "name": "CaptionForge.Tests.Infrastructure.WriterEdgeTests.RestauracionRechazaSoportesAlterados(scenario: \"plan\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0629851"
+      },
+      {
+        "name": "CaptionForge.Tests.Integration.CapCutRealProjectTests.ProyectoRealSeProcesaEnCopiaYAparecenBakYRestauracionExacta",
+        "outcome": "NotExecuted",
+        "duration": "00:00:00.0010000"
+      }
+    ]
+  },
+  "coverage": {
+    "linesCovered": 1516,
+    "linesValid": 1570,
+    "branchesCovered": 1128,
+    "branchesValid": 1386,
+    "linePercent": 96.56,
+    "branchPercent": 81.38,
+    "byAssembly": [
+      {
+        "assembly": "CaptionForge.Core",
+        "linePercent": 96.95,
+        "branchPercent": 92.62
+      },
+      {
+        "assembly": "CaptionForge.Infrastructure",
+        "linePercent": 96.79,
+        "branchPercent": 79.8
+      },
+      {
+        "assembly": "CaptionForge.Application",
+        "linePercent": 96.0,
+        "branchPercent": 82.37
+      }
+    ]
+  },
+  "ffmpegExecuted": true,
+  "whisperNativeExecuted": true,
+  "whisperNativeModel": "tiny.en, CPU + DTW",
+  "userWindowsCapCutProjectExecuted": false,
+  "capCutEditorExecuted": false,
+  "wpfExecuted": false,
+  "fixturesVisualAssets": "marker files, not real fonts/effects",
+  "productionFilesUnchanged": [
+    {
+      "path": "CaptionForge.Core/Rules/WordTimingBuilder.cs",
+      "sha256": "020fa99ac30bfde16ab13ecf85707f46a323cd75bd1324e3bfe45daf579f7600"
+    },
+    {
+      "path": "CaptionForge.Core/Rules/SubtitleTimingCalculator.cs",
+      "sha256": "52dffda1b7b555c9d6a4b47f450cda75b452586e4441c626f881630801f597e5"
+    },
+    {
+      "path": "CaptionForge.Core/Enums/MediaTrackType.cs",
+      "sha256": "ada0e0720571a41f15eb27aa97d4f142afdbea6d7a40f014052598b828fc00f5"
+    },
+    {
+      "path": "CaptionForge.Core/ValueObjects/FrameRate.cs",
+      "sha256": "c306abba3490bf7339c8f92b95c6cf94428dc521ac0e76ee74bbb37d5e36a621"
+    },
+    {
+      "path": "CaptionForge.Core/ValueObjects/TimeRangeUs.cs",
+      "sha256": "12457050e9c0e9e32513fa8a3a0e2f1dcc3e3b1a96667a93a40193ca57b8459d"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Media/MediaTrack.cs",
+      "sha256": "0d89bc9fcbc34ede323d4c53d8fece568545fd7e1058a8955593769b76f8420e"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Media/MediaSegment.cs",
+      "sha256": "75049dade14fff8603829b19f328582baaad127db63ee47b123165e2cca2ec1e"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Subtitles/TimedWord.cs",
+      "sha256": "241c999c3986b11cc7ff8aef7876fed3bc1bdf590a4efc66a2fa69f5cf86e8bb"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Subtitles/SubtitleCue.cs",
+      "sha256": "fd2c42b75d2deb54962146f233340c4ac0d23c685ebe3a508d92bfebe73da5f4"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Transcription/TranscriptionToken.cs",
+      "sha256": "72cd841f3147bc4657cc060805830088622d3451d82d7f98c2d68f22ea22ec9d"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Transcription/TranscriptionSegment.cs",
+      "sha256": "1c579bb4db5d1cb313518d589b011f523febd3dadbdd26fb1704fa533076688e"
+    },
+    {
+      "path": "CaptionForge.Core/Models/Transcription/TranscriptionResult.cs",
+      "sha256": "b01817ba08fd663c06134515edb7dd31e084ccf259969183cc170b9e4a35a069"
+    },
+    {
+      "path": "CaptionForge.Core/Models/CapCut/CapCutProject.cs",
+      "sha256": "a885bf627d6a7ae9ad3f5a472cd1a81c3e18e447dad9b5ec862014d2379669e9"
+    },
+    {
+      "path": "CaptionForge.Core/Models/CapCut/CapCutTimeline.cs",
+      "sha256": "3e4971fcfbc8e6eeeb94cd53e9d0f453c3ade3620ab4ceab5078d65c92348898"
+    },
+    {
+      "path": "CaptionForge.Application/Exceptions/CaptionForgeOperationException.cs",
+      "sha256": "a4bd9a824538c9f101b7eb28bbb4086af0017f351952f2ed7b5ce5946c0ab49e"
+    },
+    {
+      "path": "CaptionForge.Application/Internal/Guard.cs",
+      "sha256": "5d4e2387cad5179a7762d3d0bfb0ce18aa6508e0a32b854ddc62b31630d60640"
+    },
+    {
+      "path": "CaptionForge.Application/Abstractions/ICapCutCatalog.cs",
+      "sha256": "e7d47a9897e44e4d6fd380b4dd014b02c5c4be5716159e89cc6524ad9e59bbe5"
+    },
+    {
+      "path": "CaptionForge.Application/Abstractions/IWorkspaceStore.cs",
+      "sha256": "1b898294edc6d501dac67b8e1d9e9fbc58f51ce360a28a7e2ace5e1ef1f466d0"
+    },
+    {
+      "path": "CaptionForge.Application/Abstractions/IAudioPreparationService.cs",
+      "sha256": "ee01a63f4871e953d14b479934c7202f22e33ac4b0be6e1b30d75838f46009b2"
+    },
+    {
+      "path": "CaptionForge.Application/Abstractions/ITranscriptionService.cs",
+      "sha256": "4d45d4556721c1a1ea42e59fb7d88e79f8b553c6ebd740667d4ec64f931cde5c"
+    },
+    {
+      "path": "CaptionForge.Application/Abstractions/ICapCutSubtitleWriter.cs",
+      "sha256": "774385c3e402a932bee3f6c500314a960f005b77cab7be37d6f1cad587b4f63e"
+    },
+    {
+      "path": "CaptionForge.Application/Abstractions/IApplicationSettingsStore.cs",
+      "sha256": "34ee5d5bd13b26a373b706f2fecf2c8745bf1f7f1f751cea244a3f9a80d4fb51"
+    },
+    {
+      "path": "CaptionForge.Application/Enums/OperationErrorCode.cs",
+      "sha256": "e6f1b1a7027f072047b01e32b599d475bd96d0842b3b2bfc145f4fc1901810f1"
+    },
+    {
+      "path": "CaptionForge.Application/Enums/RunStatus.cs",
+      "sha256": "a980a6089fe78e9a12d985311a9c371af1c280c7b61f74a4b6581f16ac676c9b"
+    },
+    {
+      "path": "CaptionForge.Application/Enums/SubtitleObjectKind.cs",
+      "sha256": "0e0e2bc60e23ba9376f8e5b9fb3ef37318b762cdae72b3929f168e65a4204f02"
+    },
+    {
+      "path": "CaptionForge.Application/Services/SubtitleCuePlanner.cs",
+      "sha256": "d99a827d243cbdef95a54105801d7d451ec38aefe6e60015048a6fb36bc6f45f"
+    },
+    {
+      "path": "CaptionForge.Application/Services/SrtFormatter.cs",
+      "sha256": "72edb6b5defc650d00ca8bdb3c86d60bd06c943c077f555491da7bbfa2be7337"
+    },
+    {
+      "path": "CaptionForge.Application/Services/CpuThreadRecommendation.cs",
+      "sha256": "3bb7614cfe73a994db3fabad83b1364c83571020fca7dc489cf340cbf4887372"
+    },
+    {
+      "path": "CaptionForge.Application/Services/CaptionGenerationService.cs",
+      "sha256": "e72518349612ed7b5dc700a8e031854fe52b4b5112a19a7c755086a0675e5b0e"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Media/AudioPreparationRequest.cs",
+      "sha256": "c629fc0af6df25cae1531aac0143c414c31c675aa33fc77a4e8df50c82da9bb5"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Media/PreparedAudio.cs",
+      "sha256": "5b8464abbe2efc014bbeddb0ab2a14f8cedcd58db2a436ee78821876b4bc4c8f"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Generation/GenerateCaptionsRequest.cs",
+      "sha256": "5636260aee7f92624a74905bee52bd0f7e839e2ceaef554dd9df01f385b10b5e"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Generation/TranscriptionOptions.cs",
+      "sha256": "51f51d694cc63b50220bbe68d1ceb5854e829e4007bc9b6e86a5efcfb60490b1"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Generation/GenerationProgress.cs",
+      "sha256": "121ff0de2e8a0ded659c0a8f9f41542c6f696468c71b1ae693afeaf5bc60255e"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Generation/SourcePathOverride.cs",
+      "sha256": "ea17c167b467da4932805eb3897727f2096c25e6eb1611324fa3e1c510ad4a19"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Generation/GenerationResult.cs",
+      "sha256": "49abcb41aaf2f3449c4e0507aed28cf646ee2a538a94a359ea3ec74784f25990"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Workspace/RunUpdate.cs",
+      "sha256": "19a40f4f18963115654a062a61b4f45df48fa46a69767211f14a49bb72df654b"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Workspace/RunContext.cs",
+      "sha256": "333ce1253537e1d9b5d6cb7cec53014e94ed21ee4af4468b17815277ca3553e4"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Writing/PreparedSubtitlePlan.cs",
+      "sha256": "ff1642e80d19481c4d3e019c93f1ed3fec32b59fa97ee2b0149921c9e07c5b9c"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Writing/AppliedFile.cs",
+      "sha256": "0a3031e18258face1b97df4d3993b7847585ff1f2f3536e4847ba68cb3c0887a"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Writing/ManagedSubtitleSet.cs",
+      "sha256": "4fbf59d384a0bcda2c661abc837177653be2054559e2cd6abef4d84056e0298e"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Writing/ManagedSubtitleObject.cs",
+      "sha256": "c7bbc7af68e957a593b3f0b5fefbb55eb2f1c660010dda4872b411ab4e103114"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Writing/SubtitleWriteRequest.cs",
+      "sha256": "6dbc77b61ad979e94164c9831e26831235abde09e3f11830881759622900b215"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Writing/SubtitleApplyResult.cs",
+      "sha256": "d4ee5cf0c3d5a900293aa72f4331d06b6e0804b57430319d476eb467518eb478"
+    },
+    {
+      "path": "CaptionForge.Application/Models/Settings/ApplicationSettings.cs",
+      "sha256": "9451ff0b8b5a981faec183ef301c40f897d4a15ebdd5d770270ce3b8ca2083f2"
+    },
+    {
+      "path": "CaptionForge.Application/Models/CapCut/SourceFileStamp.cs",
+      "sha256": "f1891f84cc3ec8f9913e18f7bef1986e6f2ff3356d6a36b7d0ba83a0dba94393"
+    },
+    {
+      "path": "CaptionForge.Application/Models/CapCut/TimelineSnapshot.cs",
+      "sha256": "ae8e667149cfc384dbc617665ddbca057e40b031fd003a2b41ebaee97cfa6b57"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Configuration/InfrastructurePaths.cs",
+      "sha256": "429828e7e147ad080ffe1b12830212ea61d55dc7f1ab7f5b83ef98703a11ddd7"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Media/PcmWaveInfo.cs",
+      "sha256": "47255244514afa1cdd59f67b8df27757192254168042e0490f988e38059798f6"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Media/ExternalProcessRunner.cs",
+      "sha256": "8cfeef684dcb07919c4f2075619400a1f2555551100e07969d44a143d18b09fc"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Media/FfmpegAudioPreparationService.cs",
+      "sha256": "7b9cf9ad90cf50e1945cf59b941cf4fd5da644391843157a65efe597ef7f7c26"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Assets/GoldenV3Mold.cs",
+      "sha256": "81c2df89c696c2552a7fd6d98e1ea3a6773a4f81c4d634557c77eff10f676645"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Workspace/JsonWorkspaceStore.cs",
+      "sha256": "bb24e6b66df6d2a65c84f0728fee7af179096a41e03c080cd1e44bee05de08bd"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Settings/JsonApplicationSettingsStore.cs",
+      "sha256": "055db62659353c6a98ac8067e79445559fc5d487677b717ab7b015e9a0236daa"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Internal/PathSafety.cs",
+      "sha256": "0a07c2e57d53de77f171d8434f0aac0db3e0cddcce8fbcf646b492be388b3c0e"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Internal/JsonFiles.cs",
+      "sha256": "055e1e2b8ea4866756d355fbf948d36a76fc5011cc8f0f3cf40fed791b5f875e"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Internal/FileLease.cs",
+      "sha256": "611a59a0ea280b678d3566e15b0282a37235fda2c919588554c134f46f5e8e4c"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Transcription/WhisperNetTranscriptionService.cs",
+      "sha256": "6188df2220da31726b3fb670e2f73e6ef46fc7b2f6477e662f3e039211742c6b"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Transcription/WhisperModelInfo.cs",
+      "sha256": "7dfdca342b5e561108d6143bf7e2050d332083d5bd93f0148b039c4f2c8db482"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/Transcription/WhisperTokenNormalizer.cs",
+      "sha256": "bff7449b8cfe43a990ed891e2f17bb4a990b878e786e8d87d7a3b176fe4eb4a4"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/AtomicFileCommitter.cs",
+      "sha256": "d66c234556d70ecb52401448dec530757375f9c1f0073178743b364bc5a665d3"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/CapCutTemplateAssetResolver.cs",
+      "sha256": "ccc61b4ea40f36e029bb191ab0db7a5a1beaee1ccabe9c0fc0f58d37f2dabd14"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/ICapCutProcessGuard.cs",
+      "sha256": "20e5bce8b8539cb8a15edadb8ba8dfeb0d5d76821a650c380704ae7b745acaa1"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/GoldenV3SubtitleWriter.cs",
+      "sha256": "fcf470bf01695b5233abb6f0207c5efe32f9ee2967db7f9c67374b09e86292f3"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/CapCutCatalog.cs",
+      "sha256": "506eadada1140520abb31e227666c3d8d33e5ef08753c1eef40a27af78a8239d"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/TemplateAssetPaths.cs",
+      "sha256": "de3f5c658d255ffe239387b648af5656951c1c0256a3c327638887538a6897ab"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/CapCutProcessGuard.cs",
+      "sha256": "f8f1a24f316c0989806fa5c20a711e342defb168c2d66a83969b530838c1f0d5"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/GoldenV3DocumentPatcher.cs",
+      "sha256": "c55ced76b07d28968c87467b21201d97347e79bd6f5e80e0c57445b82261f079"
+    },
+    {
+      "path": "CaptionForge.Infrastructure/CapCut/IFileCommitter.cs",
+      "sha256": "f7b171a4b8b34f8093813bb8c47a060e12e659f69ef8c5e32b0142a877792916"
+    }
+  ],
+  "scope": "Unitarias y archivos reales sobre copias temporales; FFmpeg/Whisper reales. Proyecto Windows real y aspecto en CapCut requieren comprobación local.",
+  "optionalRealProjectTestHarnessVerified": {
+    "executed": true,
+    "passed": 1,
+    "source": "constructed project with real voice/model and marker visual assets",
+    "userWindowsProject": false
+  }
+}

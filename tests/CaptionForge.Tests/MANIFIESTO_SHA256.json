@@ -1,0 +1,177 @@
+[
+  {
+    "path": "Application/ApplicationRegressionTests.cs",
+    "bytes": 28222,
+    "sha256": "138fcb3431060ce4f17ddbf1e1920e05eab80f9e698554906cc11f16ff72ce5e"
+  },
+  {
+    "path": "Application/ControlledPorts.cs",
+    "bytes": 10370,
+    "sha256": "408fd3616f391a71bd21e917807aaee2faf7efc4065130e62c65e6b7fda04b92"
+  },
+  {
+    "path": "CASOS_Y_LIMITES.md",
+    "bytes": 9288,
+    "sha256": "3a6f510751afdb8b0339a38360be6aeee3a59454ec1c8ce85665e368bcc8fe7b"
+  },
+  {
+    "path": "Core/CoreRegressionTests.cs",
+    "bytes": 11404,
+    "sha256": "4caaa62385c6b4eed4e9521b22540e7c381741f5f6096221fb4d10cde443578d"
+  },
+  {
+    "path": "Core/TemporalAndUnicodeTests.cs",
+    "bytes": 5279,
+    "sha256": "910eebedca195c850c63ccd8549c3f1dab9c2df97e9ed485575366c82dd0b3b9"
+  },
+  {
+    "path": "Fixtures/draft_meta_info.json",
+    "bytes": 3049,
+    "sha256": "da8dca958182a7e35b9c18443c2b963c81675a9e8801f6bd6514b0621f5d6f84"
+  },
+  {
+    "path": "Fixtures/expected_captions_v3.json",
+    "bytes": 10521,
+    "sha256": "864ed3736626ee83ca8beb3079314e65e076861bd2ab7780467dc1cf97825526"
+  },
+  {
+    "path": "Fixtures/root_draft_content.json",
+    "bytes": 100612,
+    "sha256": "b71f63a7bd00ae4580ed92170f811aeed22c9f3bd26eef715745542c353eeb2e"
+  },
+  {
+    "path": "Fixtures/snapshot_audio_only.json",
+    "bytes": 8595,
+    "sha256": "664bb2a489ddf3eddccf502d4b1d5d048d1903172d4b3853bf4b9e4e7b700a55"
+  },
+  {
+    "path": "Fixtures/snapshot_with_manual_template.json",
+    "bytes": 100612,
+    "sha256": "4ab331d9c79010c6e8e5a5baa5c0a4ebf2b6ddbf538bd0a770eb05e6204cf2f7"
+  },
+  {
+    "path": "Fixtures/snapshot_with_srt.json",
+    "bytes": 89801,
+    "sha256": "9960c4d5c6753a1eb06fe339f3bdbe526b13a03f0d01a0bd5e38d8e93f789f44"
+  },
+  {
+    "path": "Fixtures/timelines_project.json",
+    "bytes": 487,
+    "sha256": "d6edbaac2e19f21f41787cc7c84a896117d13865d1972db875ae91fd11ab19ec"
+  },
+  {
+    "path": "Fixtures/whisper_dtw.json",
+    "bytes": 36943,
+    "sha256": "75d6bd39233dffa8cc79b07fef1ca5628b89d01119821506b814295289d37525"
+  },
+  {
+    "path": "Fixtures/whisper_regular.json",
+    "bytes": 36744,
+    "sha256": "42a5ce39197a647c7e3710c8b0ebf00925095340e4e8108b5a2e13f4abba5497"
+  },
+  {
+    "path": "Infrastructure/AssetAndOwnershipEdgeTests.cs",
+    "bytes": 5479,
+    "sha256": "d1894e73710f3de305846869d2fe2d706a4834b85f4c848d7fd7a6cd3982823d"
+  },
+  {
+    "path": "Infrastructure/BinaryFormatTests.cs",
+    "bytes": 6543,
+    "sha256": "dbd4abaa845f38fe8c53d87c5b4144642bec64e6b8c8104a0829daee55c43e44"
+  },
+  {
+    "path": "Infrastructure/CatalogEdgeTests.cs",
+    "bytes": 5860,
+    "sha256": "8fbd7f68a47fb6925e67715680583431d0bdc2fdf4ac1f2ad6c45c75bc97703d"
+  },
+  {
+    "path": "Infrastructure/FixturePorts.cs",
+    "bytes": 9556,
+    "sha256": "7c31e85dab1c42b6476b19aa0e45585d1f3e3b0ed318d9c7b02eb7d0dd39a2cd"
+  },
+  {
+    "path": "Infrastructure/InfrastructureRegressionTests.cs",
+    "bytes": 23978,
+    "sha256": "4dc9fe6534883cdbb66a669d95f202b61497289d5b1ebe38d1d2ec202d0b506c"
+  },
+  {
+    "path": "Infrastructure/InfrastructureTestBase.cs",
+    "bytes": 2094,
+    "sha256": "ef7664087017292bd6362b28f3f929cc0ead39ce45efc0e92620eaa980d6e508"
+  },
+  {
+    "path": "Infrastructure/InfrastructureTools.cs",
+    "bytes": 4527,
+    "sha256": "dbdd69a48c589281e88804e07ab4a787131f5024609c0ded7388c170c1cd43f7"
+  },
+  {
+    "path": "Infrastructure/IsolationAndLockTests.cs",
+    "bytes": 2898,
+    "sha256": "6d12177c46231e67671332025b824389f47c8d8192d3571eb4fce8847723cb38"
+  },
+  {
+    "path": "Infrastructure/WhisperValidationTests.cs",
+    "bytes": 2311,
+    "sha256": "c2884ed2766ec6501c2e108e68063f8e2f1b2d12df67165add03cd3097b7631d"
+  },
+  {
+    "path": "Infrastructure/WorkspaceAndSettingsEdgeTests.cs",
+    "bytes": 7957,
+    "sha256": "d980764ce40a7698e82ef063ece5bfa63f3d49d6280317fb771979343f0c0730"
+  },
+  {
+    "path": "Infrastructure/WriterEdgeTests.cs",
+    "bytes": 9175,
+    "sha256": "b4eb9557030d1f540f5cb7f0ac4b6a40f2c0d9a39a3d4361ad7f237af54c949d"
+  },
+  {
+    "path": "Integration/CapCutRealProjectTests.cs",
+    "bytes": 5737,
+    "sha256": "d2254d3d651c7667ad13ba9f16f934006349ae412e4a3106bdc9f48dd157a42d"
+  },
+  {
+    "path": "Integration/FfmpegEdgeTests.cs",
+    "bytes": 3111,
+    "sha256": "f04877027948af3e7254cba0480a05660d3524867ad5f7f5ccf38929bb6cd13c"
+  },
+  {
+    "path": "Integration/FfmpegRegressionTests.cs",
+    "bytes": 4108,
+    "sha256": "d9054c96f4be94056e0fe0524ab1e24e890a67452df84190f21fc54a057d13d2"
+  },
+  {
+    "path": "Integration/WhisperNativeTests.cs",
+    "bytes": 3716,
+    "sha256": "32e8b2bc138d7b97f9f6562ae1de9b5f1f09f65588602b4ac4f8ef3a3268bc25"
+  },
+  {
+    "path": "LEEME.md",
+    "bytes": 7309,
+    "sha256": "c8a201a39c03c26dd0baaff718be5f15f5bce1da8b96b476cac1bc48732f6ec8"
+  },
+  {
+    "path": "RESULTADOS.md",
+    "bytes": 1268,
+    "sha256": "380cf98180cca42de29b732d9756d2887f000ff4ea37daf563d8bb53be6f4880"
+  },
+  {
+    "path": "Support/Checks.cs",
+    "bytes": 1034,
+    "sha256": "b825d77e9f0534678223c83861dc5074f09f33bb9e15a234bf67631775bc863b"
+  },
+  {
+    "path": "Support/EngineConfiguration.cs",
+    "bytes": 1730,
+    "sha256": "8ea07c1c4c1e6a1f6bf3fa6f02c543aefdaa3c2ca452678feb4b8424c60ef88b"
+  },
+  {
+    "path": "Support/FixtureFiles.cs",
+    "bytes": 1685,
+    "sha256": "169f3e0d46a9f2edb4d295b7d1f2ae09e73c091767dbabc725bfe6c7a829a9a4"
+  },
+  {
+    "path": "VERIFICACION.json",
+    "bytes": 112659,
+    "sha256": "d521b2667ce2556ebbe601b9b75666f1da7958d69e4bbab2a18af27bc6fa3055"
+  }
+]
