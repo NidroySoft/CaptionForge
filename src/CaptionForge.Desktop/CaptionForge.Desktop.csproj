@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>CaptionForge</AssemblyName>
+    <ApplicationIcon>Resources/CaptionForge.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Resources/CaptionForge.png" />
+    <Resource Include="Resources/CaptionForge.ico" />
+    <Resource Include="Resources/Palettes.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../CaptionForge.Application/CaptionForge.Application.csproj" />
+    <ProjectReference Include="../CaptionForge.Infrastructure/CaptionForge.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

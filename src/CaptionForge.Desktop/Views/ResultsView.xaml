@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" x:Class="CaptionForge.Desktop.Views.ResultsView">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <c:GenerationProgress Visibility="{Binding IsBusy,Converter={StaticResource BoolVisibility}}" Margin="0,0,0,10"/>
+    <DockPanel Grid.Row="1" Margin="0,0,0,10">
+      <WrapPanel DockPanel.Dock="Right">
+        <Button Content="Exportar SRT" Command="{Binding ExportSrt}" Margin="0,0,8,0"/>
+        <Button Content="Abrir carpeta" Command="{Binding OpenArtifacts}"/>
+        <Button Content="Aplicar a CapCut" Command="{Binding Apply}" Style="{StaticResource PrimaryButton}" Margin="8,0,0,0" ToolTip="Cierra CapCut antes de aplicar el resultado"/>
+      </WrapPanel>
+      <StackPanel VerticalAlignment="Center" Margin="0,0,12,0">
+        <TextBlock Text="{Binding ResultSummary}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+        <TextBlock Text="Cierra CapCut antes de aplicar o restaurar." Style="{StaticResource Muted}" FontSize="11" Margin="0,3,0,0"/>
+      </StackPanel>
+    </DockPanel>
+    <DataGrid Grid.Row="2" ItemsSource="{Binding Captions}" AutomationProperties.Name="Subtítulos generados">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Tiempo en timeline" Binding="{Binding Time}" Width="190"/>
+        <DataGridTextColumn Header="Texto" Binding="{Binding Text}" Width="*"/>
+        <DataGridTextColumn Header="Palabras" Binding="{Binding Words}" Width="90"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <ScrollViewer Grid.Row="3" MaxHeight="140" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,10,0,0">
+      <Border Style="{StaticResource Panel}" Padding="12">
+        <StackPanel>
+          <Expander Header="Archivos previstos y observaciones" Margin="0">
+            <StackPanel>
+              <ItemsControl ItemsSource="{Binding TargetFiles}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding}" Style="{StaticResource Muted}" FontSize="11" Margin="0,5,0,0"/>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+              <ItemsControl ItemsSource="{Binding Warnings}" Margin="0,8,0,0">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="{DynamicResource WarningBrush}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+          </Expander>
+          <Expander Header="Backups de esta timeline" Margin="0,10,0,0">
+            <StackPanel>
+              <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox ItemsSource="{Binding Backups}" SelectedItem="{Binding SelectedBackup,Mode=TwoWay}" DisplayMemberPath="Label"/>
+                <Button Grid.Column="1" Content="Actualizar" Command="{Binding RefreshBackups}" Margin="8,0,0,0"/>
+                <Button Grid.Column="2" Content="Restaurar" Command="{Binding Restore}" Margin="8,0,0,0"/>
+              </Grid>
+              <TextBlock Text="La restauración comprueba que los archivos no hayan cambiado después de la ejecución." Style="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0"/>
+            </StackPanel>
+          </Expander>
+        </StackPanel>
+      </Border>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

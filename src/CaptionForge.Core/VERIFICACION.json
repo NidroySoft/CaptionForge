@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "configuration": "Release",
+  "coreBuildWarnings": 0,
+  "checks": 129,
+  "references": [
+    {
+      "fixture": "whisper_dtw.json",
+      "ranges": 15,
+      "texts": 15,
+      "wordTimingMatches": 15,
+      "fixtureOnlyEditorialCorrections": true
+    },
+    {
+      "fixture": "whisper_regular.json",
+      "ranges": 15,
+      "texts": 15,
+      "wordTimingMatches": 13,
+      "fixtureOnlyEditorialCorrections": true
+    }
+  ],
+  "scope": "C# Core ejecutado; no se ejecutó Whisper.net, FFmpeg ni CapCut.",
+  "runtime": "10.0.12",
+  "sdk": "10.0.401"
+}

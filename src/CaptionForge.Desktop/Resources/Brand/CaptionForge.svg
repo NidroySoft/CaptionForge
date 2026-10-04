@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="CaptionForge CF">
+  <defs>
+    <linearGradient id="c" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#BE80FF"/><stop offset="1" stop-color="#753EF0"/></linearGradient>
+    <linearGradient id="f" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#927AFF"/><stop offset="1" stop-color="#4D45E6"/></linearGradient>
+    <linearGradient id="bars" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FBF9FF"/><stop offset="1" stop-color="#DFD9FF"/></linearGradient>
+  </defs>
+  <path fill="url(#c)" d="M135 47H86C50 47 23 75 23 111V155C23 190 48 213 82 213H121C128 213 132 209 132 202V185C132 178 128 174 121 174H86C70 174 59 163 59 148V115C59 99 70 87 86 87H120C126 87 130 83 132 77L140 57C143 51 140 47 135 47Z"/>
+  <path fill="url(#f)" d="M174 47H228Q239 47 236 59L231 77Q229 87 218 87H184Q174 87 170 99L166 113H216Q234 113 234 130V145Q234 162 218 162H166V181Q166 210 134 213H128V133L145 77Q150 47 174 47Z"/>
+  <rect x="84" y="113" width="89" height="19" rx="9.5" fill="url(#bars)" stroke="#A486EF" stroke-width="1.5"/>
+  <rect x="84" y="142" width="89" height="19" rx="9.5" fill="url(#bars)" stroke="#A486EF" stroke-width="1.5"/>
+</svg>

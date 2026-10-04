@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+      <CAPTIONFORGE_TEST_MODEL>C:\Wondecode\Whisper\models\ggml-medium.en.bin</CAPTIONFORGE_TEST_MODEL>
+      <CAPTIONFORGE_TEST_VOICE>C:\Wondecode\Whisper\test.mp3</CAPTIONFORGE_TEST_VOICE>
+	<CAPTIONFORGE_TEST_CAPCUT_PROJECT>C:\Users\yordi\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft\1003</CAPTIONFORGE_TEST_CAPCUT_PROJECT>
+
+	<CAPTIONFORGE_TEST_TIMELINE>EFA8ACC8-F181-4059-96C5-6BC82353A0C6</CAPTIONFORGE_TEST_TIMELINE>
+
+	<CAPTIONFORGE_TEST_SEGMENT>AD298FE0-856F-4cef-BD60-839FC84C820B</CAPTIONFORGE_TEST_SEGMENT>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>

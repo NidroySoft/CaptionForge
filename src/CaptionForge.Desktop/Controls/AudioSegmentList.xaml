@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="CaptionForge.Desktop.Controls.AudioSegmentList">
+  <ItemsControl ItemsSource="{Binding Segments}">
+    <ItemsControl.ItemTemplate>
+      <DataTemplate>
+        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1" Padding="0,10">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="30"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding Included,Mode=TwoWay}" IsEnabled="{Binding CanInclude}" AutomationProperties.Name="Incluir fragmento" ToolTip="Excluir este clip sólo lo omite en la generación; no cambia el audio ni sus recortes en CapCut."/>
+            <StackPanel Grid.Column="1" Margin="4,0,12,0">
+              <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip="{Binding ResolvedPath}"/>
+              <TextBlock Text="{Binding TrackLabel}" Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
+              <TextBlock Text="{Binding Range}" Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
+              <TextBlock Text="{Binding Diagnostic}" Foreground="{DynamicResource WarningBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+              <Button Content="▶" Padding="12,6" MinHeight="32" Command="{Binding DataContext.PlaySegment,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" ToolTip="Escuchar solo este recorte"/>
+              <Button Content="Localizar" Padding="10,6" MinHeight="32" Margin="0,6,0,0" Command="{Binding DataContext.LocateSource,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+            </StackPanel>
+          </Grid>
+        </Border>
+      </DataTemplate>
+    </ItemsControl.ItemTemplate>
+  </ItemsControl>
+</UserControl>

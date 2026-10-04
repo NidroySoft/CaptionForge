@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" x:Class="CaptionForge.Desktop.Views.ProjectsView">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Border Style="{StaticResource Panel}" Padding="12">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Text="{Binding ProjectsRoot,UpdateSourceTrigger=LostFocus}" AutomationProperties.Name="Ruta de proyectos" ToolTip="Carpeta que contiene los proyectos"/>
+        <Button Grid.Column="1" Content="Buscar carpeta" Command="{Binding BrowseProjects}" Margin="10,0,0,0"/>
+        <Button Grid.Column="2" Content="Actualizar" Command="{Binding RefreshProjects}" Margin="10,0,0,0"/>
+      </Grid>
+    </Border>
+    <Grid Grid.Row="1" Margin="0,12,0,10">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid MaxWidth="300" HorizontalAlignment="Left" Width="300">
+        <TextBox Text="{Binding ProjectFilter,UpdateSourceTrigger=PropertyChanged}" ToolTip="Buscar por nombre" AutomationProperties.Name="Filtrar proyectos"/>
+        <TextBlock Text="Buscar proyecto…" IsHitTestVisible="False" Margin="11,0" VerticalAlignment="Center" Foreground="{DynamicResource MutedBrush}">
+          <TextBlock.Style>
+            <Style TargetType="TextBlock">
+              <Setter Property="Visibility" Value="Collapsed"/>
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding ProjectFilter}" Value="">
+                  <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
+        </TextBlock>
+      </Grid>
+      <TextBlock Grid.Column="1" Text="{Binding ProjectCount}" Style="{StaticResource Muted}" VerticalAlignment="Center"/>
+    </Grid>
+    <c:ProjectPicker Grid.Row="2"/>
+  </Grid>
+</UserControl>

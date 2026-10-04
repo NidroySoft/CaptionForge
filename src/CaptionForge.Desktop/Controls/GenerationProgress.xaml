@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="CaptionForge.Desktop.Controls.GenerationProgress">
+  <Border Style="{StaticResource Panel}" Padding="12">
+    <StackPanel>
+      <TextBlock Text="{Binding ProgressLabel}" FontWeight="SemiBold"/>
+      <ProgressBar Value="{Binding Progress, Mode=OneWay}" Maximum="100" Margin="0,12,0,8"/>
+      <TextBlock Text="El progreso cuenta fragmentos completados; cada fragmento puede tardar un tiempo diferente." Style="{StaticResource Muted}" FontSize="11"/>
+    </StackPanel>
+  </Border>
+</UserControl>

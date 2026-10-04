@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "palettes": [
+    {
+      "id": "dark-night",
+      "name": "Noche",
+      "variants": {
+        "dark": {
+          "background": "#111018",
+          "surface": "#1C1927",
+          "raised": "#282238",
+          "input": "#12101E",
+          "border": "#4D415F",
+          "text": "#F4F0FC",
+          "muted": "#C2B4D7",
+          "accent": "#C4A8FF",
+          "accentText": "#241535",
+          "selection": "#37264F",
+          "warning": "#FFD18A",
+          "scrollThumb": "#8D799F"
+        }
+      }
+    },
+    {
+      "id": "dark-graphite",
+      "name": "Grafito",
+      "variants": {
+        "dark": {
+          "background": "#151719",
+          "surface": "#202428",
+          "raised": "#2C3338",
+          "input": "#131719",
+          "border": "#45545F",
+          "text": "#F1F5F7",
+          "muted": "#B7C5CD",
+          "accent": "#C4D7E5",
+          "accentText": "#15232D",
+          "selection": "#34434D",
+          "warning": "#FFD18A",
+          "scrollThumb": "#8195A2"
+        }
+      }
+    },
+    {
+      "id": "dark-ocean",
+      "name": "Océano",
+      "variants": {
+        "dark": {
+          "background": "#0C1524",
+          "surface": "#142137",
+          "raised": "#1E304A",
+          "input": "#0D192D",
+          "border": "#3C5673",
+          "text": "#F1F6FF",
+          "muted": "#AFC2DC",
+          "accent": "#86C7FF",
+          "accentText": "#0C2943",
+          "selection": "#1D3E5E",
+          "warning": "#FFCF8F",
+          "scrollThumb": "#718FAD"
+        }
+      }
+    },
+    {
+      "id": "dark-forest",
+      "name": "Bosque",
+      "variants": {
+        "dark": {
+          "background": "#101A16",
+          "surface": "#182A21",
+          "raised": "#233A2E",
+          "input": "#102017",
+          "border": "#3C6050",
+          "text": "#F1FAF4",
+          "muted": "#B1CCBC",
+          "accent": "#88DEAA",
+          "accentText": "#10331D",
+          "selection": "#244831",
+          "warning": "#FFD59D",
+          "scrollThumb": "#739F88"
+        }
+      }
+    },
+    {
+      "id": "dark-amber",
+      "name": "Ámbar",
+      "variants": {
+        "dark": {
+          "background": "#1C1711",
+          "surface": "#2B231A",
+          "raised": "#3D3020",
+          "input": "#211A12",
+          "border": "#695139",
+          "text": "#FFF7E9",
+          "muted": "#D7C3A6",
+          "accent": "#FFCA73",
+          "accentText": "#35220C",
+          "selection": "#4A351A",
+          "warning": "#FFD293",
+          "scrollThumb": "#B19A79"
+        }
+      }
+    },
+    {
+      "id": "light-porcelain",
+      "name": "Porcelana",
+      "variants": {
+        "light": {
+          "background": "#F4F6F9",
+          "surface": "#FFFFFF",
+          "raised": "#E9EEF5",
+          "input": "#FFFFFF",
+          "border": "#B1BCCB",
+          "text": "#172333",
+          "muted": "#526176",
+          "accent": "#2358AC",
+          "accentText": "#FFFFFF",
+          "selection": "#D6E4F7",
+          "warning": "#854200",
+          "scrollThumb": "#687D97"
+        }
+      }
+    },
+    {
+      "id": "light-lavender",
+      "name": "Lavanda",
+      "variants": {
+        "light": {
+          "background": "#F7F4FC",
+          "surface": "#FFFFFF",
+          "raised": "#EEE7F7",
+          "input": "#FFFDFF",
+          "border": "#BAABCD",
+          "text": "#2C2040",
+          "muted": "#645374",
+          "accent": "#7131AE",
+          "accentText": "#FFFFFF",
+          "selection": "#EADCF9",
+          "warning": "#854200",
+          "scrollThumb": "#89719D"
+        }
+      }
+    },
+    {
+      "id": "light-sand",
+      "name": "Arena",
+      "variants": {
+        "light": {
+          "background": "#FAF6EF",
+          "surface": "#FFFEFB",
+          "raised": "#EEE5D7",
+          "input": "#FFFFFF",
+          "border": "#BEB09B",
+          "text": "#30271D",
+          "muted": "#6E5C45",
+          "accent": "#855008",
+          "accentText": "#FFFFFF",
+          "selection": "#EAD9BC",
+          "warning": "#804400",
+          "scrollThumb": "#8D7757"
+        }
+      }
+    },
+    {
+      "id": "light-mint",
+      "name": "Menta",
+      "variants": {
+        "light": {
+          "background": "#F1F9F5",
+          "surface": "#FFFFFF",
+          "raised": "#E1EEE6",
+          "input": "#FFFFFF",
+          "border": "#A1BDAD",
+          "text": "#18372A",
+          "muted": "#416C58",
+          "accent": "#066752",
+          "accentText": "#FFFFFF",
+          "selection": "#CDE7DA",
+          "warning": "#854200",
+          "scrollThumb": "#648B78"
+        }
+      }
+    },
+    {
+      "id": "light-sky",
+      "name": "Cielo",
+      "variants": {
+        "light": {
+          "background": "#F2F8FC",
+          "surface": "#FFFFFF",
+          "raised": "#E2EFF6",
+          "input": "#FFFFFF",
+          "border": "#A5BAC8",
+          "text": "#173047",
+          "muted": "#496A82",
+          "accent": "#075D94",
+          "accentText": "#FFFFFF",
+          "selection": "#CCE5F6",
+          "warning": "#854200",
+          "scrollThumb": "#6A879A"
+        }
+      }
+    },
+    {
+      "id": "shared-violet",
+      "name": "Violeta",
+      "variants": {
+        "dark": {
+          "background": "#14121C",
+          "surface": "#211D2D",
+          "raised": "#2D283B",
+          "input": "#151122",
+          "border": "#4D4164",
+          "text": "#F5F1FC",
+          "muted": "#C1B7D1",
+          "accent": "#BEA4FF",
+          "accentText": "#221338",
+          "selection": "#3A2A51",
+          "warning": "#FFD18A",
+          "scrollThumb": "#9380AC"
+        },
+        "light": {
+          "background": "#F7F4FC",
+          "surface": "#FFFFFF",
+          "raised": "#EDE7F7",
+          "input": "#FFFFFF",
+          "border": "#B8A8CD",
+          "text": "#2B2040",
+          "muted": "#635174",
+          "accent": "#6D28D9",
+          "accentText": "#FFFFFF",
+          "selection": "#E6D8FA",
+          "warning": "#854200",
+          "scrollThumb": "#89719D"
+        }
+      }
+    },
+    {
+      "id": "shared-blue",
+      "name": "Azul",
+      "variants": {
+        "dark": {
+          "background": "#101721",
+          "surface": "#182332",
+          "raised": "#223347",
+          "input": "#101C2B",
+          "border": "#41566E",
+          "text": "#F1F6FC",
+          "muted": "#B5C5D8",
+          "accent": "#8FBFFF",
+          "accentText": "#142C4A",
+          "selection": "#243F5D",
+          "warning": "#FFD18A",
+          "scrollThumb": "#7E93AC"
+        },
+        "light": {
+          "background": "#F5F8FC",
+          "surface": "#FFFFFF",
+          "raised": "#E8EFF8",
+          "input": "#FFFFFF",
+          "border": "#ADBBD0",
+          "text": "#1B2B43",
+          "muted": "#526782",
+          "accent": "#2457AF",
+          "accentText": "#FFFFFF",
+          "selection": "#D8E5FA",
+          "warning": "#854200",
+          "scrollThumb": "#7186A2"
+        }
+      }
+    },
+    {
+      "id": "shared-teal",
+      "name": "Turquesa",
+      "variants": {
+        "dark": {
+          "background": "#101519",
+          "surface": "#192127",
+          "raised": "#222E35",
+          "input": "#111A20",
+          "border": "#34434B",
+          "text": "#F0F5F6",
+          "muted": "#A8BAC3",
+          "accent": "#51E0C1",
+          "accentText": "#102522",
+          "selection": "#244B46",
+          "warning": "#FFD18A",
+          "scrollThumb": "#7C949F"
+        },
+        "light": {
+          "background": "#F2F9F8",
+          "surface": "#FFFFFF",
+          "raised": "#E4F0ED",
+          "input": "#FFFFFF",
+          "border": "#A0BFB7",
+          "text": "#17372F",
+          "muted": "#456E63",
+          "accent": "#006B57",
+          "accentText": "#FFFFFF",
+          "selection": "#CBE8E0",
+          "warning": "#854200",
+          "scrollThumb": "#61887C"
+        }
+      }
+    }
+  ]
+}
