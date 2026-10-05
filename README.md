@@ -15,6 +15,7 @@
   <img src="https://img.shields.io/badge/Windows-x64-0078D4" alt="Windows x64" />
   <img src="https://img.shields.io/badge/UI-WPF%20%2B%20MVVM-7C3AED" alt="WPF y MVVM" />
   <img src="https://img.shields.io/badge/Transcripci%C3%B3n-local%20en%20CPU-16A34A" alt="Transcripción local en CPU" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Custom%20Source%20Available-CA8A04" alt="Licencia personalizada de código disponible" /></a>
 </p>
 
 <p align="center">
@@ -392,8 +393,8 @@ El [workflow de release](.github/workflows/release.yml) se activa al subir una e
 Desde el commit que quieras distribuir, después de subir sus cambios:
 
 ```powershell
-git tag -a v0.1.0 -m "CaptionForge MVP v0.1.0"
-git push origin v0.1.0
+git tag -a v0.1.1 -m "CaptionForge MVP v0.1.1"
+git push origin v0.1.1
 ```
 
 El workflow adjunta el ZIP portable de Windows x64 y su checksum SHA-256, e incluye la etiqueta y el commit en `VERSION.txt`. Una etiqueta como `v0.1.0-beta.1` crea un prerelease. Utiliza una etiqueta nueva para cada versión: el workflow no sobrescribe releases existentes.
@@ -438,11 +439,27 @@ Estas posibilidades no están implementadas ni tienen una fecha de entrega compr
 
 ## Licencia
 
-**La licencia del proyecto está pendiente de elección.** Este README no declara una licencia de código abierto ni sustituye un archivo `LICENSE`. La sección se actualizará cuando se tome esa decisión.
+El material original de CaptionForge se distribuye bajo **[CaptionForge Source-Available License 1.0](LICENSE)**, una licencia personalizada de código disponible con uso comercial permitido y prohibición de venta del programa.
+
+| Actividad | Condición |
+| --- | --- |
+| Usarla para trabajo profesional, vídeos monetizados o encargos para clientes | Permitido. |
+| Cobrar por vídeos, subtítulos o trabajos realizados con la herramienta | Permitido. |
+| Modificarla y compartir copias de la aplicación | Permitido gratuitamente, conservando la licencia y atribución. |
+| Renombrar una versión modificada | Permitido, manteniendo el reconocimiento del creador original. |
+| Vender copias, licencias, activaciones o versiones modificadas del programa | Prohibido. |
+| Incluirla como parte de un paquete cuya compra sea obligatoria para recibirla | Prohibido. |
+| Ofrecer soporte, formación o asistencia de instalación por separado | Permitido si obtener y usar el programa no exige contratar esos servicios. |
+
+**Autor original: Yordin Isaac Garcia (NidroySoft).** Las distribuciones deben conservar el crédito del archivo [NOTICE](NOTICE). No se exige añadirlo a los vídeos o subtítulos producidos.
+
+Esta licencia no cumple la definición de *open source* de OSI por su restricción de venta. La descripción del proyecto es **source available**; la publicación del código permite estudiarlo y colaborar bajo las condiciones indicadas.
+
+Las dependencias conservan sus licencias. En particular, el código de Whisper.net en `CaptionForge.WhisperCompat` mantiene MIT. Consulta [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). El texto completo de `LICENSE` prevalece sobre este resumen.
 
 ## Créditos
 
-Desarrollado por **NidroySoft**.
+Creado por **Yordin Isaac Garcia · NidroySoft**.
 
 CaptionForge utiliza o integra tecnologías de estos proyectos:
 

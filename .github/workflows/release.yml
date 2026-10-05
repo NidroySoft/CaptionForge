@@ -74,6 +74,17 @@ jobs:
           }
           @("Tag: $env:RELEASE_TAG", "Commit: $env:RELEASE_COMMIT", 'Plataforma: Windows x64') |
             Set-Content (Join-Path $publish 'VERSION.txt') -Encoding utf8
+          # Keep the project's license and attribution in every release ZIP.
+          foreach ($relative in @('LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md', 'README.md')) {
+            $source = Join-Path $PWD $relative
+            if (!(Test-Path $source -PathType Leaf)) { throw "Falta el aviso legal: $relative" }
+            Copy-Item -LiteralPath $source -Destination (Join-Path $publish $relative) -Force
+          }
+          $licensesSource = Join-Path $PWD 'licenses'
+          foreach ($relative in @('Whisper.net-MIT.txt', 'WhisperCompat-NOTICE.md')) {
+            if (!(Test-Path (Join-Path $licensesSource $relative) -PathType Leaf)) { throw "Falta licenses/$relative" }
+          }
+          Copy-Item -LiteralPath $licensesSource -Destination $publish -Recurse -Force
           @'
           CaptionForge — Windows x64
 

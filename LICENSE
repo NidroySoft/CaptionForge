@@ -1,0 +1,164 @@
+CaptionForge Source-Available License 1.0
+Version date: 2026-10-04
+
+Copyright (c) 2026 Yordin Isaac Garcia (NidroySoft).
+Original creator: Yordin Isaac Garcia.
+Original project: https://github.com/NidroySoft/CaptionForge
+
+1. Scope and definitions
+
+The "Licensor" is Yordin Isaac Garcia, identified above. "You" is the
+individual or organization exercising the permissions in this license.
+
+"Covered Software" means the original CaptionForge code and associated
+project material that the Licensor owns and provides under this license,
+and copies, modifications, and derivative works containing that material.
+A different name, interface, package, version, or substantial addition does
+not remove these conditions from the Covered Software it contains.
+
+Third-party code, dependencies, models, fonts, effects, media, and other
+material identified as separately licensed are excluded from this grant.
+Their own rights holders and licenses govern them. This license cannot
+restrict rights granted independently for those components.
+
+2. Permissions
+
+Subject to the conditions below, the Licensor grants You a worldwide,
+non-exclusive, royalty-free copyright license to obtain, inspect, run,
+reproduce, modify, and incorporate the Covered Software, and to distribute
+it in source or compiled form free of charge.
+
+These permissions cover personal, educational, organizational, professional,
+and commercial use. You may use the Covered Software in paid work, create
+monetized content, provide services to clients, and charge for the results
+of that work, subject to the distinction in Section 3.
+
+You do not need to disclose private modifications. You may distribute
+modified versions free of charge, subject to Sections 3 and 4. This license
+does not require disclosure of the source code of Your own additions.
+
+Each recipient may exercise the same permissions for Covered Software
+under this license. You may not grant rights to sell it or remove these
+conditions from the Covered Software in a downstream distribution.
+
+3. No sale of the Covered Software
+
+You may not sell copies or licenses of the Covered Software, including
+modified, renamed, repackaged, or compiled versions.
+
+Specifically, You may not require money or other consideration in exchange
+for a copy, download, software license, activation, or unlocking of the
+Covered Software. This includes a mandatory subscription, mandatory
+"donation", paid upgrade, or payment through an intermediary for that
+purpose. Distribution of Covered Software may not be conditional on buying
+another product or service, including a paid bundle containing it.
+
+Charging for work performed WITH the Covered Software is permitted.
+Charging for the Covered Software ITSELF is not permitted.
+
+You may charge for videos, subtitles, editing, transcription work, and
+other deliverables or services produced using the Covered Software.
+You may also charge for separately offered support, training, consulting,
+installation assistance, or maintenance services, provided the Covered
+Software and the permissions to use it remain available without requiring
+purchase of those services. These exceptions do not authorize selling a
+copy or license under another description.
+
+Genuinely optional donations are permitted if refusing a donation does not
+prevent obtaining or using the Covered Software or a distributed feature.
+
+4. Preservation of attribution and terms
+
+Every distribution of Covered Software, including a modified version or a
+substantial portion incorporated into another distribution, must include:
+
+  (a) this complete license; and
+  (b) the following attribution, supplied in a readable notice:
+
+  CaptionForge was originally created by Yordin Isaac Garcia (NidroySoft).
+  Original project: https://github.com/NidroySoft/CaptionForge
+  Copyright (c) 2026 Yordin Isaac Garcia.
+
+The accompanying NOTICE file is a suitable way to supply that attribution.
+For a source distribution, keep these notices with the source. For a
+compiled distribution, include readable license and notice files with the
+application or make them accessible in its documentation or About screen.
+You may not remove, conceal, or replace the original attribution when
+redistributing the Covered Software.
+
+You may add credit and copyright notices for Your own contributions, and
+may rename a modified version. You must not claim to be the original
+creator of CaptionForge or imply that the original creator endorses Your
+version without permission.
+
+No attribution under this license is required in videos, subtitles, or
+other output merely because the Covered Software was used to produce it.
+Private use does not require a public attribution announcement.
+
+5. Output, third-party rights, and exceptions
+
+This license makes no claim of ownership over Your input or output.
+Its sale restriction does not apply to such output merely because the
+Covered Software generated or processed it. Any independent restrictions
+on third-party content or resources still apply.
+
+Preserve third-party copyright and license notices as their licenses
+require. In particular, the separately identified Whisper.net compatibility
+source remains under its own MIT license. This license does not convert
+that source or its independently licensed rights to a no-sale license.
+
+Nothing here limits rights You have under applicable law that do not
+require the Licensor's permission, or rights received under a separate
+license from the relevant rights holder. Previously granted rights under
+another license are not revoked by this document.
+
+6. Reserved rights and separate permission
+
+Ownership of the Licensor's material is retained by the Licensor. Rights
+not granted here are reserved. No trademark, endorsement, or exclusive
+ownership right is granted by this license.
+
+A separate written permission from the Licensor may authorize an activity
+that this license does not permit. A change to future licensing terms does
+not withdraw the permissions granted for copies already received under
+this version, provided You comply with it.
+
+7. Termination
+
+Your permissions under this license terminate if You materially violate
+its conditions. For a first violation, they are automatically reinstated
+if You correct the violation within 30 days after receiving written notice
+from the Licensor. Otherwise, reinstatement requires written permission
+from the Licensor.
+
+Termination does not remove the rights of recipients who received copies
+under this license and continue to comply with it.
+
+8. No warranty; limitation of liability
+
+To the extent allowed by applicable law, the Covered Software is provided
+as available and without warranties of any kind, express or implied,
+including warranties of quality, fitness for a particular purpose,
+merchantability, accuracy, or non-infringement. The Licensor does not promise
+that the software is error-free, compatible with every version of CapCut,
+or suitable for any particular project.
+
+To the extent allowed by applicable law, the Licensor is not liable for
+loss of data, project damage, lost revenue, interruption of business, or
+other damages arising from use, distribution, or inability to use the
+Covered Software. These limitations do not exclude liability that cannot
+lawfully be excluded.
+
+9. Interpretation
+
+This is a custom source-available license permitting commercial use but
+restricting sale of the Covered Software. It is not an MIT, GPL, Apache,
+PolyForm, Creative Commons, or OSI-approved open-source license.
+
+If a provision is unenforceable under applicable law, the remaining
+provisions continue to apply to the extent legally possible. No provision
+should be interpreted to override mandatory legal rights.
+
+The English text in this LICENSE file is the authoritative license text.
+Spanish summaries and examples explain the intended policy but do not
+replace or expand these terms.
