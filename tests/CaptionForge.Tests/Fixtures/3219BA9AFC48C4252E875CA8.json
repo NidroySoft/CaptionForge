@@ -1,0 +1,422 @@
+{
+  "sourceSegmentId": "AD298FE0-856F-4cef-BD60-839FC84C820B",
+  "modelName": "native-check",
+  "language": "en",
+  "preparedAudioDurationUs": 11000000,
+  "segments": [
+    {
+      "text": " This QR code is damaged, so why can your phone still read it?",
+      "range": {
+        "startUs": 0,
+        "durationUs": 4800000,
+        "endUs": 4800000,
+        "isEmpty": false
+      },
+      "tokens": [
+        {
+          "text": "[_BEG_]",
+          "range": {
+            "startUs": 0,
+            "durationUs": 0,
+            "endUs": 0,
+            "isEmpty": true
+          },
+          "isControl": true
+        },
+        {
+          "text": " This",
+          "range": {
+            "startUs": 40000,
+            "durationUs": 470000,
+            "endUs": 510000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " QR",
+          "range": {
+            "startUs": 520000,
+            "durationUs": 240000,
+            "endUs": 760000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " code",
+          "range": {
+            "startUs": 760000,
+            "durationUs": 510000,
+            "endUs": 1270000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " is",
+          "range": {
+            "startUs": 1270000,
+            "durationUs": 250000,
+            "endUs": 1520000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " damaged",
+          "range": {
+            "startUs": 1520000,
+            "durationUs": 640000,
+            "endUs": 2160000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": ",",
+          "range": {
+            "startUs": 2490000,
+            "durationUs": 80000,
+            "endUs": 2570000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " so",
+          "range": {
+            "startUs": 2570000,
+            "durationUs": 130000,
+            "endUs": 2700000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " why",
+          "range": {
+            "startUs": 2700000,
+            "durationUs": 120000,
+            "endUs": 2820000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " can",
+          "range": {
+            "startUs": 2940000,
+            "durationUs": 160000,
+            "endUs": 3100000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " your",
+          "range": {
+            "startUs": 3100000,
+            "durationUs": 270000,
+            "endUs": 3370000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " phone",
+          "range": {
+            "startUs": 3370000,
+            "durationUs": 380000,
+            "endUs": 3750000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " still",
+          "range": {
+            "startUs": 3750000,
+            "durationUs": 290000,
+            "endUs": 4040000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " read",
+          "range": {
+            "startUs": 4040000,
+            "durationUs": 300000,
+            "endUs": 4340000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " it",
+          "range": {
+            "startUs": 4340000,
+            "durationUs": 150000,
+            "endUs": 4490000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": "?",
+          "range": {
+            "startUs": 4800000,
+            "durationUs": 0,
+            "endUs": 4800000,
+            "isEmpty": true
+          },
+          "isControl": false
+        },
+        {
+          "text": "[_TT_240]",
+          "range": {
+            "startUs": 0,
+            "durationUs": 0,
+            "endUs": 0,
+            "isEmpty": true
+          },
+          "isControl": true
+        }
+      ]
+    },
+    {
+      "text": " Because a QR code stores extra mathematical error correction",
+      "range": {
+        "startUs": 4800000,
+        "durationUs": 3520000,
+        "endUs": 8320000,
+        "isEmpty": false
+      },
+      "tokens": [
+        {
+          "text": " Because",
+          "range": {
+            "startUs": 4840000,
+            "durationUs": 530000,
+            "endUs": 5370000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " a",
+          "range": {
+            "startUs": 5390000,
+            "durationUs": 70000,
+            "endUs": 5460000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " QR",
+          "range": {
+            "startUs": 5460000,
+            "durationUs": 160000,
+            "endUs": 5620000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " code",
+          "range": {
+            "startUs": 5620000,
+            "durationUs": 330000,
+            "endUs": 5950000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " stores",
+          "range": {
+            "startUs": 5950000,
+            "durationUs": 530000,
+            "endUs": 6480000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " extra",
+          "range": {
+            "startUs": 6480000,
+            "durationUs": 320000,
+            "endUs": 6800000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " mathematical",
+          "range": {
+            "startUs": 6800000,
+            "durationUs": 800000,
+            "endUs": 7600000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " error",
+          "range": {
+            "startUs": 7600000,
+            "durationUs": 240000,
+            "endUs": 7840000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " correction",
+          "range": {
+            "startUs": 7840000,
+            "durationUs": 400000,
+            "endUs": 8240000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": "[_TT_416]",
+          "range": {
+            "startUs": 0,
+            "durationUs": 0,
+            "endUs": 0,
+            "isEmpty": true
+          },
+          "isControl": true
+        }
+      ]
+    },
+    {
+      "text": " information alongside its data.",
+      "range": {
+        "startUs": 8320000,
+        "durationUs": 2440000,
+        "endUs": 10760000,
+        "isEmpty": false
+      },
+      "tokens": [
+        {
+          "text": " information",
+          "range": {
+            "startUs": 8360000,
+            "durationUs": 850000,
+            "endUs": 9210000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " alongside",
+          "range": {
+            "startUs": 9210000,
+            "durationUs": 730000,
+            "endUs": 9940000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " its",
+          "range": {
+            "startUs": 9940000,
+            "durationUs": 210000,
+            "endUs": 10150000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " data",
+          "range": {
+            "startUs": 10160000,
+            "durationUs": 320000,
+            "endUs": 10480000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": ".",
+          "range": {
+            "startUs": 10480000,
+            "durationUs": 70000,
+            "endUs": 10550000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": "[_TT_538]",
+          "range": {
+            "startUs": 0,
+            "durationUs": 0,
+            "endUs": 0,
+            "isEmpty": true
+          },
+          "isControl": true
+        }
+      ]
+    },
+    {
+      "text": " It uses--",
+      "range": {
+        "startUs": 10760000,
+        "durationUs": 1240000,
+        "endUs": 12000000,
+        "isEmpty": false
+      },
+      "tokens": [
+        {
+          "text": " It",
+          "range": {
+            "startUs": 10800000,
+            "durationUs": 860000,
+            "endUs": 11660000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": " uses",
+          "range": {
+            "startUs": 11730000,
+            "durationUs": 160000,
+            "endUs": 11890000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": "--",
+          "range": {
+            "startUs": 11890000,
+            "durationUs": 110000,
+            "endUs": 12000000,
+            "isEmpty": false
+          },
+          "isControl": false
+        },
+        {
+          "text": "[_TT_600]",
+          "range": {
+            "startUs": 0,
+            "durationUs": 0,
+            "endUs": 0,
+            "isEmpty": true
+          },
+          "isControl": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "model": {
+    "isEnglishOnly": true,
+    "audioLayers": 24,
+    "textLayers": 24,
+    "audioState": 1024,
+    "melBins": 80,
+    "alignmentPreset": "MediumEn"
+  },
+  "options": {
+    "modelName": "native-check",
+    "modelPath": "C:\\Wondecode\\Whisper\\models\\ggml-medium.en.bin",
+    "language": "en",
+    "cpuThreads": 2,
+    "logicalProcessorCount": 8,
+    "requireDtwAlignment": true
+  },
+  "segments": [
+    {
+      "text": " This QR code is damaged, so why can your phone still read it?",
+      "startTicks": 0,
+      "endTicks": 48000000,
+      "language": "en",
+      "tokens": [
+        {
+          "id": 50363,
+          "text": "[_BEG_]",
+          "start10Ms": 0,
+          "end10Ms": 0,
+          "dtwTimestamp": -1
+        },
+        {
+          "id": 770,
+          "text": " This",
+          "start10Ms": 4,
+          "end10Ms": 51,
+          "dtwTimestamp": 32
+        },
+        {
+          "id": 42137,
+          "text": " QR",
+          "start10Ms": 52,
+          "end10Ms": 76,
+          "dtwTimestamp": 90
+        },
+        {
+          "id": 2438,
+          "text": " code",
+          "start10Ms": 76,
+          "end10Ms": 127,
+          "dtwTimestamp": 116
+        },
+        {
+          "id": 318,
+          "text": " is",
+          "start10Ms": 127,
+          "end10Ms": 152,
+          "dtwTimestamp": 152
+        },
+        {
+          "id": 9694,
+          "text": " damaged",
+          "start10Ms": 152,
+          "end10Ms": 216,
+          "dtwTimestamp": 200
+        },
+        {
+          "id": 11,
+          "text": ",",
+          "start10Ms": 249,
+          "end10Ms": 257,
+          "dtwTimestamp": 252
+        },
+        {
+          "id": 523,
+          "text": " so",
+          "start10Ms": 257,
+          "end10Ms": 270,
+          "dtwTimestamp": 276
+        },
+        {
+          "id": 1521,
+          "text": " why",
+          "start10Ms": 270,
+          "end10Ms": 282,
+          "dtwTimestamp": 316
+        },
+        {
+          "id": 460,
+          "text": " can",
+          "start10Ms": 294,
+          "end10Ms": 310,
+          "dtwTimestamp": 334
+        },
+        {
+          "id": 534,
+          "text": " your",
+          "start10Ms": 310,
+          "end10Ms": 337,
+          "dtwTimestamp": 352
+        },
+        {
+          "id": 3072,
+          "text": " phone",
+          "start10Ms": 337,
+          "end10Ms": 375,
+          "dtwTimestamp": 374
+        },
+        {
+          "id": 991,
+          "text": " still",
+          "start10Ms": 375,
+          "end10Ms": 404,
+          "dtwTimestamp": 404
+        },
+        {
+          "id": 1100,
+          "text": " read",
+          "start10Ms": 404,
+          "end10Ms": 434,
+          "dtwTimestamp": 424
+        },
+        {
+          "id": 340,
+          "text": " it",
+          "start10Ms": 434,
+          "end10Ms": 449,
+          "dtwTimestamp": 452
+        },
+        {
+          "id": 30,
+          "text": "?",
+          "start10Ms": 480,
+          "end10Ms": 480,
+          "dtwTimestamp": 490
+        },
+        {
+          "id": 50603,
+          "text": "[_TT_240]",
+          "start10Ms": 480,
+          "end10Ms": 480,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Because a QR code stores extra mathematical error correction",
+      "startTicks": 48000000,
+      "endTicks": 83200000,
+      "language": "en",
+      "tokens": [
+        {
+          "id": 4362,
+          "text": " Because",
+          "start10Ms": 484,
+          "end10Ms": 537,
+          "dtwTimestamp": 512
+        },
+        {
+          "id": 257,
+          "text": " a",
+          "start10Ms": 539,
+          "end10Ms": 546,
+          "dtwTimestamp": 530
+        },
+        {
+          "id": 42137,
+          "text": " QR",
+          "start10Ms": 546,
+          "end10Ms": 562,
+          "dtwTimestamp": 566
+        },
+        {
+          "id": 2438,
+          "text": " code",
+          "start10Ms": 562,
+          "end10Ms": 595,
+          "dtwTimestamp": 602
+        },
+        {
+          "id": 7000,
+          "text": " stores",
+          "start10Ms": 595,
+          "end10Ms": 648,
+          "dtwTimestamp": 638
+        },
+        {
+          "id": 3131,
+          "text": " extra",
+          "start10Ms": 648,
+          "end10Ms": 680,
+          "dtwTimestamp": 686
+        },
+        {
+          "id": 18069,
+          "text": " mathematical",
+          "start10Ms": 680,
+          "end10Ms": 760,
+          "dtwTimestamp": 746
+        },
+        {
+          "id": 4049,
+          "text": " error",
+          "start10Ms": 760,
+          "end10Ms": 784,
+          "dtwTimestamp": 786
+        },
+        {
+          "id": 17137,
+          "text": " correction",
+          "start10Ms": 784,
+          "end10Ms": 824,
+          "dtwTimestamp": 832
+        },
+        {
+          "id": 50779,
+          "text": "[_TT_416]",
+          "start10Ms": 832,
+          "end10Ms": 832,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " information alongside its data.",
+      "startTicks": 83200000,
+      "endTicks": 107600000,
+      "language": "en",
+      "tokens": [
+        {
+          "id": 1321,
+          "text": " information",
+          "start10Ms": 836,
+          "end10Ms": 921,
+          "dtwTimestamp": 898
+        },
+        {
+          "id": 7848,
+          "text": " alongside",
+          "start10Ms": 921,
+          "end10Ms": 994,
+          "dtwTimestamp": 956
+        },
+        {
+          "id": 663,
+          "text": " its",
+          "start10Ms": 994,
+          "end10Ms": 1015,
+          "dtwTimestamp": 990
+        },
+        {
+          "id": 1366,
+          "text": " data",
+          "start10Ms": 1016,
+          "end10Ms": 1048,
+          "dtwTimestamp": 1022
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 1048,
+          "end10Ms": 1055,
+          "dtwTimestamp": 1068
+        },
+        {
+          "id": 50901,
+          "text": "[_TT_538]",
+          "start10Ms": 1076,
+          "end10Ms": 1076,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " It uses--",
+      "startTicks": 107600000,
+      "endTicks": 120000000,
+      "language": "en",
+      "tokens": [
+        {
+          "id": 632,
+          "text": " It",
+          "start10Ms": 1080,
+          "end10Ms": 1166,
+          "dtwTimestamp": 1096
+        },
+        {
+          "id": 3544,
+          "text": " uses",
+          "start10Ms": 1173,
+          "end10Ms": 1189,
+          "dtwTimestamp": 1096
+        },
+        {
+          "id": 438,
+          "text": "--",
+          "start10Ms": 1189,
+          "end10Ms": 1200,
+          "dtwTimestamp": 1096
+        },
+        {
+          "id": 50963,
+          "text": "[_TT_600]",
+          "start10Ms": 1200,
+          "end10Ms": 1200,
+          "dtwTimestamp": -1
+        }
+      ]
+    }
+  ]
+}
