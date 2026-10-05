@@ -1,0 +1,121 @@
+name: CaptionForge Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  release:
+    name: Probar y publicar Windows x64
+    runs-on: windows-2025
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - name: Obtener código de la etiqueta
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validar versión y etiqueta
+        id: version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if ($env:RELEASE_TAG -notmatch '^v(\d+\.\d+\.\d+)(-[0-9A-Za-z]+(?:[.-][0-9A-Za-z]+)*)?$') {
+            throw 'Usa v0.1.0 o v0.1.0-beta.1 como nombre de etiqueta.'
+          }
+          "version=$($env:RELEASE_TAG.Substring(1))" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "prerelease=$($env:RELEASE_TAG.Contains('-').ToString().ToLowerInvariant())" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Configurar .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Instalar FFmpeg para las pruebas
+        run: ./.github/scripts/Install-TestFfmpeg.ps1
+
+      - name: Compilar y comprobar antes de publicar
+        run: ./.github/scripts/Verify-CaptionForge.ps1
+
+      - name: Publicar aplicación portable con .NET incluido
+        run: >-
+          dotnet publish src/CaptionForge.Desktop/CaptionForge.Desktop.csproj
+          --configuration Release --runtime win-x64 --self-contained true
+          -p:PublishSingleFile=false -p:PublishTrimmed=false
+          --output artifacts/publish
+
+      - name: Preparar ZIP y checksum
+        id: package
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          $publish = Join-Path $PWD 'artifacts/publish'
+          foreach ($relative in @('CaptionForge.exe', 'Languages/es.json')) {
+            if (!(Test-Path (Join-Path $publish $relative))) { throw "Falta $relative en la publicación." }
+          }
+          @("Tag: $env:RELEASE_TAG", "Commit: $env:RELEASE_COMMIT", 'Plataforma: Windows x64') |
+            Set-Content (Join-Path $publish 'VERSION.txt') -Encoding utf8
+          @'
+          CaptionForge — Windows x64
+
+          Extrae todo el ZIP y ejecuta CaptionForge.exe. Incluye .NET y las dependencias publicadas.
+          Configura el modelo Whisper GGML y FFmpeg/FFprobe por separado; no se incluyen modelos ni herramientas externas.
+          Conserva Languages junto al ejecutable para añadir tus propios idiomas.
+          '@ | Set-Content (Join-Path $publish 'LEEME.txt') -Encoding utf8
+          $zipName = "CaptionForge-$env:RELEASE_TAG-win-x64.zip"
+          $zipPath = Join-Path $PWD "artifacts/$zipName"
+          Compress-Archive -Path "$publish/*" -DestinationPath $zipPath -CompressionLevel Optimal
+          $digest = (Get-FileHash $zipPath -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$digest  $zipName" | Set-Content "$zipPath.sha256" -Encoding ascii
+          "zip=$zipPath" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "checksum=$zipPath.sha256" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          @'
+          Windows x64 portable, con .NET incluido.
+
+          Extrae el ZIP completo. Configura por separado un modelo Whisper GGML y FFmpeg/FFprobe.
+          El archivo .sha256 permite comprobar la integridad de la descarga.
+          '@ | Set-Content 'artifacts/release-notes.md' -Encoding utf8
+
+      - name: Crear release y adjuntar descargas
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          ZIP_PATH: ${{ steps.package.outputs.zip }}
+          CHECKSUM_PATH: ${{ steps.package.outputs.checksum }}
+          IS_PRERELEASE: ${{ steps.version.outputs.prerelease }}
+        run: |
+          $releaseArgs = @('release', 'create', $env:RELEASE_TAG, $env:ZIP_PATH, $env:CHECKSUM_PATH,
+            '--verify-tag', '--generate-notes', '--title', "CaptionForge $env:RELEASE_TAG",
+            '--notes-file', 'artifacts/release-notes.md')
+          if ($env:IS_PRERELEASE -eq 'true') { $releaseArgs += '--prerelease' }
+          & gh @releaseArgs
+          if ($LASTEXITCODE -ne 0) { throw 'No se pudo crear el release o adjuntar las descargas. Revisa si la versión ya existe.' }
+
+      - name: Conservar resultados y cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-tests-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/test-results/**
+          if-no-files-found: warn
+          retention-days: 14
