@@ -17,7 +17,7 @@ public sealed class TutorialCatalog
         void Add(string id,int page,string target,TutorialRequirement condition=TutorialRequirement.None)=>c.Register(new(id,page,target,"tutorial."+id+".title","tutorial."+id+".body",condition));
         Add("projects.folder",0,"projects.folder");Add("projects.choose",0,"projects.choose",TutorialRequirement.Project);
         Add("timelines.choose",1,"timelines.choose",TutorialRequirement.Timeline);
-        Add("audio.clips",2,"audio.clips");Add("audio.preview",2,"audio.preview");
+        Add("audio.source",2,"audio.source");Add("audio.clips",2,"audio.clips");Add("audio.preview",2,"audio.preview");
         Add("template.choose",2,"template.choose",TutorialRequirement.SupportedTemplate);Add("whisper.options",2,"whisper.options");
         Add("captions.generate",2,"captions.generate",TutorialRequirement.Result);Add("captions.review",3,"captions.review");
         Add("captions.apply",3,"captions.apply");Add("backups.restore",3,"backups.restore");Add("settings.open",3,"settings.open");

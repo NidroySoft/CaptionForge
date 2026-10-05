@@ -10,6 +10,7 @@ using CaptionForge.Application.Models.CapCut;
 using CaptionForge.Application.Models.Generation;
 using CaptionForge.Application.Models.Settings;
 using CaptionForge.Application.Services;
+using CaptionForge.Core.Enums;
 using CaptionForge.Desktop.Mvvm;
 using CaptionForge.Desktop.Services;
 using CaptionForge.Infrastructure.CapCut;
@@ -40,12 +41,14 @@ public sealed class MainViewModel : ObservableObject
         _workspace=InfrastructurePaths.DefaultWorkspace,_ffmpeg=EnginePath("ffmpeg"),_ffprobe=EnginePath("ffprobe");
     private ProjectItem? _project;
     private TimelineItem? _timeline;
+    private SourceTrackItem? _sourceTrack;
     private DraftTemplateCandidate? _template;
     private LanguageItem _language=new("auto",L.T("language.auto"));
     private BackupItem? _backup;
     public ObservableCollection<ProjectItem> Projects {get;}=[];
     public ObservableCollection<ProjectItem> VisibleProjects {get;}=[];
     public ObservableCollection<TimelineItem> Timelines {get;}=[];
+    public ObservableCollection<SourceTrackItem> SourceTracks {get;}=[];
     public ObservableCollection<AudioSegmentItem> Segments {get;}=[];
     public ObservableCollection<DraftTemplateCandidate> Templates {get;}=[];
     public ObservableCollection<CaptionItem> Captions {get;}=[];
@@ -79,10 +82,27 @@ public sealed class MainViewModel : ObservableObject
     public string ProjectCount=>L.F("ui.0Proyectos", VisibleProjects.Count);
     public string SelectedSummary=>L.F("ui.01", SelectedProject?.Name ?? L.T("projects.none"), SelectedTimeline?.Name ?? L.T("timelines.none"));
     public string SelectedSegmentsSummary=>L.F("ui.0De1FragmentosIncluidos", Segments.Count(s=>s.Included), Segments.Count);
+    public string SourceTrackHint=>SourceTracks.Count==0?L.T("source.none"):
+        SelectedSourceTrack is null?L.T("source.chooseHint"):L.T("source.selectedHint");
     public string TemplateDetail=>SelectedTemplate is null?L.T("ui.anadeUnaPlantillaDeSubtitulosEnCapcutYVuelve"):
         SelectedTemplate.UnsupportedReason ?? L.F("ui.pista01CapaSRecurso2", SelectedTemplate.TrackNumber, SelectedTemplate.TextLayerCount, SelectedTemplate.ResourceId);
     public ProjectItem? SelectedProject {get=>_project;set{if(Set(ref _project,value)){SelectedTimeline=null;Timelines.Clear();Raise(nameof(SelectedSummary));RefreshCommands();}}}
     public TimelineItem? SelectedTimeline {get=>_timeline;set{if(Set(ref _timeline,value)){ClearTimeline();Raise(nameof(SelectedSummary));RefreshCommands();}}}
+    public SourceTrackItem? SelectedSourceTrack
+    {
+        get=>_sourceTrack;
+        set
+        {
+            if(value is not null && !SourceTracks.Contains(value))return;
+            if(!Set(ref _sourceTrack,value))return;
+            Preview.Stop();
+            foreach(var item in Segments)item.PropertyChanged-=SegmentChanged;
+            Segments.Clear();
+            if(value is not null)
+                foreach(var item in value.Segments){item.PropertyChanged+=SegmentChanged;Segments.Add(item);}
+            InvalidateResult();Raise(nameof(SelectedSegmentsSummary));Raise(nameof(SourceTrackHint));
+        }
+    }
     public DraftTemplateCandidate? SelectedTemplate {get=>_template;set{if(Set(ref _template,value)){InvalidateResult();Raise(nameof(TemplateDetail));}}}
     public BackupItem? SelectedBackup {get=>_backup;set{if(Set(ref _backup,value))RefreshCommands();}}
     public string ResultSummary=>_result is null?L.T("ui.todaviaNoHaySubtitulosGenerados"):L.F("ui.0Subtitulos1Fragmentos2Archivos", _result.Captions.Count, _result.Transcriptions.Count, _result.Plan.ExpectedFiles.Count);
@@ -127,7 +147,7 @@ public sealed class MainViewModel : ObservableObject
         Back=new RelayCommand(_=>Step--,_=>IsIdle && Step>0);
         Navigate=new RelayCommand(p=>{if(int.TryParse(p?.ToString(),out var step))Step=step;},p=>IsIdle && int.TryParse(p?.ToString(),out var step) && CanVisit(step));
         ReloadTimeline=Async(_=>RunAsync(LoadSnapshotAsync),_=>SelectedProject is not null && SelectedTimeline is not null);
-        Generate=Async(_=>RunAsync(GenerateAsync),_=>_snapshot is not null && SelectedTemplate?.IsSupported==true && Segments.Any(s=>s.Included) && File.Exists(ModelPath));
+        Generate=Async(_=>RunAsync(GenerateAsync),_=>_snapshot is not null && SelectedSourceTrack is not null && SelectedTemplate?.IsSupported==true && Segments.Any(s=>s.Included && s.Model.TrackId==SelectedSourceTrack.Id) && File.Exists(ModelPath));
         Apply=Async(_=>RunAsync(ApplyAsync),_=>_result is not null && !_applied && !_failedApply);
         Cancel=new RelayCommand(_=>_cts?.Cancel(),_=>IsBusy);
         ExportSrt=Async(async _=>{var path=_dialogs.SaveFile(L.T("ui.exportarSubtitulos"),L.T("ui.subripSrtSrt"),"subtitulos.srt");if(path is not null && _result is not null)await File.WriteAllTextAsync(path,SrtFormatter.Format(_result.Captions),new System.Text.UTF8Encoding(false));},_=>_result is not null);
@@ -213,11 +233,12 @@ public sealed class MainViewModel : ObservableObject
     private void ClearTimeline()
     {
         _snapshot=null;foreach(var item in Segments)item.PropertyChanged-=SegmentChanged;
-        Segments.Clear();Templates.Clear();SelectedTemplate=null;Backups.Clear();SelectedBackup=null;InvalidateResult();Raise(nameof(SelectedSegmentsSummary));
+        SelectedSourceTrack=null;SourceTracks.Clear();Segments.Clear();Templates.Clear();SelectedTemplate=null;Backups.Clear();SelectedBackup=null;InvalidateResult();Raise(nameof(SelectedSegmentsSummary));Raise(nameof(SourceTrackHint));
     }
     private async Task LoadSnapshotAsync()
     {
         if(SelectedProject is null || SelectedTimeline is null)return;
+        string? previousSourceId=SelectedSourceTrack?.Id;
         ClearTimeline();Status=L.T("ui.leyendoTimeline");
         _snapshot=await Task.Run(()=>_catalog.ReadTimelineAsync(SelectedProject.Model,SelectedTimeline.Model,_cts!.Token));
         var managed=await new JsonWorkspaceStore(WorkspaceRoot).ReadManagedSubtitlesAsync(_snapshot.Project.Id,_snapshot.Timeline.Id,_cts!.Token);
@@ -226,13 +247,16 @@ public sealed class MainViewModel : ObservableObject
         var candidates=await DraftTemplateCatalog.ReadAsync(_snapshot,managed?.Objects.Where(o=>o.Kind==SubtitleObjectKind.Segment).Skip(1).Select(o=>o.Id),_cts!.Token);
         foreach(var item in candidates)Templates.Add(item);
         if(Templates.Count==1 && Templates[0].IsSupported)SelectedTemplate=Templates[0];
-        int trackNumber=0;foreach(var track in _snapshot.Tracks)
+        var trackNumbers=new Dictionary<MediaTrackType,int>();
+        foreach(var track in _snapshot.Tracks)
         {
-            trackNumber++;foreach(var segment in track.Segments)
-            {var item=new AudioSegmentItem(segment,L.F("ui.0Pista1", L.T("tracks."+track.Type), trackNumber));item.PropertyChanged+=SegmentChanged;Segments.Add(item);}
+            if(track.Type is not (MediaTrackType.Audio or MediaTrackType.Video))continue;
+            int number=trackNumbers.GetValueOrDefault(track.Type)+1;trackNumbers[track.Type]=number;
+            if(track.Segments.Count>0)SourceTracks.Add(new SourceTrackItem(track,number));
         }
+        SelectedSourceTrack=SourceTracks.FirstOrDefault(t=>t.Id==previousSourceId) ?? (SourceTracks.Count==1?SourceTracks[0]:null);
         Warnings.Clear();foreach(string warning in _catalog.LastWarnings)Warnings.Add(warning);
-        Raise(nameof(SelectedSegmentsSummary));await LoadBackupsAsync();Status=L.T("ui.timelineCargada");
+        Raise(nameof(SelectedSegmentsSummary));Raise(nameof(SourceTrackHint));await LoadBackupsAsync();Status=L.T("ui.timelineCargada");
         if(Templates.Count==0)Message=L.T("ui.estaTimelineNoTieneUnSubtituloConPlantillaAnadelo");
     }
     private void SegmentChanged(object? sender,PropertyChangedEventArgs e)
@@ -247,7 +271,9 @@ public sealed class MainViewModel : ObservableObject
     private async Task GenerateAsync()
     {
         if(_snapshot is null || SelectedTemplate is null)return;
-        var included=Segments.Where(s=>s.Included).ToArray();
+        if(SelectedSourceTrack is null)throw new InvalidOperationException(L.T("source.chooseHint"));
+        var included=Segments.Where(s=>s.Included && s.Model.TrackId==SelectedSourceTrack.Id).ToArray();
+        if(included.Length==0)throw new InvalidOperationException(L.T("source.noClipsSelected"));
         if(included.Any(s=>!File.Exists(s.ResolvedPath)))throw new FileNotFoundException(L.T("ui.localizaLosMediosAusentesAntesDeGenerar"));
         await DraftTemplateCatalog.ValidateResourcesAsync(_snapshot, SelectedTemplate.SegmentId, _cts!.Token);
         await SaveSettingsAsync();InvalidateResult();_writer=new(SelectedTemplate.SegmentId);

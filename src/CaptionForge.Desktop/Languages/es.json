@@ -43,7 +43,7 @@
     "help.projects.title": "1. Proyecto y timeline",
     "help.projects.body": "Busca la carpeta de proyectos de CapCut y selecciona el proyecto. Después elige la timeline por su nombre y portada. El pin de CapCut no se cambia. Si la timeline seleccionada está fijada, se actualizan también el draft y su .bak de la raíz; si no está fijada, esos archivos de la raíz se conservan.",
     "help.audio.title": "2. Clips y medios",
-    "help.audio.body": "Cada clip conserva sus rangos de origen y posición en la timeline. Marca los clips que quieras transcribir. Excluir un clip sólo lo omite en esta generación: no elimina ni recorta archivos. El botón ▶ reproduce el recorte original. Si moviste o renombraste el medio, utiliza Localizar en cada clip afectado.",
+    "help.audio.body": "Elige primero la pista de origen: audio o vídeo con audio. El desplegable muestra sus archivos y cantidad de clips. Después marca los clips de esa pista que quieras transcribir. Cada clip conserva sus rangos de origen, posición y huecos en la timeline. Las otras pistas no se transcriben. Incluir todos y Excluir todos afectan solo a la pista visible. Cambiar de pista conserva sus casillas durante esta sesión y descarta el resultado preparado. Excluir no elimina ni recorta archivos. El botón ▶ reproduce el recorte original. Si moviste o renombraste el medio, utiliza Localizar en cada clip afectado.",
     "help.template.title": "3. Plantilla y Whisper",
     "help.template.body": "Añade en CapCut un subtítulo con la plantilla y el formato que deseas usar, guarda y vuelve a cargar la timeline. Selecciona esa pista en CaptionForge. Su fuente, colores, posición y animación servirán de molde. Elige el modelo GGML, el idioma de transcripción y los hilos de CPU; el idioma de la interfaz se configura por separado.",
     "help.generate.title": "4. Generar y revisar",
@@ -77,7 +77,7 @@
     "tutorial.timelines.choose.title": "Elige la timeline",
     "tutorial.timelines.choose.body": "Selecciona dónde quieres crear los subtítulos. La marca Fijada indica cuál usa CapCut en la raíz del proyecto; elegir otra no mueve ese pin.",
     "tutorial.audio.clips.title": "Incluye sólo los clips necesarios",
-    "tutorial.audio.clips.body": "Marca los clips que quieras transcribir. Sus tiempos de origen y destino se respetan. La lista tiene su propio scroll; el reproductor permanece fijo encima. Localizar permite indicar una nueva ruta si el medio se movió.",
+    "tutorial.audio.clips.body": "Marca los clips de la pista de origen que quieras transcribir. Incluir todos y Excluir todos afectan únicamente a esta pista. Los recortes y los huecos de la timeline se conservan; excluir un clip no lo elimina del proyecto.",
     "tutorial.audio.preview.title": "Escucha cada recorte",
     "tutorial.audio.preview.body": "Pulsa ▶ en un clip para cargarlo y escucharlo. Aquí puedes pausar, mover la posición o detener la reproducción del recorte original.",
     "tutorial.template.choose.title": "Escoge la pista de plantilla",
@@ -284,6 +284,16 @@
     "tutorial.newOffer": "Hay nuevas funciones con pasos de tutorial que todavía no has visto. ¿Quieres recorrer sólo las novedades?",
     "backup.phase.Applied": "Aplicado",
     "backup.phase.Applying": "Aplicando",
-    "backup.phase.RecoveryRequired": "Requiere recuperación"
+    "backup.phase.RecoveryRequired": "Requiere recuperación",
+    "source.title": "Pista de origen para transcribir",
+    "source.trackTitle": "{0} {1}",
+    "source.namedTrackTitle": "{0} {1} · {2}",
+    "source.trackLabel": "{0} · {1} · {2} clips",
+    "source.none": "Esta timeline no contiene clips de audio o vídeo con audio disponibles para transcribir.",
+    "source.chooseHint": "Selecciona la pista de origen. Solo se transcribirán los clips que marques en esa pista.",
+    "source.selectedHint": "Solo se transcribirán los clips marcados de esta pista. Se conservan sus recortes, posiciones y huecos.",
+    "source.noClipsSelected": "Selecciona al menos un clip de la pista de origen.",
+    "tutorial.audio.source.title": "Elige la pista de origen",
+    "tutorial.audio.source.body": "Selecciona la pista que contiene la voz que quieres transcribir. El desplegable muestra el tipo, el archivo y la cantidad de clips. Puedes elegir audio o vídeo con audio. La música y las demás pistas quedan fuera de esta generación; la plantilla de destino se elige por separado."
   }
 }

@@ -112,6 +112,9 @@ public sealed class CapCutCatalog : ICapCutCatalog
                     string materialId=JsonFiles.String(s,"material_id");
                     var material=JsonFiles.Array(materials,type=="audio"?"audios":"videos").SingleOrDefault(m=>m?["id"]?.GetValue<string>()==materialId)
                         ?? throw new InvalidDataException("No se resuelve el material del fragmento; puede ser compuesto.");
+                    // Un vídeo sin audio no es una fuente de transcripción. Si el
+                    // campo falta, FFprobe mantiene la comprobación del medio real.
+                    if(type=="video" && material?["has_audio"]?.GetValue<bool>()==false)continue;
                     string source=JsonFiles.String(material,"path");if (string.IsNullOrWhiteSpace(source)) throw new InvalidDataException("Material sin ruta de medio local.");
                     if (material?["type"]?.GetValue<string>() is "draft" or "combination") throw new InvalidDataException("Material compuesto pendiente de soporte.");
                     double speed=s?["speed"]?.GetValue<double>() ?? 1;bool variable=false;

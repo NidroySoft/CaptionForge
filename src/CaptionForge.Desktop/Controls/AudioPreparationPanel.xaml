@@ -5,18 +5,31 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
       <DockPanel>
         <TextBlock DockPanel.Dock="Right" Text="{Binding SelectedSegmentsSummary}" Style="{StaticResource Muted}" FontSize="10" VerticalAlignment="Center" Margin="10,0,0,0"/>
         <TextBlock Text="{DynamicResource Loc.ui.audioDeLaTimeline}" Style="{StaticResource Section}" FontSize="16" Margin="0" TextTrimming="CharacterEllipsis"/>
       </DockPanel>
-      <c:AudioPlayer g:TutorialTarget.Id="audio.preview" Grid.Row="1" Margin="0,8,0,0"/>
-      <WrapPanel Grid.Row="2" Margin="0,8,0,4">
+      <StackPanel g:TutorialTarget.Id="audio.source" Grid.Row="1" Margin="0,8,0,0">
+        <TextBlock Text="{DynamicResource Loc.source.title}" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,4"/>
+        <ComboBox ItemsSource="{Binding SourceTracks}" SelectedItem="{Binding SelectedSourceTrack,Mode=TwoWay}" IsSynchronizedWithCurrentItem="False" IsEnabled="{Binding IsIdle}"
+                  AutomationProperties.Name="{DynamicResource Loc.source.title}" ToolTip="{Binding SelectedSourceTrack.DisplayName}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="{Binding SourceTrackHint}" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+      </StackPanel>
+      <c:AudioPlayer g:TutorialTarget.Id="audio.preview" Grid.Row="2" Margin="0,8,0,0"/>
+      <WrapPanel Grid.Row="3" Margin="0,8,0,4">
         <Button Content="{DynamicResource Loc.ui.incluirTodos}" Command="{Binding IncludeAll}" Padding="9,4" MinHeight="28" FontSize="12" Margin="0,0,8,0"/>
         <Button Content="{DynamicResource Loc.ui.excluirTodos}" ToolTip="{DynamicResource Loc.ui.excluirSoloOmiteLosFragmentosEnEstaGeneracionLos}" Command="{Binding ExcludeAll}" Padding="9,4" MinHeight="28" FontSize="12"/>
       </WrapPanel>
-      <ScrollViewer g:TutorialTarget.Id="audio.clips" x:Name="ClipsScroll" Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" CanContentScroll="False" Padding="0,0,5,0" AutomationProperties.Name="{DynamicResource Loc.ui.listaDesplazableDeClipsDeAudio}">
+      <ScrollViewer g:TutorialTarget.Id="audio.clips" x:Name="ClipsScroll" Grid.Row="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" CanContentScroll="False" Padding="0,0,5,0" AutomationProperties.Name="{DynamicResource Loc.ui.listaDesplazableDeClipsDeAudio}">
         <c:AudioSegmentList/>
       </ScrollViewer>
 
