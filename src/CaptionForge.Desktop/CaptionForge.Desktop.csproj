@@ -14,6 +14,8 @@
     <Resource Include="Resources/CaptionForge.png" />
     <Resource Include="Resources/CaptionForge.ico" />
     <Resource Include="Resources/Palettes.json" />
+    <Resource Include="Languages/es.json" />
+    <Content Include="Languages/*.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../CaptionForge.Application/CaptionForge.Application.csproj" />

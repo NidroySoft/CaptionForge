@@ -10,7 +10,7 @@
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <CheckBox IsChecked="{Binding Included,Mode=TwoWay}" IsEnabled="{Binding CanInclude}" AutomationProperties.Name="Incluir fragmento" ToolTip="Excluir este clip sólo lo omite en la generación; no cambia el audio ni sus recortes en CapCut."/>
+            <CheckBox IsChecked="{Binding Included,Mode=TwoWay}" IsEnabled="{Binding CanInclude}" AutomationProperties.Name="{DynamicResource Loc.ui.incluirFragmento}" ToolTip="{DynamicResource Loc.ui.excluirEsteClipSoloLoOmiteEnLaGeneracion}"/>
             <StackPanel Grid.Column="1" Margin="4,0,12,0">
               <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip="{Binding ResolvedPath}"/>
               <TextBlock Text="{Binding TrackLabel}" Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
@@ -18,8 +18,8 @@
               <TextBlock Text="{Binding Diagnostic}" Foreground="{DynamicResource WarningBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
             </StackPanel>
             <StackPanel Grid.Column="2">
-              <Button Content="▶" Padding="12,6" MinHeight="32" Command="{Binding DataContext.PlaySegment,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" ToolTip="Escuchar solo este recorte"/>
-              <Button Content="Localizar" Padding="10,6" MinHeight="32" Margin="0,6,0,0" Command="{Binding DataContext.LocateSource,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+              <Button Content="▶" Padding="12,6" MinHeight="32" Command="{Binding DataContext.PlaySegment,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" ToolTip="{DynamicResource Loc.ui.escucharSoloEsteRecorte}"/>
+              <Button Content="{DynamicResource Loc.ui.localizar}" Padding="10,6" MinHeight="32" Margin="0,6,0,0" Command="{Binding DataContext.LocateSource,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
             </StackPanel>
           </Grid>
         </Border>

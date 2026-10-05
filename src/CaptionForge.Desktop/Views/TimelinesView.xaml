@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" x:Class="CaptionForge.Desktop.Views.TimelinesView">
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:g="clr-namespace:CaptionForge.Desktop.Guidance" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" x:Class="CaptionForge.Desktop.Views.TimelinesView">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -8,9 +8,9 @@
     <Border Style="{StaticResource Panel}" Padding="12" Margin="0,0,0,12">
       <StackPanel>
         <TextBlock Text="{Binding SelectedProject.Name}" FontSize="18" FontWeight="SemiBold"/>
-        <TextBlock Text="Los covers conservan su proporción original. Seleccionar otra timeline no cambia cuál está fijada en CapCut." Style="{StaticResource Muted}" Margin="0,6,0,0"/>
+        <TextBlock Text="{DynamicResource Loc.ui.losCoversConservanSuProporcionOriginalSeleccionarOtraTimeline}" Style="{StaticResource Muted}" Margin="0,6,0,0"/>
       </StackPanel>
     </Border>
-    <c:TimelinePicker Grid.Row="1"/>
+    <c:TimelinePicker g:TutorialTarget.Id="timelines.choose" Grid.Row="1"/>
   </Grid>
 </UserControl>

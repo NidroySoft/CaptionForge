@@ -1,10 +1,10 @@
 <UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="CaptionForge.Desktop.Controls.AppearanceSelector">
   <StackPanel DataContext="{Binding Appearance}">
-    <TextBlock Text="Apariencia" Style="{StaticResource Section}" Margin="0,0,0,8"/>
-    <CheckBox Content="Usar el tema del sistema" IsChecked="{Binding FollowSystem,Mode=TwoWay}" ToolTip="Sigue el modo claro u oscuro de Windows."/>
+    <TextBlock Text="{DynamicResource Loc.ui.apariencia}" Style="{StaticResource Section}" Margin="0,0,0,8"/>
+    <CheckBox Content="{DynamicResource Loc.ui.usarElTemaDelSistema}" IsChecked="{Binding FollowSystem,Mode=TwoWay}" ToolTip="{DynamicResource Loc.ui.sigueElModoClaroUOscuroDeWindows}"/>
     <TextBlock Text="{Binding ModeLabel}" Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
-    <TextBlock Text="Paleta de colores" Style="{StaticResource Label}"/>
-    <ComboBox ItemsSource="{Binding AvailablePalettes}" SelectedItem="{Binding SelectedPalette,Mode=TwoWay}" AutomationProperties.Name="Paleta de colores compatible con el modo actual">
+    <TextBlock Text="{DynamicResource Loc.ui.paletaDeColores}" Style="{StaticResource Label}"/>
+    <ComboBox ItemsSource="{Binding AvailablePalettes}" SelectedItem="{Binding SelectedPalette,Mode=TwoWay}" AutomationProperties.Name="{DynamicResource Loc.ui.paletaDeColoresCompatibleConElModoActual}">
       <ComboBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
@@ -14,7 +14,7 @@
         </DataTemplate>
       </ComboBox.ItemTemplate>
     </ComboBox>
-    <TextBlock Text="Sólo se muestran las paletas compatibles con el modo activo." Style="{StaticResource Muted}" FontSize="11" Margin="0,6,0,0"/>
+    <TextBlock Text="{DynamicResource Loc.ui.soloSeMuestranLasPaletasCompatiblesConElModo}" Style="{StaticResource Muted}" FontSize="11" Margin="0,6,0,0"/>
     <TextBlock Text="{Binding PreferenceNotice}" Foreground="{DynamicResource WarningBrush}" TextWrapping="Wrap" Margin="0,4,0,0"/>
   </StackPanel>
 </UserControl>

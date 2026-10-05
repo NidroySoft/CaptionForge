@@ -1,3 +1,4 @@
+using CaptionForge.Desktop.Localization;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -9,9 +10,11 @@ using Microsoft.Win32;
 
 namespace CaptionForge.Desktop.ViewModels;
 
-public sealed record PaletteChoice(AppearancePalette Palette, string Accent)
+public sealed class PaletteChoice(AppearancePalette palette,string accent) : ObservableObject
 {
-    public string DisplayName => Palette.DisplayName;
+    public AppearancePalette Palette {get;}=palette;
+    public string Accent {get;}=accent;
+    public string DisplayName => Palette.Variants.Count==2?L.F("palette.common",L.T("palette."+Palette.Id)):L.T("palette."+Palette.Id);
 }
 
 /// <summary>Recursos dinámicos y preferencias de apariencia, sin tocar el resultado ni las opciones de Whisper.</summary>
@@ -38,10 +41,10 @@ public sealed class AppearanceViewModel : ObservableObject
             { _state.Select(value.Palette); Apply(); }
         }
     }
-    public string ModeLabel => $"Modo {(IsDark ? "oscuro" : "claro")}{(FollowSystem ? " · sigue Windows" : " · manual")}";
-    public string ToggleLabel => IsDark ? "☀ Claro" : "☾ Oscuro";
-    public string ToggleHint => $"Usar modo {(IsDark ? "claro" : "oscuro")}. Desactiva el seguimiento del tema de Windows.";
-    public string PreferenceNotice { get => _notice; private set => Set(ref _notice, value); }
+    public string ModeLabel => L.F("ui.modo01", (IsDark ? L.T("appearance.dark") : L.T("appearance.light")), (FollowSystem ? L.T("appearance.system") : L.T("appearance.manual")));
+    public string ToggleLabel => IsDark ? L.T("ui.claro") : L.T("ui.oscuro");
+    public string ToggleHint => L.F("ui.usarModo0DesactivaElSeguimientoDelTemaDe", (IsDark ? L.T("appearance.light") : L.T("appearance.dark")));
+    public string PreferenceNotice { get => L.Render(_notice); private set => Set(ref _notice, value); }
     public ICommand ToggleTheme { get; }
 
     public AppearanceViewModel()
@@ -50,9 +53,9 @@ public sealed class AppearanceViewModel : ObservableObject
         AppearancePreferences preferences;
         try { preferences = _store.Load(); }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
-        { AppLog.Write(ex); preferences = new(); PreferenceNotice = "No se pudieron leer las preferencias de apariencia; se usan los valores predeterminados."; }
+        { AppLog.Write(ex); preferences = new(); PreferenceNotice = L.T("ui.noSePudieronLeerLasPreferenciasDeAparienciaSe"); }
         using var stream = System.Windows.Application.GetResourceStream(new Uri("Resources/Palettes.json", UriKind.Relative))?.Stream
-            ?? throw new InvalidDataException("No se encuentra el catálogo de paletas.");
+            ?? throw new InvalidDataException(L.T("ui.noSeEncuentraElCatalogoDePaletas"));
         _state = new(PaletteCatalog.Load(stream), preferences, ReadSystemMode());
         ToggleTheme = new RelayCommand(_ => { _state.Toggle(); Apply(); });
         Apply(save: false);
@@ -107,6 +110,6 @@ public sealed class AppearanceViewModel : ObservableObject
         if (!save) return;
         try { _store.Save(_state.Preferences); PreferenceNotice = ""; }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-        { AppLog.Write(ex); PreferenceNotice = "El tema se ha aplicado, pero no se pudo guardar la preferencia."; }
+        { AppLog.Write(ex); PreferenceNotice = L.T("ui.elTemaSeHaAplicadoPeroNoSePudo"); }
     }
 }

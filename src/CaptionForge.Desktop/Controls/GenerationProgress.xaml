@@ -3,8 +3,8 @@
   <Border Style="{StaticResource Panel}" Padding="12">
     <StackPanel>
       <TextBlock Text="{Binding ProgressLabel}" FontWeight="SemiBold"/>
-      <ProgressBar Value="{Binding Progress, Mode=OneWay}" Maximum="100" Margin="0,12,0,8"/>
-      <TextBlock Text="El progreso cuenta fragmentos completados; cada fragmento puede tardar un tiempo diferente." Style="{StaticResource Muted}" FontSize="11"/>
+      <ProgressBar Value="{Binding Progress,Mode=OneWay}" Maximum="100" Margin="0,12,0,8"/>
+      <TextBlock Text="{DynamicResource Loc.ui.elProgresoCuentaFragmentosCompletadosCadaFragmentoPuedeTardar}" Style="{StaticResource Muted}" FontSize="11"/>
     </StackPanel>
   </Border>
 </UserControl>

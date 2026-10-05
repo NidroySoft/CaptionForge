@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="CaptionForge.Desktop.Controls.TemplatePicker">
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:loc="clr-namespace:CaptionForge.Desktop.Localization" x:Class="CaptionForge.Desktop.Controls.TemplatePicker">
   <StackPanel>
-    <ComboBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate,Mode=TwoWay}" ToolTip="{Binding SelectedTemplate.DisplayName}" AutomationProperties.Name="Molde de subtítulos">
+    <ComboBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate,Mode=TwoWay}" AutomationProperties.Name="{DynamicResource Loc.ui.moldeDeSubtitulos}">
       <ComboBox.ItemTemplate>
         <DataTemplate>
-          <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}"/>
+          <TextBlock TextTrimming="CharacterEllipsis"><TextBlock.Text><MultiBinding Converter="{StaticResource TemplateLabel}"><Binding/><Binding Source="{x:Static loc:LocalizationService.Current}" Path="SelectedCode"/></MultiBinding></TextBlock.Text></TextBlock>
         </DataTemplate>
       </ComboBox.ItemTemplate>
     </ComboBox>
     <TextBlock Text="{Binding TemplateDetail}" Style="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0"/>
-    <TextBlock Text="Se conservarán la fuente, el color, la posición y los recursos del molde elegido." Style="{StaticResource Muted}" Margin="0,10,0,0"/>
+    <TextBlock Text="{DynamicResource Loc.ui.seConservaranLaFuenteElColorLaPosicionY}" Style="{StaticResource Muted}" Margin="0,10,0,0"/>
   </StackPanel>
 </UserControl>

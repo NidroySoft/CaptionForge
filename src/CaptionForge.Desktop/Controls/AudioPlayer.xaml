@@ -12,9 +12,9 @@
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button Content="{Binding Preview.PlayLabel}" Command="{Binding TogglePreview}" Padding="9,5" MinHeight="30" ToolTip="Reproducir o pausar el recorte seleccionado"/>
-        <Slider Grid.Column="1" Margin="12,0" Minimum="0" Maximum="{Binding Preview.DurationSeconds}" Value="{Binding Preview.PositionSeconds,Mode=TwoWay}" VerticalAlignment="Center" AutomationProperties.Name="Posición del recorte"/>
-        <Button Grid.Column="2" Content="■" Command="{Binding StopPreview}" Padding="9,5" MinHeight="30" ToolTip="Detener reproducción"/>
+        <Button Content="{Binding Preview.PlayLabel}" Command="{Binding TogglePreview}" Padding="9,5" MinHeight="30" ToolTip="{DynamicResource Loc.ui.reproducirOPausarElRecorteSeleccionado}"/>
+        <Slider Grid.Column="1" Margin="12,0" Minimum="0" Maximum="{Binding Preview.DurationSeconds}" Value="{Binding Preview.PositionSeconds,Mode=TwoWay}" VerticalAlignment="Center" AutomationProperties.Name="{DynamicResource Loc.ui.posicionDelRecorte}"/>
+        <Button Grid.Column="2" Content="■" Command="{Binding StopPreview}" Padding="9,5" MinHeight="30" ToolTip="{DynamicResource Loc.ui.detenerReproduccion}"/>
       </Grid>
       <TextBlock Text="{Binding Preview.Error}" MaxHeight="36" ToolTip="{Binding Preview.Error}" Foreground="{DynamicResource WarningBrush}" TextWrapping="Wrap"/>
     </StackPanel>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:CaptionForge.Desktop.Views" x:Class="CaptionForge.Desktop.MainWindow" Title="CaptionForge" Icon="Resources/CaptionForge.ico" Style="{StaticResource AppWindow}" Width="1080" Height="740" MinWidth="860" MinHeight="600" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" ResizeMode="CanResize" SizeToContent="Manual">
-  <Grid Margin="20,16">
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:CaptionForge.Desktop.Views" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" xmlns:g="clr-namespace:CaptionForge.Desktop.Guidance" x:Class="CaptionForge.Desktop.MainWindow" Title="CaptionForge" Icon="Resources/CaptionForge.ico" Style="{StaticResource AppWindow}" Width="1080" Height="740" MinWidth="860" MinHeight="600" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" ResizeMode="CanResize" SizeToContent="Manual">
+  <Grid x:Name="RootLayout" Margin="20,16">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
@@ -10,17 +10,19 @@
     </Grid.RowDefinitions>
     <DockPanel>
       <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-        <Image Source="Resources/CaptionForge.png" Width="36" Height="36" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" AutomationProperties.Name="Logo de CaptionForge"/>
+        <Image Source="Resources/CaptionForge.png" Width="36" Height="36" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" AutomationProperties.Name="{DynamicResource Loc.ui.logoDeCaptionforge}"/>
         <StackPanel Margin="12,0,0,0">
           <TextBlock FontSize="18" FontWeight="SemiBold"><Run Text="Caption"/><Run Text="Forge" Foreground="{DynamicResource BrandTextBrush}"/></TextBlock>
-          <TextBlock Text="Subtítulos para tus proyectos de CapCut" Style="{StaticResource Muted}" FontSize="11"/>
+          <TextBlock Text="{DynamicResource Loc.ui.subtitulosParaTusProyectosDeCapcut}" Style="{StaticResource Muted}" FontSize="11"/>
         </StackPanel>
       </StackPanel>
-      <Button DockPanel.Dock="Right" Content="{Binding Appearance.ToggleLabel}" Command="{Binding Appearance.ToggleTheme}" ToolTip="{Binding Appearance.ToggleHint}" VerticalAlignment="Center" Margin="14,0,0,0" Padding="10,5" MinHeight="32" AutomationProperties.Name="Cambiar entre tema claro y oscuro"/>
-      <TextBlock Text="{Binding SelectedSummary}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource Muted}" TextWrapping="NoWrap" MaxWidth="290" TextTrimming="CharacterEllipsis" Margin="18,0,0,0"/>
+      <Button g:TutorialTarget.Id="settings.open" DockPanel.Dock="Right" Content="⚙" Click="OpenSettings" ToolTip="{DynamicResource Loc.ui.configuracionDeLaAplicacion}" AutomationProperties.Name="{DynamicResource Loc.ui.configuracionDeLaAplicacion}" VerticalAlignment="Center" Margin="8,0,0,0" Padding="10,5" MinHeight="32"/>
+      <Button DockPanel.Dock="Right" Content="?" Click="OpenHelp" ToolTip="{DynamicResource Loc.ui.ayudaYTutorial}" AutomationProperties.Name="{DynamicResource Loc.ui.ayudaYTutorial}" VerticalAlignment="Center" Margin="8,0,0,0" Padding="10,5" MinHeight="32"/>
+      <Button DockPanel.Dock="Right" Content="{Binding Appearance.ToggleLabel}" Command="{Binding Appearance.ToggleTheme}" ToolTip="{Binding Appearance.ToggleHint}" VerticalAlignment="Center" Margin="14,0,0,0" Padding="10,5" MinHeight="32" AutomationProperties.Name="{DynamicResource Loc.ui.cambiarEntreTemaClaroYOscuro}"/>
+      <TextBlock Text="{Binding SelectedSummary}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource Muted}" TextWrapping="NoWrap" MaxWidth="180" TextTrimming="CharacterEllipsis" Margin="18,0,0,0"/>
     </DockPanel>
     <UniformGrid Grid.Row="1" Columns="4" Margin="0,14,0,16">
-      <Button Content="1   Proyecto" Command="{Binding Navigate}" CommandParameter="0" Margin="0,0,10,0">
+      <Button Content="{DynamicResource Loc.ui.1Proyecto}" Command="{Binding Navigate}" CommandParameter="0" Margin="0,0,10,0">
         <Button.Style>
           <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
@@ -32,7 +34,7 @@
           </Style>
         </Button.Style>
       </Button>
-      <Button Content="2   Timeline" Command="{Binding Navigate}" CommandParameter="1" Margin="0,0,10,0">
+      <Button Content="{DynamicResource Loc.ui.2Timeline}" Command="{Binding Navigate}" CommandParameter="1" Margin="0,0,10,0">
         <Button.Style>
           <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
@@ -44,7 +46,7 @@
           </Style>
         </Button.Style>
       </Button>
-      <Button Content="3   Audio y plantilla" Command="{Binding Navigate}" CommandParameter="2" Margin="0,0,10,0">
+      <Button Content="{DynamicResource Loc.ui.3AudioYPlantilla}" Command="{Binding Navigate}" CommandParameter="2" Margin="0,0,10,0">
         <Button.Style>
           <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
@@ -56,7 +58,7 @@
           </Style>
         </Button.Style>
       </Button>
-      <Button Content="4   Resultado" Command="{Binding Navigate}" CommandParameter="3">
+      <Button Content="{DynamicResource Loc.ui.4Resultado}" Command="{Binding Navigate}" CommandParameter="3">
         <Button.Style>
           <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
@@ -103,9 +105,9 @@
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button Content="← Atrás" Command="{Binding Back}"/>
+        <Button Content="{DynamicResource Loc.ui.atras}" Command="{Binding Back}"/>
         <TextBlock Grid.Column="1" Text="{Binding Status}" Style="{StaticResource Muted}" Margin="16,0" VerticalAlignment="Center"/>
-        <Button Grid.Column="2" Content="Cancelar" Command="{Binding Cancel}" Visibility="{Binding IsBusy,Converter={StaticResource BoolVisibility}}" Margin="0,0,10,0"/>
+        <Button Grid.Column="2" Content="{DynamicResource Loc.ui.cancelar}" Command="{Binding Cancel}" Visibility="{Binding IsBusy,Converter={StaticResource BoolVisibility}}" Margin="0,0,10,0"/>
         <Button Grid.Column="3" Content="{Binding NextLabel}" Command="{Binding Next}">
           <Button.Style>
             <Style TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
@@ -123,5 +125,6 @@
         </Button>
       </Grid>
     </Grid>
+    <c:TutorialOverlay x:Name="TutorialLayer" Grid.Row="0" Grid.RowSpan="5" Panel.ZIndex="100" Visibility="Collapsed"/>
   </Grid>
 </Window>

@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using CaptionForge.Desktop.ViewModels;
+using CaptionForge.Desktop.Guidance;
+using CaptionForge.Desktop.Localization;
+using CaptionForge.Desktop.Views;
 
 namespace CaptionForge.Desktop;
 
@@ -14,6 +17,7 @@ public partial class MainWindow : Window
     private bool _readyToClose, _closing, _fitPending;
     private HwndSource? _source;
     private AppearanceViewModel? _appearance;
+    private TutorialCoordinator? _tutorial;
 
     public MainWindow()
     {
@@ -39,6 +43,7 @@ public partial class MainWindow : Window
         Closing += OnClosing;
         Closed += (_, _) =>
         {
+            _tutorial?.Dispose();
             _source?.RemoveHook(WindowMessages);
             if (_appearance is not null) _appearance.ThemeChanged -= OnThemeChanged;
         };
@@ -128,7 +133,33 @@ public partial class MainWindow : Window
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (DataContext is MainViewModel vm) await vm.InitializeAsync();
+        if(DataContext is not MainViewModel vm)return;
+        await vm.InitializeAsync();
+        if(_readyToClose || _closing)return;
+        _tutorial=new TutorialCoordinator(RootLayout,TutorialLayer,vm,TutorialCatalog.CreateDefault());
+        await Dispatcher.InvokeAsync(()=>
+        {
+            if(_closing || _readyToClose)return;
+            var locale=LocalizationService.Current;
+            if(!locale.TutorialOffered)
+            {
+                locale.MarkOffered(_tutorial.UnknownSteps);
+                if(MessageBox.Show(this,L.T("tutorial.offer"),L.T("tutorial.title"),MessageBoxButton.YesNo,MessageBoxImage.Question,MessageBoxResult.Yes)==MessageBoxResult.Yes)_tutorial.Start();
+            }
+            else if(_tutorial.UnknownSteps is { Count:>0 } unknown)
+            {
+                locale.MarkOffered(unknown);
+                if(MessageBox.Show(this,L.T("tutorial.newOffer"),L.T("tutorial.title"),MessageBoxButton.YesNo,MessageBoxImage.Question,MessageBoxResult.No)==MessageBoxResult.Yes)_tutorial.Start(true,unknown);
+            }
+        },DispatcherPriority.ApplicationIdle);
+    }
+
+    private void OpenSettings(object sender,RoutedEventArgs e)
+    { if(DataContext is MainViewModel vm)new ApplicationSettingsWindow(vm,this).ShowDialog(); }
+    private void OpenHelp(object sender,RoutedEventArgs e)
+    {
+        var help=new HelpWindow(this,_tutorial?.HasNewSteps==true);
+        if(help.ShowDialog()==true)_tutorial?.Start(help.OnlyNewSteps);
     }
 
     private async void OnClosing(object? sender, CancelEventArgs e)
@@ -138,16 +169,17 @@ public partial class MainWindow : Window
         if (_closing) return;
         if (DataContext is MainViewModel vm)
         {
-            if (vm.IsBusy && MessageBox.Show("Hay una operación en curso. Se solicitará la cancelación y se esperará a que termine de forma segura. ¿Cerrar?",
+            if (vm.IsBusy && MessageBox.Show(L.T("ui.hayUnaOperacionEnCursoSeSolicitaraLaCancelacion"),
                     "CaptionForge", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
             _closing = true;
+            _tutorial?.Dispose();
+            TutorialLayer.Visibility=Visibility.Collapsed;
             IsEnabled = false;
             try { await vm.ShutdownAsync(); }
             catch (Exception ex) { Services.AppLog.Write(ex); }
         }
-        // ejemplo recomendado cuando quieres cerrar después del await
         _readyToClose = true;
-        await Dispatcher.BeginInvoke(new Action(Close), DispatcherPriority.Normal);
+        await Dispatcher.InvokeAsync(new Action(Close), DispatcherPriority.Normal);
     }
 
     [StructLayout(LayoutKind.Sequential)]

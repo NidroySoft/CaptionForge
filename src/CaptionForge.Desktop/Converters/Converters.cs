@@ -19,3 +19,13 @@ public sealed class CoverConverter : IValueConverter
  }
  public object ConvertBack(object value,Type targetType,object parameter,CultureInfo culture)=>Binding.DoNothing;
 }
+
+public sealed class TemplateLabelConverter : IMultiValueConverter
+{
+ public object Convert(object[] values,Type type,object parameter,CultureInfo culture)
+ {
+  if(values.FirstOrDefault() is not CaptionForge.Infrastructure.CapCut.DraftTemplateCandidate candidate)return "";
+  return CaptionForge.Desktop.Localization.L.F("template.label",candidate.TrackNumber,candidate.Name,candidate.IsSupported?"":CaptionForge.Desktop.Localization.L.T("template.unsupported"));
+ }
+ public object[] ConvertBack(object value,Type[] types,object parameter,CultureInfo culture)=>types.Select(_=>Binding.DoNothing).ToArray();
+}

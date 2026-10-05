@@ -1,0 +1,46 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" x:Class="CaptionForge.Desktop.Views.ApplicationSettingsWindow" Title="{DynamicResource Loc.settings.title}" Style="{StaticResource AppWindow}" Width="740" Height="680" MinWidth="420" MinHeight="360" WindowStartupLocation="CenterOwner" Icon="../Resources/CaptionForge.ico">
+  <Grid Margin="20">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <TextBlock Text="{DynamicResource Loc.ui.configuracionDeLaAplicacion}" Style="{StaticResource Section}" Margin="0,0,0,12"/>
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,8,0">
+      <StackPanel>
+        <Border Style="{StaticResource Panel}">
+          <StackPanel>
+            <TextBlock Text="{DynamicResource Loc.ui.aparienciaEIdioma}" Style="{StaticResource Section}"/>
+            <c:AdaptiveGrid StackAtWidth="560" VerticalAlignment="Top">
+              <StackPanel>
+                <Button Content="{Binding Appearance.ToggleLabel}" Command="{Binding Appearance.ToggleTheme}" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                <c:AppearanceSelector/>
+              </StackPanel>
+              <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="{DynamicResource Loc.ui.idiomaDeLaInterfaz}" Style="{StaticResource Label}" Margin="0,0,0,7"/>
+                <ComboBox ItemsSource="{Binding InterfaceLanguage.AvailableLanguages}" SelectedItem="{Binding InterfaceLanguage.SelectedLanguage,Mode=TwoWay}" DisplayMemberPath="Name" DropDownOpened="LanguageDropDownOpened" AutomationProperties.Name="{DynamicResource Loc.ui.idiomaDeLaInterfaz}"/>
+                <TextBlock Text="{DynamicResource Loc.ui.seAplicaAlMomentoNoCambiaElIdiomaDe}" Style="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0"/>
+                <TextBlock Text="{DynamicResource Loc.ui.anadeUnJsonALanguagesYVuelveAAbrir}" Style="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0"/>
+                <TextBlock Text="{Binding InterfaceLanguage.Notice}" Foreground="{DynamicResource WarningBrush}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                <Button Content="{DynamicResource Loc.ui.abrirCarpetaDeIdiomas}" Click="OpenLanguages" HorizontalAlignment="Left" Margin="0,12,0,0"/>
+              </StackPanel>
+            </c:AdaptiveGrid>
+          </StackPanel>
+        </Border>
+        <Border Style="{StaticResource Panel}" Margin="0,12,0,0">
+          <StackPanel IsEnabled="{Binding IsIdle}">
+            <TextBlock Text="{DynamicResource Loc.ui.carpetasYHerramientas}" Style="{StaticResource Section}"/>
+            <TextBlock Text="{DynamicResource Loc.settings.workspace}" Style="{StaticResource Label}" Margin="0,0,0,7"/>
+            <DockPanel><Button DockPanel.Dock="Right" Content="…" Click="BrowseWorkspace" Margin="8,0,0,0" ToolTip="{DynamicResource Loc.ui.seleccionarCarpetaDeTrabajo}"/><TextBox x:Name="WorkspaceBox" AutomationProperties.Name="{DynamicResource Loc.ui.carpetaDeTrabajo}"/></DockPanel>
+            <TextBlock Text="FFmpeg" Style="{StaticResource Label}"/>
+            <DockPanel><Button DockPanel.Dock="Right" Content="…" Click="BrowseFfmpeg" Margin="8,0,0,0"/><TextBox x:Name="FfmpegBox"/></DockPanel>
+            <TextBlock Text="FFprobe" Style="{StaticResource Label}"/>
+            <DockPanel><Button DockPanel.Dock="Right" Content="…" Click="BrowseFfprobe" Margin="8,0,0,0"/><TextBox x:Name="FfprobeBox"/></DockPanel>
+            <TextBlock Text="{DynamicResource Loc.ui.estasRutasSeGuardanAlConfirmarSiCambianTendras}" Style="{StaticResource Muted}" FontSize="11" Margin="0,10,0,0"/>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </ScrollViewer>
+    <DockPanel Grid.Row="2" Margin="0,14,0,0">
+      <Button DockPanel.Dock="Right" Content="{DynamicResource Loc.ui.guardarYCerrar}" Click="SaveAndClose" IsEnabled="{Binding IsIdle}" Style="{StaticResource PrimaryButton}" Margin="10,0,0,0"/>
+      <Button DockPanel.Dock="Right" Content="{DynamicResource Loc.help.close}" Click="CloseDialog"/>
+      <TextBlock Text="{DynamicResource Loc.ui.temaEIdiomaSeGuardanAutomaticamente}" Style="{StaticResource Muted}" FontSize="11" VerticalAlignment="Center" Margin="0,0,10,0"/>
+    </DockPanel>
+  </Grid>
+</Window>
