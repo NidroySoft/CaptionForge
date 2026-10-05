@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+CaptionForge_Blueprint_v1.md
+CaptionForge_Contexto_v1.zip
+
 # User-specific files
 *.rsuser
 *.suo
