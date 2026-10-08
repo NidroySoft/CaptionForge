@@ -1,6 +1,6 @@
 using System.IO;
 using System.Text.Json;
-using CaptionForge.Application.Models.Speech;
+using CaptionForge.Modules.TextToSpeech.Core;
 
 namespace CaptionForge.Modules.TextToSpeech;
 
@@ -19,6 +19,7 @@ public sealed class SpeechSettings
     public string Language { get; set; } = "en";
     public Dictionary<string, string> Voices { get; set; } = [];
     public static string SettingsPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CaptionForge", "modules", "text-to-speech", "settings.json");
+    public static string InstallationRoot => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CaptionForge", "modules", "text-to-speech", "engines");
 
     public static SpeechSettings Defaults()
     {
@@ -33,6 +34,9 @@ public sealed class SpeechSettings
                 PythonExecutable = Path.Combine(root, runtime, ".venv", "Scripts", "python.exe"),
                 ModelDirectory = Path.Combine(root, models, engine == SpeechEngine.Nano ? "modelo" : "paquete")
             };
+            string managed = Path.Combine(InstallationRoot, engine.ToString());
+            if (File.Exists(Path.Combine(managed, "installed.json")))
+                settings.Engines[engine] = new() { PythonExecutable = Path.Combine(managed, ".venv", "Scripts", "python.exe"), ModelDirectory = Path.Combine(managed, "models") };
         }
         return settings;
     }

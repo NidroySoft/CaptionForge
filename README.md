@@ -71,9 +71,9 @@ El selector **Herramienta** permite alternar entre **Subtítulos de CapCut** y *
 1. Selecciona **Texto a voz** y elige motor e idioma.
 2. Para Kokoro o Pocket, elige una voz instalada. Para Chatterbox, selecciona un audio limpio de referencia de más de cinco segundos.
 3. Pega el guion y pulsa **Generar voz**. Puedes cancelar la operación, reproducir el resultado y usar **Guardar WAV como…**.
-4. Si cambias de ubicación los modelos, despliega **Configuración del motor seleccionado y archivos de salida** para indicar el Python, la carpeta de pesos y la salida. Guarda la configuración.
+4. Para preparar un motor nuevo, pulsa **Instalar motor**. Para reutilizar el laboratorio, pulsa **Detectar instalaciones**. Si cambias de ubicación los modelos, despliega **Configuración del motor seleccionado y archivos de salida** para indicar el Python, la carpeta de pesos y la salida. Guarda la configuración.
 
-Se detectan las instalaciones del laboratorio existente bajo `%LOCALAPPDATA%\Wondecode`: Kokoro, PocketTTS, ChatterboxNano y ChatterboxMultilingual. Pocket usa su propio entorno Python. **El ejecutable no incluye ni descarga automáticamente Python, dependencias o pesos de voz**; las rutas se pueden configurar en cada equipo. La configuración se guarda en `%LOCALAPPDATA%\CaptionForge\modules\text-to-speech\settings.json` y la salida predeterminada en `%LOCALAPPDATA%\CaptionForge\Speech\Audio`.
+Se detectan las instalaciones del laboratorio existente bajo `%LOCALAPPDATA%\Wondecode`: Kokoro, PocketTTS, ChatterboxNano y ChatterboxMultilingual. Pocket usa su propio entorno Python. **El módulo prepara Python, dependencias y modelos desde «Instalar motor»**, en un entorno privado por usuario. No necesitas instalar Python manualmente. También permite configurar rutas de instalaciones existentes. La configuración se guarda en `%LOCALAPPDATA%\CaptionForge\modules\text-to-speech\settings.json` y la salida predeterminada en `%LOCALAPPDATA%\CaptionForge\Speech\Audio`.
 
 | Motor | Idiomas expuestos | Entrada de voz | Ajustes |
 | --- | --- | --- | --- |
@@ -84,7 +84,7 @@ Se detectan las instalaciones del laboratorio existente bajo `%LOCALAPPDATA%\Won
 
 Las generaciones se ejecutan de una en una en CPU, por fragmentos, y producen WAV PCM de 16 bits. El proceso libera el modelo al finalizar. Junto al WAV se conserva un registro de diagnóstico y los parámetros de generación. La calidad y el tiempo dependen del motor, de la voz y del equipo; Chatterbox puede tardar varios minutos en CPU. Los controles nuevos de voz están inicialmente en español.
 
-Para añadir nuevas herramientas, consulta [la arquitectura de módulos](docs/Modules.md). Son módulos de código registrados en el proyecto; se compilan con la aplicación.
+Para añadir nuevas herramientas, consulta [la arquitectura de módulos](docs/Modules.md). Se publican de forma independiente y se descubren desde su carpeta: CaptionForge no conoce sus funciones ni necesita recompilarse para agregarlos. La reproducción de voz incluye barras de amplitud, pausa y navegación sobre la forma de onda.
 
 ## Requisitos
 

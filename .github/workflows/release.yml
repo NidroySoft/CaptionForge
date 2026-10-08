@@ -69,8 +69,12 @@ jobs:
           RELEASE_COMMIT: ${{ github.sha }}
         run: |
           $publish = Join-Path $PWD 'artifacts/publish'
-          foreach ($relative in @('CaptionForge.exe', 'Languages/es.json', 'Modules/TextToSpeech/tts_worker.py', 'Modules/TextToSpeech/config/english.yaml', 'Modules/TextToSpeech/config/spanish.yaml', 'licenses/Pocket-TTS-MIT.txt')) {
+          foreach ($relative in @('CaptionForge.exe', 'Languages/es.json')) {
             if (!(Test-Path (Join-Path $publish $relative))) { throw "Falta $relative en la publicación." }
+          }
+          foreach ($manifest in Get-ChildItem -Path 'src' -Filter module.json -Recurse) {
+            $moduleName = $manifest.Directory.Name.Replace('CaptionForge.Modules.', '')
+            if (!(Test-Path (Join-Path $publish "Modules/$moduleName/module.json"))) { throw "Falta el módulo $moduleName." }
           }
           @("Tag: $env:RELEASE_TAG", "Commit: $env:RELEASE_COMMIT", 'Plataforma: Windows x64') |
             Set-Content (Join-Path $publish 'VERSION.txt') -Encoding utf8

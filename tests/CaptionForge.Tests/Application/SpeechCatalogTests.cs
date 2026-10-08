@@ -1,4 +1,4 @@
-using CaptionForge.Application.Models.Speech;
+using CaptionForge.Modules.TextToSpeech.Core;
 namespace CaptionForge.Tests.Application;
 
 public sealed class SpeechCatalogTests : IDisposable

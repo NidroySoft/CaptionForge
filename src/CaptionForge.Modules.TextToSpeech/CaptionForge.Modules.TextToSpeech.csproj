@@ -2,10 +2,11 @@
   <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><EnableWindowsTargeting>true</EnableWindowsTargeting><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../CaptionForge.Modularity/CaptionForge.Modularity.csproj" />
-    <ProjectReference Include="../CaptionForge.Application/CaptionForge.Application.csproj" />
-    <ProjectReference Include="../CaptionForge.Infrastructure/CaptionForge.Infrastructure.csproj" />
-    <Content Include="Backend/tts_worker.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="Modules/TextToSpeech/tts_worker.py" />
-    <Content Include="Backend/config/*.yaml" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="Modules/TextToSpeech/config/%(Filename)%(Extension)" />
+    <ProjectReference Include="../CaptionForge.Modules.TextToSpeech.Core/CaptionForge.Modules.TextToSpeech.Core.csproj" />
+    <Content Include="module.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="README.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="Backend/*.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="Backend/config/*.yaml" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../licenses/Pocket-TTS-MIT.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/Pocket-TTS-MIT.txt" Link="licenses/Pocket-TTS-MIT.txt" />
   </ItemGroup>
 </Project>

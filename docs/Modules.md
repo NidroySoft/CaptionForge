@@ -1,51 +1,59 @@
-# Módulos de CaptionForge
+# Módulos independientes de CaptionForge
 
-La separación previa Core / Application / Infrastructure se conserva. La ventana de escritorio actúa como anfitrión de herramientas y el flujo de subtítulos se integra mediante un adaptador para conservar el trabajo existente.
+CaptionForge conoce únicamente el contrato común y su herramienta integrada de subtítulos. Las herramientas opcionales se descubren en `Modules/<Nombre>/module.json`. El anfitrión no referencia sus proyectos ni sus motores, dependencias, configuración o reproductor.
+
+## Distribuir o quitar un módulo
+
+1. Publica el proyecto del módulo en una carpeta independiente.
+2. Copia la carpeta completa bajo `Modules`, junto al ejecutable del anfitrión.
+3. Al abrir CaptionForge aparecerá el nombre declarado en el manifest.
+4. Para quitarlo, cierra el programa y retira su carpeta. Los subtítulos siguen funcionando. Sus preferencias y modelos locales se conservan por separado.
+
+`module.json` contiene `id`, `displayName`, `assembly`, `entryType` y `contractVersion: 1`. El ensamblado debe permanecer dentro de su carpeta. El tipo de entrada implementa `IApplicationModule` y ofrece una vista WPF. Los errores del manifest se registran sin impedir abrir el programa; errores al crear una vista se muestran al seleccionar esa herramienta.
+
+Los módulos son código local de confianza y tienen los permisos del proceso. El contrato no proporciona una caja de aislamiento de seguridad. Las dependencias administradas se resuelven desde las carpetas de los módulos, compartiendo el contrato y el runtime de WPF. Si dos módulos requieren versiones incompatibles de una biblioteca, su backend debe ejecutarse en otro proceso.
 
 ## Responsabilidades
 
-- `CaptionForge.Modularity`: contrato `IApplicationModule`, definición y registro, sin dependencia de WPF ni del backend.
-- `CaptionForge.Desktop`: registra las herramientas en `MainWindow.InitializeModules`, muestra su `FrameworkElement` y controla navegación y cierre.
-- `Desktop/Modules/SubtitleModule`: adapta el flujo de CapCut existente.
-- `CaptionForge.Modules.TextToSpeech`: vista WPF, estado, preferencias y reproducción de voz. No depende de Desktop.
-- `Application/Models/Speech` y `ISpeechSynthesisService`: petición, resultado, progreso y validaciones compartidas.
-- `Infrastructure/Speech/PythonSpeechSynthesisService`: ejecuta y supervisa el backend CPU por JSON y eventos, sin shell.
-- `Modules.TextToSpeech/Backend`: implementación Python y configuraciones locales de Pocket.
+- `CaptionForge.Modularity`: contrato, registro y descubrimiento genérico de módulos. No conoce texto a voz.
+- `CaptionForge.Desktop`: muestra vistas, conserva instancias, bloquea navegación durante operaciones y solicita cierre.
+- `Desktop/Modules/SubtitleModule`: adapta la herramienta integrada de subtítulos.
+- `CaptionForge.Modules.TextToSpeech`: pantalla, preferencias, reproducción y forma de onda.
+- `CaptionForge.Modules.TextToSpeech.Core`: motores, validaciones, proceso Python, instalación privada y lectura de WAV. No depende del núcleo, Application o Infrastructure de CaptionForge.
+- `Modules.TextToSpeech/Backend`: generación Python, instalación de dependencias y descarga de modelos oficiales.
 
-El registro crea cada módulo al abrirlo por primera vez y reutiliza esa instancia al volver. `IsBusy` impide cambiar de herramienta durante una tarea. `Deactivate()` detiene recursos de la vista, como la reproducción. `ShutdownAsync()` cancela y espera el trabajo antes de cerrar; el registro intenta cerrar todos los módulos cargados aunque uno falle.
+El registro crea las herramientas al seleccionarlas por primera vez. `Deactivate()` detiene reproducción; `ShutdownAsync()` cancela y espera la tarea activa. La vista notifica sus cambios de estado mediante `INotifyPropertyChanged`. Los recursos visuales compartidos del anfitrión permiten conservar colores, fuentes y controles, mientras cada módulo controla su interfaz.
 
-## Añadir una herramienta
+## Crear una herramienta
 
-1. Crea un proyecto `CaptionForge.Modules.Nombre` con referencia a Modularity. Si usa WPF, el destino es `net10.0-windows` y `UseWPF=true`.
-2. Implementa `IApplicationModule`. `View` entrega un `FrameworkElement` cuya `DataContext` notifica cambios mediante `INotifyPropertyChanged`, incluido el estado ocupado. Conserva sus datos en el módulo.
-3. Usa Application para contratos y modelos de operaciones compartidas; coloca acceso a disco, procesos o servicios en Infrastructure o en un backend propio. Evita referencias de un módulo a Desktop u otro módulo.
-4. Añade la referencia al proyecto anfitrión y una definición al registro de `MainWindow.InitializeModules`. Usa un identificador único y un nombre visible.
-5. Copia los archivos de backend al output y al publish mediante `Content` con `CopyToOutputDirectory` y `CopyToPublishDirectory`; conserva rutas bajo `Modules/Nombre`.
-6. Prueba carga, cambio de herramienta, estado conservado, error, cancelación y cierre. Añade documentación y avisos de terceros si corresponde.
+Crea un proyecto WPF con referencia al contrato `CaptionForge.Modularity`, implementa `IApplicationModule` y añade el manifest. Mantén la lógica y dependencias específicas dentro del módulo. No añadas una referencia ni un registro específico en Desktop. Los backends y recursos usan `CopyToOutputDirectory` y `CopyToPublishDirectory`; resuelve su ubicación desde el ensamblado del módulo, no desde el ejecutable anfitrión.
 
-Este mecanismo usa registro explícito y compilación. No ejecuta DLL arbitrarias ni introduce un instalador de plugins; permite agregar funciones con límites claros sin ampliar el ViewModel de subtítulos.
+El script de validación encuentra los proyectos con `module.json`, los publica en `artifacts/modules/<Nombre>` y después construye Desktop. El anfitrión copia esas carpetas de forma genérica en Build y Publish. El módulo de voz se puede entregar como carpeta o ZIP con `TextToSpeech` como carpeta raíz. No se incluye el runtime Python ni los pesos en ese paquete.
 
-## Backend de voz
+## Instalación de motores de voz
 
-El servicio .NET crea un directorio temporal exclusivo, un JSON de petición y un WAV con nombre único. Python escribe eventos `TTS_EVENT {json}` por stdout; stderr se conserva en el `.log`. El resultado incluye duración, frecuencia y tiempo de generación. Se comprueba que el archivo devuelto sea el solicitado y que no esté vacío.
+El botón **Instalar motor** prepara un Python 3.11 portable de Windows x64 procedente de Astral, verifica SHA256 y crea un entorno virtual privado por motor. Instala dependencias CPU y pesos oficiales de Hugging Face. No modifica PATH, el registro ni el Python del equipo, y no requiere que el usuario instale Python o Git.
 
-Al cancelar se termina el árbol del proceso Python, incluido el lanzador del entorno virtual. Los archivos temporales del trabajo se limpian y un WAV parcial cancelado se elimina. Los registros quedan disponibles para diagnóstico. Los pesos se abren desde las rutas configuradas, con Hugging Face en modo offline. El módulo comparte el código de voz del laboratorio anterior, pero no depende de su servidor Gradio ni lo modifica.
+Los entornos y modelos quedan bajo `%LOCALAPPDATA%\CaptionForge\modules\text-to-speech\engines`. La descarga puede ocupar varios GB según el motor. El progreso muestra etapas y archivos; Cancelar detiene el árbol del proceso. Una instalación incompleta se puede reintentar: se reutilizan archivos de modelo ya verificados y no se marca el motor como instalado hasta comprobar sus imports.
 
-Para agregar otro motor se amplían `SpeechEngine`, el catálogo de capacidades y voces, las rutas iniciales y las opciones de la vista, y se implementa su rama del worker (o un servicio alternativo). Un modelo que requiera dependencias incompatibles puede usar otro Python, como Pocket.
+**Detectar instalaciones** reutiliza también los entornos existentes del laboratorio bajo `%LOCALAPPDATA%\Wondecode`. Las rutas avanzadas permiten importar otra instalación. Las voces se descubren de los archivos locales para el idioma seleccionado y la pantalla informa cuántas encontró o qué falta.
+
+Fuentes: [Python Build Standalone](https://github.com/astral-sh/python-build-standalone), [Kokoro](https://github.com/hexgrad/kokoro), [Pocket TTS](https://github.com/kyutai-labs/pocket-tts), [Chatterbox](https://github.com/resemble-ai/chatterbox). Cada dependencia, modelo y voz conserva sus términos propios.
+
+## Generación y reproductor
+
+El backend CPU trabaja en un proceso supervisado con peticiones JSON y eventos de progreso. Los WAV se guardan con nombres únicos junto con un registro y parámetros de generación. Cancelar termina el árbol de Python; los pesos se cargan localmente y el modelo se libera al salir del proceso.
+
+La vista calcula barras de amplitud del WAV PCM16 sin cargar el modelo. Permite reproducir, pausar, detener, avanzar con la barra deslizante o pulsar y arrastrar sobre la forma de onda. Las flechas mueven cinco segundos cuando la forma de onda tiene el foco. El audio se puede guardar en otra carpeta sin cambiar el original.
 
 ## Comprobaciones
 
 ```powershell
+dotnet publish src/CaptionForge.Modules.TextToSpeech/CaptionForge.Modules.TextToSpeech.csproj --configuration Release --output artifacts/modules/TextToSpeech
 dotnet test tests/CaptionForge.Tests/CaptionForge.Tests.csproj
-dotnet run --project checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.csproj -- artifacts/module-checks
+dotnet run --project checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.csproj --configuration Release -- artifacts/module-checks
 ```
 
-La segunda comprobación crea las vistas WPF sin abrir ventanas, procesa los enlaces de datos, valida navegación y estados y renderiza ambas herramientas. Está incluida en la validación CI para Windows y no necesita modelos de voz. No sustituye una prueba manual de los diálogos o del reproductor.
+Las comprobaciones WPF validan carga, navegación, contexto de subtítulos, contenido del selector de voces y renderizado. Las pruebas xUnit cubren manifiestos inválidos, rutas fuera de la instalación, lectura de WAV, errores y cancelación de Python. Las comprobaciones de reproducción nativa son adicionales a las de renderizado.
 
-Para comprobar las instalaciones de voz del laboratorio en este equipo:
-
-```powershell
-dotnet run --project checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.csproj -- artifacts/module-checks --real-speech
-```
-
-Esta opción genera muestras de Kokoro y Pocket en inglés y español mediante el servicio .NET real; requiere sus entornos y pesos ya descargados. Las pruebas xUnit del puente utilizan un worker pequeño y pueden seleccionar su Python mediante `CAPTIONFORGE_TEST_PYTHON`; se omiten explícitamente si no hay Python disponible. Los pesos y audios de prueba no se añaden al repositorio.
+`--real-speech` genera muestras reales en inglés y español con Kokoro y Pocket instalados. `--install-kokoro` prueba el recorrido de instalación privada y una generación real; descarga dependencias y modelos. No se ejecuta en CI por defecto. `--no-modules` comprueba el anfitrión en una copia sin carpeta Modules.

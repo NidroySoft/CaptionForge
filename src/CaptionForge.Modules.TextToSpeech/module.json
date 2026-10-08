@@ -1,0 +1,7 @@
+{
+  "id": "text-to-speech",
+  "displayName": "Texto a voz",
+  "assembly": "CaptionForge.Modules.TextToSpeech.dll",
+  "entryType": "CaptionForge.Modules.TextToSpeech.TextToSpeechModule",
+  "contractVersion": 1
+}

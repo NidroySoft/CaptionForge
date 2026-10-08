@@ -4,12 +4,11 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using CaptionForge.Application.Models.Speech;
+using CaptionForge.Modules.TextToSpeech.Core;
 using CaptionForge.Desktop;
 using CaptionForge.Desktop.Localization;
 using CaptionForge.Desktop.Services;
 using CaptionForge.Desktop.ViewModels;
-using CaptionForge.Infrastructure.Speech;
 using CaptionForge.Modules.TextToSpeech;
 
 // Native WPF component smoke check, without opening windows or interacting with user projects.
@@ -39,6 +38,12 @@ internal static class Program
                 var host = (ContentControl)window.FindName("ModuleHost");
                 var subtitles = host.Content;
                 Require(subtitles is FrameworkElement, "Subtitles did not load");
+                if (args.Contains("--no-modules"))
+                {
+                    Require(selector.Items.Count == 1, "The host retained an optional module");
+                    Console.WriteLine("PASS: CaptionForge works with no optional modules installed.");
+                    await vm.ShutdownAsync(); exitCode = 0; return;
+                }
                 selector.SelectedIndex = 1;
                 Require(host.Content is SpeechView, "Speech module did not load");
                 var voiceView = (SpeechView)host.Content;
@@ -49,7 +54,50 @@ internal static class Program
                 voiceView.Model.SelectedLanguage = voiceView.Model.Languages.Single(l => l.Code == "es");
                 Require(voiceView.Model.Voices.All(v => v.StartsWith('e')), "Spanish voices were not filtered");
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+                var voices = (ComboBox)voiceView.FindName("VoiceSelector");
+                Require(voices.Items.Count == voiceView.Model.Voices.Count && voices.SelectedItem is not null == (voices.Items.Count > 0), "Voice selector did not load or select its items");
+                voices.ApplyTemplate();
+                for (int index = 0; index < voices.Items.Count; index++)
+                {
+                    // Generate each dropdown container, not just the collection behind the view.
+                    var container = new ComboBoxItem { Content = voices.Items[index] };
+                    container.ApplyTemplate(); container.Measure(new Size(400, 100));
+                    Require(container.DesiredSize.Height > 0, "A voice dropdown row is invisible");
+                }
+                if (args.Contains("--install-kokoro"))
+                {
+                    var installer = new EngineInstaller(Path.Combine(SpeechViewModel.ModuleDirectory, "Backend"), SpeechSettings.InstallationRoot);
+                    var installed = await installer.InstallAsync(SpeechEngine.Kokoro, new Progress<SpeechProgress>(p => Console.WriteLine(p.Message)), CancellationToken.None);
+                    voiceView.Model.PythonExecutable = installed.PythonExecutable; voiceView.Model.ModelDirectory = installed.ModelDirectory;
+                    voiceView.Model.SelectedLanguage = voiceView.Model.Languages.Single(l => l.Code == "en");
+                    voiceView.Model.Text = "A clear voice makes a complicated idea easier to understand.";
+                    await voiceView.Model.GenerateAsync();
+                    Require(voiceView.Model.HasOutput && voiceView.Model.Waveform is not null, "Fresh installation did not generate audio");
+                    Console.WriteLine("PASS: Automatic installation and real generation without system Python.");
+                }
+                var sample = Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "artifacts", "module-checks"), "*.wav").FirstOrDefault();
+                if (sample is not null) await voiceView.Model.LoadPreviewAsync(sample);
+                if (sample is not null && args.Contains("--playback"))
+                {
+                    var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+                    var player = new MediaPlayer { Volume = 0 };
+                    player.MediaOpened += (_, _) => ready.TrySetResult();
+                    player.MediaFailed += (_, e) => ready.TrySetException(e.ErrorException);
+                    try
+                    {
+                        player.Open(new Uri(Path.GetFullPath(sample)));
+                        await ready.Task.WaitAsync(TimeSpan.FromSeconds(15));
+                        Require(player.NaturalDuration.HasTimeSpan && player.NaturalDuration.TimeSpan.TotalSeconds > 1, "Native player did not decode the WAV");
+                        player.Play(); await Task.Delay(250); player.Pause();
+                        player.Position = TimeSpan.FromSeconds(1);
+                        Require(Math.Abs(player.Position.TotalSeconds - 1) < 0.2, "Native audio seeking failed");
+                        Console.WriteLine("PASS: Native WAV decode, playback, pause and seek (muted).");
+                    }
+                    finally { player.Close(); }
+                }
+                await Dispatcher.Yield(DispatcherPriority.ContextIdle);
                 Render(window, Path.Combine(directory, "text-to-speech.png"));
+                string preservedText = voiceView.Model.Text;
                 selector.SelectedIndex = 0;
                 Require(ReferenceEquals(host.Content, subtitles), "Subtitle state was replaced");
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
@@ -62,13 +110,13 @@ internal static class Program
                 Require(Descendants(subtitleView).OfType<CaptionForge.Desktop.Views.ResultsView>().Single().Visibility == Visibility.Collapsed,
                     "Inactive subtitle view remained visible");
                 selector.SelectedIndex = 1;
-                Require(ReferenceEquals(host.Content, voiceView) && voiceView.Model.Text == "Module state survives navigation.", "Speech state was replaced");
+                Require(ReferenceEquals(host.Content, voiceView) && voiceView.Model.Text == preservedText, "Speech state was replaced");
                 Console.WriteLine("PASS: WPF views, language controls, local voices and navigation retain state.");
 
                 if (args.Contains("--real-speech"))
                 {
                     var defaults = SpeechSettings.Defaults();
-                    var service = new PythonSpeechSynthesisService(Path.Combine(AppContext.BaseDirectory, "Modules", "TextToSpeech", "tts_worker.py"));
+                    var service = new PythonSpeechSynthesisService(Path.Combine(SpeechViewModel.ModuleDirectory, "Backend", "tts_worker.py"));
                     // Sequential CPU jobs; validates the actual .NET -> Python -> local weights -> WAV chain.
                     foreach (var (engine, language, voice, text) in new[]
                     {

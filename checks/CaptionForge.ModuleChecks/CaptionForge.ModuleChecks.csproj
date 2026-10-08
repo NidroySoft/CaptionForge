@@ -10,5 +10,10 @@
     <Resource Include="../../src/CaptionForge.Desktop/Resources/Palettes.json" Link="Resources/Palettes.json" />
     <Resource Include="../../src/CaptionForge.Desktop/Languages/es.json" Link="Languages/es.json" />
     <ProjectReference Include="../../src/CaptionForge.Desktop/CaptionForge.Desktop.csproj" />
+    <ProjectReference Include="../../src/CaptionForge.Modules.TextToSpeech/CaptionForge.Modules.TextToSpeech.csproj" />
   </ItemGroup>
+  <Target Name="CopyInstalledModules" AfterTargets="Build">
+    <ItemGroup><InstalledModuleFiles Include="../../artifacts/modules/**/*" /></ItemGroup>
+    <Copy SourceFiles="@(InstalledModuleFiles)" DestinationFiles="@(InstalledModuleFiles->'$(TargetDir)Modules/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

@@ -2,8 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
-using CaptionForge.Application.Models.Speech;
-using CaptionForge.Infrastructure.Speech;
+using CaptionForge.Modules.TextToSpeech.Core;
 
 namespace CaptionForge.Modules.TextToSpeech;
 
@@ -13,7 +12,8 @@ public sealed record LanguageChoice(string Code, string Name) { public override 
 public sealed class SpeechViewModel : INotifyPropertyChanged
 {
     private readonly SpeechSettings _settings;
-    private readonly PythonSpeechSynthesisService _service = new(Path.Combine(AppContext.BaseDirectory, "Modules", "TextToSpeech", "tts_worker.py"));
+    public static string ModuleDirectory => Path.GetDirectoryName(typeof(SpeechViewModel).Assembly.Location)!;
+    private readonly PythonSpeechSynthesisService _service = new(Path.Combine(ModuleDirectory, "Backend", "tts_worker.py"));
     private CancellationTokenSource? _cts;
     private Task? _running;
     private EngineChoice _engine;
@@ -26,7 +26,9 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     private void Notify([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new(name));
     private void NotifyAll() => PropertyChanged?.Invoke(this, new(null));
     public IReadOnlyList<EngineChoice> Engines { get; } = [new(SpeechEngine.Kokoro, "Kokoro"), new(SpeechEngine.Pocket, "Pocket TTS (sin clonación)"), new(SpeechEngine.Nano, "Chatterbox Nano"), new(SpeechEngine.ChatterboxMultilingual, "Chatterbox Multilingual V3")];
-    public IReadOnlyList<LanguageChoice> Languages => SelectedEngine.Engine == SpeechEngine.Nano ? [new("en", "Inglés")] : [new("en", "Inglés"), new("es", "Español")];
+    private static readonly IReadOnlyList<LanguageChoice> Bilingual = [new("en", "Inglés"), new("es", "Español")];
+    private static readonly IReadOnlyList<LanguageChoice> English = [Bilingual[0]];
+    public IReadOnlyList<LanguageChoice> Languages => SelectedEngine.Engine == SpeechEngine.Nano ? English : Bilingual;
     public ObservableCollection<string> Voices { get; } = [];
     public SpeechViewModel()
     {
@@ -54,10 +56,10 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
         set { if (value is null || value.Code == _language.Code || IsBusy) return; _language = value; _settings.Language = value.Code; RefreshVoices(); NotifyAll(); }
     }
     private SpeechRuntimeSettings Runtime => _settings.Engines[SelectedEngine.Engine];
-    public string PythonExecutable { get => Runtime.PythonExecutable; set { Runtime.PythonExecutable = value; Notify(); } }
+    public string PythonExecutable { get => Runtime.PythonExecutable; set { Runtime.PythonExecutable = value; NotifyAll(); } }
     public string ModelDirectory { get => Runtime.ModelDirectory; set { Runtime.ModelDirectory = value; RefreshVoices(); NotifyAll(); } }
     public string OutputDirectory { get => _settings.OutputDirectory; set { _settings.OutputDirectory = value; Notify(); } }
-    public string ReferencePath { get => _settings.ReferencePath; set { _settings.ReferencePath = value; Notify(); } }
+    public string ReferencePath { get => _settings.ReferencePath; set { _settings.ReferencePath = value; NotifyAll(); } }
     public string Text { get => _text; set { _text = value; Notify(); } }
     public string SelectedVoice { get => _voice; set { _voice = value ?? ""; _settings.Voices[VoiceKey] = _voice; Notify(); } }
     private string VoiceKey => $"{SelectedEngine.Engine}:{SelectedLanguage.Code}";
@@ -70,6 +72,10 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     public bool IsMultilingual => SelectedEngine.Engine == SpeechEngine.ChatterboxMultilingual;
     public bool IsBusy { get => _busy; private set { _busy = value; NotifyAll(); } }
     public bool CanEdit => !IsBusy;
+    public bool CanGenerate => !IsBusy && File.Exists(PythonExecutable) && Directory.Exists(ModelDirectory) && (UsesReference ? File.Exists(ReferencePath) : Voices.Count > 0);
+    public string InstallationStatus => !File.Exists(PythonExecutable) ? "Este motor necesita preparación. Pulsa «Instalar motor»." : !Directory.Exists(ModelDirectory) ? "No se encuentra el modelo. Instálalo o selecciona su carpeta." : UsesPreset && Voices.Count == 0 ? "No hay voces del idioma seleccionado en esta carpeta. Usa «Detectar instalaciones» o instala el motor." : UsesPreset ? $"{Voices.Count} voces locales disponibles · {ModelDirectory}" : "Motor local disponible. Selecciona una referencia de voz.";
+    private WaveformData? _waveform;
+    public WaveformData? Waveform { get => _waveform; private set { _waveform = value; Notify(); } }
     public bool HasOutput => File.Exists(OutputPath);
     public string OutputPath { get => _output; private set { _output = value; NotifyAll(); } }
     public string Status { get => _status; private set { _status = value; Notify(); } }
@@ -89,6 +95,35 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException) { Status = "No se pudieron leer las voces: " + e.Message; }
         string preferred = SelectedEngine.Engine == SpeechEngine.Kokoro ? (SelectedLanguage.Code == "es" ? "ef_dora" : "af_heart") : (SelectedLanguage.Code == "es" ? "lola" : "alba");
         SelectedVoice = remembered is not null && Voices.Contains(remembered) ? remembered : Voices.Contains(preferred) ? preferred : Voices.FirstOrDefault() ?? "";
+        Notify(nameof(InstallationStatus)); Notify(nameof(CanGenerate));
+    }
+    public void DetectInstallations()
+    {
+        if (IsBusy) return;
+        var defaults = SpeechSettings.Defaults();
+        foreach (var (engine, runtime) in defaults.Engines)
+            if (File.Exists(runtime.PythonExecutable) && Directory.Exists(runtime.ModelDirectory)) _settings.Engines[engine] = runtime;
+        RefreshVoices(); NotifyAll(); Status = "Instalaciones locales revisadas.";
+    }
+    public Task InstallAsync()
+    {
+        if (IsBusy) return Task.CompletedTask;
+        _running = InstallCoreAsync(); return _running;
+    }
+    private async Task InstallCoreAsync()
+    {
+        IsBusy = true; Progress = 0;
+        using var cts = new CancellationTokenSource(); _cts = cts;
+        try
+        {
+            var installer = new EngineInstaller(Path.Combine(ModuleDirectory, "Backend"), SpeechSettings.InstallationRoot);
+            var installed = await installer.InstallAsync(SelectedEngine.Engine, new Progress<SpeechProgress>(p => { Status = p.Message; Progress = p.Fraction * 100; }), cts.Token);
+            Runtime.PythonExecutable = installed.PythonExecutable; Runtime.ModelDirectory = installed.ModelDirectory;
+            RefreshVoices(); _settings.Save(); Status = "Motor instalado. Ya puedes generar voz.";
+        }
+        catch (OperationCanceledException) { Status = "Instalación cancelada. Puedes volver a intentarlo."; }
+        catch (Exception e) { Status = "No se pudo preparar el motor: " + e.Message; }
+        finally { _cts = null; IsBusy = false; }
     }
     public void SaveSettings()
     {
@@ -113,6 +148,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
             _settings.Save();
             var result = await _service.GenerateAsync(request, new Progress<SpeechProgress>(p => { Status = p.Message; Progress = p.Fraction * 100; }), cts.Token);
             OutputPath = result.AudioPath;
+            Waveform = await Task.Run(() => WaveformData.Read(result.AudioPath), cts.Token);
             Status = $"Audio listo: {result.DurationSeconds:F1} s · Generación y carga: {result.ElapsedSeconds:F1} s";
         }
         catch (OperationCanceledException) { Status = "Generación cancelada."; }
@@ -120,5 +156,6 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
         finally { _cts = null; IsBusy = false; }
     }
     public void Cancel() => _cts?.Cancel();
+    public async Task LoadPreviewAsync(string path) { Waveform = await Task.Run(() => WaveformData.Read(path)); OutputPath = path; }
     public async Task ShutdownAsync() { Cancel(); if (_running is not null) await _running; }
 }

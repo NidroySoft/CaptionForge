@@ -9,7 +9,6 @@ using CaptionForge.Desktop.Localization;
 using CaptionForge.Desktop.Views;
 using CaptionForge.Modularity;
 using CaptionForge.Desktop.Modules;
-using CaptionForge.Modules.TextToSpeech;
 using System.Windows.Controls;
 
 namespace CaptionForge.Desktop;
@@ -23,6 +22,7 @@ public partial class MainWindow : Window
     private AppearanceViewModel? _appearance;
     private TutorialCoordinator? _tutorial;
     private ModuleRegistry? _modules;
+    private readonly ModuleDiscovery _discovery = new();
     private IApplicationModule? _activeModule;
     private ModuleDefinition? _activeDefinition;
     private INotifyPropertyChanged? _moduleNotifier;
@@ -68,11 +68,12 @@ public partial class MainWindow : Window
 
     private void InitializeModules(MainViewModel vm)
     {
-        // Registration is the only place the host knows the concrete modules.
+        // Only the built-in subtitle workflow belongs to the host. Optional tools are discovered.
         _modules = new ModuleRegistry();
         RootLayout.DataContext = vm;
         _modules.Register(new("subtitles", "Subtítulos de CapCut", () => new SubtitleModule(vm, RootLayout)));
-        _modules.Register(new("text-to-speech", "Texto a voz", () => new TextToSpeechModule()));
+        foreach (var error in _discovery.RegisterFrom(System.IO.Path.Combine(AppContext.BaseDirectory, "Modules"), _modules))
+            Services.AppLog.Write(new InvalidOperationException(error));
         ModuleContainer.Children.Remove(RootLayout);
         ModuleSelector.ItemsSource = _modules.Definitions;
         ModuleSelector.SelectedIndex = 0;

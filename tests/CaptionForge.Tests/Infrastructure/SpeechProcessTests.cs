@@ -1,6 +1,5 @@
 using System.Diagnostics;
-using CaptionForge.Application.Models.Speech;
-using CaptionForge.Infrastructure.Speech;
+using CaptionForge.Modules.TextToSpeech.Core;
 namespace CaptionForge.Tests.Infrastructure;
 
 public sealed class PythonSpeechFactAttribute : FactAttribute

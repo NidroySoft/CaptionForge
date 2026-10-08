@@ -1,5 +1,5 @@
-using CaptionForge.Application.Models.Speech;
-namespace CaptionForge.Application.Abstractions;
+using CaptionForge.Modules.TextToSpeech.Core;
+namespace CaptionForge.Modules.TextToSpeech.Core;
 
 public interface ISpeechSynthesisService
 {

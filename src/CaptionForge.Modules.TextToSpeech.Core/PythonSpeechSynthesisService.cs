@@ -1,10 +1,9 @@
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
-using CaptionForge.Application.Abstractions;
-using CaptionForge.Application.Models.Speech;
+using CaptionForge.Modules.TextToSpeech.Core;
 
-namespace CaptionForge.Infrastructure.Speech;
+namespace CaptionForge.Modules.TextToSpeech.Core;
 
 /// <summary>Supervised JSON/event bridge to an isolated CPU TTS process; never uses a shell.</summary>
 public sealed class PythonSpeechSynthesisService(string workerPath) : ISpeechSynthesisService

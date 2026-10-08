@@ -21,6 +21,14 @@ try {
     Remove-Item Env:CAPTIONFORGE_TEST_CAPCUT_PROJECT -ErrorAction SilentlyContinue
 
     New-Item -ItemType Directory -Path 'artifacts/test-results' -Force | Out-Null
+    # Package optional modules independently. Desktop has no reference to their implementations.
+    foreach ($manifest in Get-ChildItem -Path 'src' -Filter module.json -Recurse) {
+        $moduleProject = Get-ChildItem -LiteralPath $manifest.DirectoryName -Filter '*.csproj' | Select-Object -First 1
+        if (!$moduleProject) { throw "Falta el proyecto del módulo $($manifest.DirectoryName)." }
+        $moduleName = $manifest.Directory.Name.Replace('CaptionForge.Modules.', '')
+        & dotnet publish $moduleProject.FullName --configuration Release --output "artifacts/modules/$moduleName"
+        if ($LASTEXITCODE -ne 0) { throw "Falló el empaquetado del módulo $moduleName." }
+    }
     & dotnet restore $desktopProject
     if ($LASTEXITCODE -ne 0) { throw 'Falló restore del Desktop.' }
     & dotnet restore $testProject
@@ -46,6 +54,11 @@ try {
     if (Test-Path $moduleChecks) {
         & dotnet run --project $moduleChecks --configuration Release -- 'artifacts/module-checks'
         if ($LASTEXITCODE -ne 0) { throw 'Fallaron las comprobaciones de las vistas y navegación de módulos.' }
+    }
+    $hostChecks = 'checks/CaptionForge.HostChecks/CaptionForge.HostChecks.csproj'
+    if (Test-Path $hostChecks) {
+        & dotnet run --project $hostChecks --configuration Release
+        if ($LASTEXITCODE -ne 0) { throw 'Falló la carga independiente de módulos.' }
     }
 }
 finally { Pop-Location }

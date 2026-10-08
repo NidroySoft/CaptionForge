@@ -1,4 +1,4 @@
-namespace CaptionForge.Application.Models.Speech;
+namespace CaptionForge.Modules.TextToSpeech.Core;
 
 public enum SpeechEngine { Kokoro, Pocket, Nano, ChatterboxMultilingual }
 public sealed record SpeechSynthesisRequest(
