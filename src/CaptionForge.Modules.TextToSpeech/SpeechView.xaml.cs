@@ -26,6 +26,7 @@ public partial class SpeechView : UserControl
         Model.PropertyChanged += ModelChanged;
         _timer.Tick += (_, _) => UpdatePosition();
         Waveform.Seek += Seek;
+        ReferencePlayer.PlaybackStarted += StopResultPlayback;
     }
     private void ModelChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -34,7 +35,9 @@ public partial class SpeechView : UserControl
         if (Model.Waveform is { } audio) { _updating = true; AudioPosition.Maximum = audio.DurationSeconds; _updating = false; }
         UpdatePosition();
     }
-    public void StopPlayback() { _timer.Stop(); _player.Stop(); _player.Close(); _opened = _playing = _playAfterOpen = false; _pendingPosition = 0; if (AudioPosition is not null) UpdatePosition(); }
+    public void StopPlayback() { StopResultPlayback(); ReferencePlayer.StopPlayback(); }
+    private void StopResultPlayback() { _timer.Stop(); _player.Stop(); _player.Close(); _opened = _playing = _playAfterOpen = false; _pendingPosition = 0; if (AudioPosition is not null) UpdatePosition(); }
+    public async Task ShutdownAsync() { StopPlayback(); await Model.ShutdownAsync(); await ReferencePlayer.ShutdownAsync(); }
     private void UpdatePosition()
     {
         double position = _opened ? _player.Position.TotalSeconds : _pendingPosition;
@@ -79,6 +82,7 @@ public partial class SpeechView : UserControl
     private void Play(object sender, RoutedEventArgs e)
     {
         if (!Model.HasOutput) return;
+        ReferencePlayer.StopPlayback();
         if (_playing) { _player.Pause(); _playing = false; _timer.Stop(); }
         else if (_opened) { _player.Play(); _playing = true; _timer.Start(); }
         else { _playAfterOpen = true; _player.Open(new Uri(Model.OutputPath)); }

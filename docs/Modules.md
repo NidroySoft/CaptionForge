@@ -16,7 +16,7 @@ Los módulos son código local de confianza y tienen los permisos del proceso. E
 ## Responsabilidades
 
 - `CaptionForge.Modularity`: contrato, registro y descubrimiento genérico de módulos. No conoce texto a voz.
-- `CaptionForge.Desktop`: muestra vistas, conserva instancias, bloquea navegación durante operaciones y solicita cierre.
+- `CaptionForge.Desktop`: muestra pestañas dentro de la misma ventana, conserva una sola instancia por módulo y solicita cierre. Se puede cambiar de pestaña durante una operación; la pestaña que está trabajando no se puede cerrar hasta terminar o cancelar.
 - `Desktop/Modules/SubtitleModule`: adapta la herramienta integrada de subtítulos.
 - `CaptionForge.Modules.TextToSpeech`: pantalla, preferencias, reproducción y forma de onda.
 - `CaptionForge.Modules.TextToSpeech.Core`: motores, validaciones, proceso Python, instalación privada y lectura de WAV. No depende del núcleo, Application o Infrastructure de CaptionForge.

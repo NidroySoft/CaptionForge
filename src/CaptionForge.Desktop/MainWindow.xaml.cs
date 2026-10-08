@@ -25,8 +25,9 @@ public partial class MainWindow : Window
     private readonly ModuleDiscovery _discovery = new();
     private IApplicationModule? _activeModule;
     private ModuleDefinition? _activeDefinition;
-    private INotifyPropertyChanged? _moduleNotifier;
+    private readonly HashSet<INotifyPropertyChanged> _moduleNotifiers = [];
     private bool _changingModule;
+    private readonly Dictionary<string, TabItem> _openTabs = new(StringComparer.OrdinalIgnoreCase);
 
     public MainWindow()
     {
@@ -62,7 +63,7 @@ public partial class MainWindow : Window
             _tutorial?.Dispose();
             _source?.RemoveHook(WindowMessages);
             if (_appearance is not null) _appearance.ThemeChanged -= OnThemeChanged;
-            if (_moduleNotifier is not null) _moduleNotifier.PropertyChanged -= ModuleStateChanged;
+            foreach (var notifier in _moduleNotifiers) notifier.PropertyChanged -= ModuleStateChanged;
         };
     }
 
@@ -71,7 +72,7 @@ public partial class MainWindow : Window
         // Only the built-in subtitle workflow belongs to the host. Optional tools are discovered.
         _modules = new ModuleRegistry();
         RootLayout.DataContext = vm;
-        _modules.Register(new("subtitles", "Subtítulos de CapCut", () => new SubtitleModule(vm, RootLayout)));
+        _modules.Register(new("subtitles", "Obtener subtítulos", () => new SubtitleModule(vm, RootLayout)));
         foreach (var error in _discovery.RegisterFrom(System.IO.Path.Combine(AppContext.BaseDirectory, "Modules"), _modules))
             Services.AppLog.Write(new InvalidOperationException(error));
         ModuleContainer.Children.Remove(RootLayout);
@@ -82,33 +83,62 @@ public partial class MainWindow : Window
     private void ModuleChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_changingModule || _modules is null || ModuleSelector.SelectedItem is not ModuleDefinition definition) return;
-        if (_modules.IsBusy)
-        {
-            _changingModule = true; ModuleSelector.SelectedItem = _activeDefinition; _changingModule = false;
-            return;
-        }
         try
         {
-            var module = _modules.Get(definition.Id);
-            if (module.View is not FrameworkElement view) throw new InvalidOperationException("El módulo no proporciona una vista de escritorio.");
-            _activeModule?.Deactivate();
-            if (_moduleNotifier is not null) _moduleNotifier.PropertyChanged -= ModuleStateChanged;
-            _activeModule = module; _activeDefinition = definition;
-            ModuleHost.Content = view;
-            _moduleNotifier = view.DataContext as INotifyPropertyChanged;
-            if (_moduleNotifier is not null) _moduleNotifier.PropertyChanged += ModuleStateChanged;
-            ModuleSelector.IsEnabled = !_modules.IsBusy;
+            if (!_openTabs.TryGetValue(definition.Id, out var tab))
+            {
+                if (_modules.Get(definition.Id).View is not FrameworkElement) throw new InvalidOperationException("El módulo no proporciona una vista de escritorio.");
+                var header = new StackPanel { Orientation = Orientation.Horizontal };
+                header.Children.Add(new TextBlock { Text = definition.DisplayName, VerticalAlignment = VerticalAlignment.Center });
+                var close = new Button { Content = "×", Width = 26, Height = 26, MinHeight = 0, Padding = new Thickness(0), Margin = new Thickness(12,0,0,0), ToolTip = "Cerrar pestaña" };
+                tab = new TabItem { Header = header, Tag = definition };
+                close.Click += (_, args) => { args.Handled = true; CloseModuleTab(definition.Id); };
+                header.Children.Add(close); _openTabs.Add(definition.Id, tab); ModuleTabs.Items.Add(tab);
+            }
+            ModuleTabs.SelectedItem = tab;
         }
         catch (Exception ex)
         {
             Services.AppLog.Write(ex);
-            _changingModule = true; ModuleSelector.SelectedItem = _activeDefinition; _changingModule = false;
             MessageBox.Show(this, ex.Message, "Módulos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        finally { _changingModule = true; ModuleSelector.SelectedIndex = -1; _changingModule = false; }
+    }
+
+    private void TabChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (!ReferenceEquals(e.Source, ModuleTabs) || _modules is null) return;
+        _activeModule?.Deactivate();
+        _activeModule = null; _activeDefinition = null;
+        if (ModuleTabs.SelectedItem is TabItem { Tag: ModuleDefinition definition })
+        {
+            var module = _modules.Get(definition.Id);
+            _activeModule = module; _activeDefinition = definition;
+            ModuleHost.Content = module.View;
+            if ((module.View as FrameworkElement)?.DataContext is INotifyPropertyChanged notifier && _moduleNotifiers.Add(notifier))
+                notifier.PropertyChanged += ModuleStateChanged;
+        }
+        else ModuleHost.Content = null;
+        EmptyModules.Visibility = _activeModule is null ? Visibility.Visible : Visibility.Collapsed;
+        ModuleStateChanged(null, new(null));
+    }
+
+    public void CloseModuleTab(string id)
+    {
+        if (_modules is null || !_openTabs.TryGetValue(id, out var tab)) return;
+        if (_modules.Get(id).IsBusy) return;
+        _modules.Get(id).Deactivate();
+        _openTabs.Remove(id); ModuleTabs.Items.Remove(tab);
+        if (ModuleTabs.SelectedIndex < 0 && ModuleTabs.Items.Count > 0) ModuleTabs.SelectedIndex = 0;
     }
 
     private void ModuleStateChanged(object? sender, PropertyChangedEventArgs e)
-    { if (!_closing) ModuleSelector.IsEnabled = _modules?.IsBusy != true; }
+    {
+        if (_closing || _modules is null) return;
+        foreach (var (id, tab) in _openTabs)
+            if (tab.Header is StackPanel header && header.Children.OfType<Button>().FirstOrDefault() is { } close)
+                close.IsEnabled = !_modules.Get(id).IsBusy;
+    }
 
     private void OnSourceInitialized(object? sender, EventArgs e)
     {

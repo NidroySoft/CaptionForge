@@ -10,6 +10,6 @@ public sealed class TextToSpeechModule : IApplicationModule
     public async Task ShutdownAsync()
     {
         _view.StopPlayback();
-        await _view.Model.ShutdownAsync();
+        await _view.ShutdownAsync();
     }
 }

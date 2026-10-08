@@ -47,6 +47,18 @@ internal static class Program
                 selector.SelectedIndex = 1;
                 Require(host.Content is SpeechView, "Speech module did not load");
                 var voiceView = (SpeechView)host.Content;
+                var tabs = (TabControl)window.FindName("ModuleTabs");
+                Require(tabs.Items.Count == 2, "Expected subtitle and speech tabs");
+                selector.SelectedIndex = 1;
+                Require(tabs.Items.Count == 2 && ReferenceEquals(host.Content, voiceView), "Opening a module duplicated its tab");
+                await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+                Render(window, Path.Combine(directory, "empty-result.png"));
+                var optionsPanel = (FrameworkElement)voiceView.FindName("OptionsPanel");
+                var resultPanel = (FrameworkElement)voiceView.FindName("ResultPanel");
+                Require(Math.Abs(optionsPanel.ActualWidth - resultPanel.ActualWidth) < 1, "Generation and result columns are unbalanced");
+                Require(resultPanel.TranslatePoint(new Point(), voiceView).X > optionsPanel.TranslatePoint(new Point(optionsPanel.ActualWidth, 0), voiceView).X, "Result overlaps generation options");
+                Require(((FrameworkElement)voiceView.FindName("ResultPanel")).Visibility == Visibility.Visible, "Empty result panel disappeared");
+                Require(((TextBlock)voiceView.FindName("ResultEmptyMessage")).Visibility == Visibility.Visible, "Empty result guidance missing");
                 voiceView.Model.Text = "Module state survives navigation.";
                 voiceView.Model.SelectedEngine = voiceView.Model.Engines.Single(e => e.Engine == SpeechEngine.Nano);
                 Require(voiceView.Model.Languages.Count == 1 && voiceView.Model.UsesReference, "Nano language/reference controls");
@@ -75,12 +87,21 @@ internal static class Program
                     Require(voiceView.Model.HasOutput && voiceView.Model.Waveform is not null, "Fresh installation did not generate audio");
                     Console.WriteLine("PASS: Automatic installation and real generation without system Python.");
                 }
-                var sample = Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "artifacts", "module-checks"), "*.wav").FirstOrDefault();
+                var sample = Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "artifacts", "module-checks"), "*.wav").FirstOrDefault(path => !Path.GetFileName(path).Contains("-nivel-"));
                 if (sample is not null)
                 {
+                    voiceView.Model.SelectedEngine = voiceView.Model.Engines.Single(e => e.Engine == SpeechEngine.Nano);
+                    voiceView.Model.ReferencePath = sample;
+                    await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+                    var reference = (ReferenceAudioView)voiceView.FindName("ReferencePlayer");
+                    await reference.Loading;
+                    Require(reference.Audio is { DurationSeconds: > 0 }, "Reference waveform did not load");
+                    Render(window, Path.Combine(directory, "reference-audio.png"));
                     await voiceView.Model.LoadPreviewAsync(sample);
+                    await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+                    Require(((TextBlock)voiceView.FindName("ResultEmptyMessage")).Visibility == Visibility.Collapsed, "Empty guidance remained after generation");
                     await voiceView.Model.AdjustAudioAsync(normalize: true);
-                    Require(voiceView.Model.Status.Contains("Sin saturación"), "Normalization failed");
+                    Require(voiceView.Model.Status.Contains("Sin saturación"), "Normalization failed: " + voiceView.Model.Status);
                     var firstPeaks = voiceView.Model.Waveform!.Peaks.ToArray();
                     await voiceView.Model.AdjustAudioAsync(normalize: true);
                     Require(firstPeaks.SequenceEqual(voiceView.Model.Waveform!.Peaks), "Repeated normalization accumulated gain");
@@ -89,6 +110,8 @@ internal static class Program
                     Require(voiceView.Model.Status.Contains("Ganancia aplicada"), "Manual gain failed");
                     await voiceView.Model.AdjustAudioAsync(normalize: false, restore: true);
                     Require(voiceView.Model.OutputPath == sample, "Original audio was not restored");
+                    await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+                    Require(((ComboBox)voiceView.FindName("LanguageSelector")).SelectedItem is LanguageChoice { Code: "en" }, "Language selection was cleared by operation state changes");
                     Console.WriteLine("PASS: normalization, manual gain and original restoration.");
                 }
                 if (sample is not null && args.Contains("--playback"))
@@ -111,6 +134,21 @@ internal static class Program
                 }
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
                 Render(window, Path.Combine(directory, "text-to-speech.png"));
+                var languageDisplay = (ComboBox)voiceView.FindName("LanguageSelector");
+                Require(Descendants(languageDisplay).OfType<TextBlock>().Any(text => text.Text == voiceView.Model.SelectedLanguage.Name), "Selected language label was not rendered");
+                Render(window, Path.Combine(directory, "compact.png"), 820, 510);
+                var expert = Descendants(voiceView).OfType<Expander>().Single(expander => Equals(expander.Header, "Ganancia manual · experto"));
+                expert.IsExpanded = true;
+                Render(window, Path.Combine(directory, "expert.png"));
+                expert.IsExpanded = false;
+                // Render the official light palette without writing appearance preferences.
+                using (var paletteStream = System.Windows.Application.GetResourceStream(new Uri("Resources/Palettes.json", UriKind.Relative))!.Stream)
+                {
+                    var light = CaptionForge.Desktop.Appearance.PaletteCatalog.Load(paletteStream).Resolve(null, CaptionForge.Desktop.Appearance.AppearanceMode.Light).Variants[CaptionForge.Desktop.Appearance.AppearanceMode.Light];
+                    foreach (var property in light.GetType().GetProperties())
+                        app.Resources[property.Name + "Brush"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString((string)property.GetValue(light)!)!);
+                    Render(window, Path.Combine(directory, "light.png"));
+                }
                 string preservedText = voiceView.Model.Text;
                 selector.SelectedIndex = 0;
                 Require(ReferenceEquals(host.Content, subtitles), "Subtitle state was replaced");
@@ -126,6 +164,16 @@ internal static class Program
                 selector.SelectedIndex = 1;
                 Require(ReferenceEquals(host.Content, voiceView) && voiceView.Model.Text == preservedText, "Speech state was replaced");
                 Console.WriteLine("PASS: WPF views, language controls, local voices and navigation retain state.");
+                window.CloseModuleTab("text-to-speech");
+                Require(tabs.Items.Count == 1 && ReferenceEquals(host.Content, subtitles), "Closing a tab failed");
+                selector.SelectedIndex = 1;
+                Require(tabs.Items.Count == 2 && ReferenceEquals(host.Content, voiceView), "Reopening a tab duplicated its instance");
+                window.CloseModuleTab("subtitles"); window.CloseModuleTab("text-to-speech");
+                Require(tabs.Items.Count == 0 && host.Content is null, "Closing the last tab failed");
+                selector.SelectedIndex = 0;
+                Require(tabs.Items.Count == 1 && ReferenceEquals(host.Content, subtitles), "Reopening subtitles failed");
+                await voiceView.ShutdownAsync();
+                Console.WriteLine("PASS: unique tabs, close/reopen, empty state and reference waveform.");
 
                 if (args.Contains("--real-speech"))
                 {
@@ -172,15 +220,15 @@ internal static class Program
         }
     }
 
-    private static void Render(MainWindow window, string path)
+    private static void Render(MainWindow window, string path, int width = 1040, int height = 660)
     {
         var content = (FrameworkElement)window.Content;
-        content.Measure(new Size(1040, 660));
-        content.Arrange(new Rect(0, 0, 1040, 660));
+        content.Measure(new Size(width, height));
+        content.Arrange(new Rect(0, 0, width, height));
         content.UpdateLayout();
-        var bitmap = new RenderTargetBitmap(1040, 660, 96, 96, PixelFormats.Pbgra32);
+        var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
         var background = new DrawingVisual();
-        using (var drawing = background.RenderOpen()) drawing.DrawRectangle(window.Background, null, new Rect(0, 0, 1040, 660));
+        using (var drawing = background.RenderOpen()) drawing.DrawRectangle(window.Background, null, new Rect(0, 0, width, height));
         bitmap.Render(background);
         bitmap.Render(content);
         var encoder = new PngBitmapEncoder();

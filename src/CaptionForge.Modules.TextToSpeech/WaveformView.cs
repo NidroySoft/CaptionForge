@@ -17,7 +17,13 @@ public sealed class WaveformView : FrameworkElement
     {
         Brush Resource(string key, Brush fallback) => TryFindResource(key) as Brush ?? fallback;
         drawing.DrawRoundedRectangle(Resource("InputBrush", Brushes.DarkSlateGray), null, new Rect(RenderSize), 8, 8);
-        if (Audio is not { } audio) return;
+        if (Audio is not { } audio)
+        {
+            var empty = Resource("BorderBrush", Brushes.SlateGray);
+            for (double barX = 8; barX < ActualWidth - 8; barX += 6)
+                drawing.DrawRoundedRectangle(empty, null, new Rect(barX, ActualHeight / 2 - 2, 2, 4), 1, 1);
+            return;
+        }
         var played = Resource("AccentBrush", Brushes.CornflowerBlue);
         var pending = Resource("MutedBrush", Brushes.SlateGray);
         int bars = Math.Min(audio.Peaks.Length, Math.Max(1, (int)(ActualWidth / 5)));

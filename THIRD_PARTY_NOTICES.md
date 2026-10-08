@@ -21,6 +21,8 @@ The local speech module integrates separately installed Kokoro, Pocket TTS and C
 
 ## Other components
 
+The independent text-to-speech module uses NAudio 2.2.1 to decode reference audio for its waveform and preview. NAudio is distributed under MIT; its license is retained in [licenses/NAudio-MIT.txt](licenses/NAudio-MIT.txt) and copied into the module package. Upstream: https://github.com/naudio/NAudio.
+
 .NET/WPF, the native Whisper runtime and its dependencies, Microsoft.Extensions.AI.Abstractions, and other restored packages are governed by their own notices and licenses. Preserve notices included in the packages and published runtime. This file is not a complete inventory of all transitive dependencies or a substitute for their license texts.
 
 FFmpeg/FFprobe and Whisper model files are configured separately and are not added to CaptionForge's release ZIP by the current workflow. Their licenses must be checked for the particular distribution or model obtained, especially if a future release bundles them.

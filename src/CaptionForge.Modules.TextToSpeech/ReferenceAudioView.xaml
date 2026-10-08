@@ -1,0 +1,14 @@
+<UserControl x:Class="CaptionForge.Modules.TextToSpeech.ReferenceAudioView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:CaptionForge.Modules.TextToSpeech">
+ <StackPanel>
+  <local:WaveformView x:Name="Bars" Height="58" Margin="0,8,0,6" AutomationProperties.Name="Forma de onda del audio de referencia"/>
+  <Grid IsEnabled="False" x:Name="Controls">
+   <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+   <Button x:Name="PlayButton" Content="▶" Width="38" ToolTip="Reproducir o pausar referencia" Click="Play"/>
+   <Slider x:Name="Position" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" ValueChanged="SeekSlider" AutomationProperties.Name="Posición de la referencia"/>
+   <Button Grid.Column="2" Content="■" Width="38" ToolTip="Detener referencia" Click="Stop"/>
+  </Grid>
+  <TextBlock x:Name="Info" Text="Selecciona una muestra para ver sus barras y escucharla." TextWrapping="Wrap" Foreground="{DynamicResource MutedBrush}" Margin="0,6,0,0"/>
+ </StackPanel>
+</UserControl>

@@ -28,7 +28,14 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     public bool CanAdjustAudio => HasOutput && !IsBusy;
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Notify([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new(name));
-    private void NotifyAll() => PropertyChanged?.Invoke(this, new(null));
+    private void NotifyAll()
+    {
+        // Refresh item sources before selections; a global notification can clear a ComboBox
+        // selection while its dependent language source is being replaced.
+        foreach (var property in GetType().GetProperties().Where(p => p.Name is not nameof(SelectedEngine) and not nameof(SelectedLanguage) and not nameof(SelectedVoice)))
+            Notify(property.Name);
+        Notify(nameof(SelectedEngine)); Notify(nameof(SelectedLanguage)); Notify(nameof(SelectedVoice));
+    }
     public IReadOnlyList<EngineChoice> Engines { get; } = [new(SpeechEngine.Kokoro, "Kokoro"), new(SpeechEngine.Pocket, "Pocket TTS (sin clonación)"), new(SpeechEngine.Nano, "Chatterbox Nano"), new(SpeechEngine.ChatterboxMultilingual, "Chatterbox Multilingual V3")];
     private static readonly IReadOnlyList<LanguageChoice> Bilingual = [new("en", "Inglés"), new("es", "Español")];
     private static readonly IReadOnlyList<LanguageChoice> English = [Bilingual[0]];
@@ -179,7 +186,8 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
                 OutputPath = _originalAudio; Status = "Audio original restaurado."; return;
             }
             Status = normalize ? "Midiendo y normalizando el audio…" : "Aplicando ganancia…";
-            processed = Path.Combine(Path.GetDirectoryName(_originalAudio)!, Path.GetFileNameWithoutExtension(_originalAudio) + "-nivel-" + Guid.NewGuid().ToString("N") + ".wav");
+            var stem = Path.GetFileNameWithoutExtension(_originalAudio);
+            processed = Path.Combine(Path.GetDirectoryName(_originalAudio)!, stem[..Math.Min(64, stem.Length)] + "-nivel-" + Guid.NewGuid().ToString("N") + ".wav");
             double? gain = normalize ? null : GainDb;
             var result = await Task.Run(() => AudioLevelProcessor.Process(_originalAudio, processed, gain));
             var waveform = await Task.Run(() => WaveformData.Read(processed));
