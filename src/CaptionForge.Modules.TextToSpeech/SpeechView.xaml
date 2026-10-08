@@ -59,6 +59,16 @@
        <Slider x:Name="AudioPosition" Grid.Column="1" Minimum="0" Maximum="1" ValueChanged="PositionChanged" Margin="12,0" VerticalAlignment="Center" AutomationProperties.Name="Posición del audio"/>
        <Button Grid.Column="2" Content="■ Detener" Click="Stop"/>
       </Grid>
+      <DockPanel Margin="0,10,0,0" IsEnabled="{Binding CanAdjustAudio}">
+       <Button DockPanel.Dock="Left" Content="Normalizar automáticamente" Click="NormalizeAudio" ToolTip="Mide el pico del audio y ajusta su nivel a −1 dBFS, dejando margen sin saturar."/>
+       <Button DockPanel.Dock="Right" Content="Original" Click="RestoreAudio" Margin="8,0,0,0"/>
+       <Expander Header="Ganancia manual · experto" Margin="12,0,0,0">
+        <StackPanel Margin="0,8,0,0">
+         <DockPanel><Button DockPanel.Dock="Right" Content="Aplicar" Click="ApplyGain" Margin="8,0,0,0"/><TextBlock DockPanel.Dock="Right" Text="{Binding GainDb,StringFormat={}{0:+0.0;-0.0;0.0} dB}" Width="75" VerticalAlignment="Center"/><Slider Value="{Binding GainDb}" Minimum="-60" Maximum="30" TickFrequency="0.5" IsSnapToTickEnabled="True" AutomationProperties.Name="Ganancia manual en decibelios" VerticalAlignment="Center"/></DockPanel>
+         <TextBlock Text="Ajusta sobre el original. Una ganancia excesiva puede saturar; el resultado indica si ocurrió." Style="{DynamicResource Muted}" TextWrapping="Wrap" Margin="0,6,0,0"/>
+        </StackPanel>
+       </Expander>
+      </DockPanel>
       <DockPanel Margin="0,8,0,0"><Button DockPanel.Dock="Right" Content="Guardar WAV como…" Click="SaveAudio" Margin="8,0,0,0"/><Button DockPanel.Dock="Right" Content="Abrir carpeta" Click="OpenOutputFolder"/><TextBlock Text="{Binding OutputPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding OutputPath}" Style="{DynamicResource Muted}" VerticalAlignment="Center"/></DockPanel>
      </StackPanel>
     </Border>

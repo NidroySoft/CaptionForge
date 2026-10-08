@@ -76,7 +76,21 @@ internal static class Program
                     Console.WriteLine("PASS: Automatic installation and real generation without system Python.");
                 }
                 var sample = Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "artifacts", "module-checks"), "*.wav").FirstOrDefault();
-                if (sample is not null) await voiceView.Model.LoadPreviewAsync(sample);
+                if (sample is not null)
+                {
+                    await voiceView.Model.LoadPreviewAsync(sample);
+                    await voiceView.Model.AdjustAudioAsync(normalize: true);
+                    Require(voiceView.Model.Status.Contains("Sin saturación"), "Normalization failed");
+                    var firstPeaks = voiceView.Model.Waveform!.Peaks.ToArray();
+                    await voiceView.Model.AdjustAudioAsync(normalize: true);
+                    Require(firstPeaks.SequenceEqual(voiceView.Model.Waveform!.Peaks), "Repeated normalization accumulated gain");
+                    voiceView.Model.GainDb = -6;
+                    await voiceView.Model.AdjustAudioAsync(normalize: false);
+                    Require(voiceView.Model.Status.Contains("Ganancia aplicada"), "Manual gain failed");
+                    await voiceView.Model.AdjustAudioAsync(normalize: false, restore: true);
+                    Require(voiceView.Model.OutputPath == sample, "Original audio was not restored");
+                    Console.WriteLine("PASS: normalization, manual gain and original restoration.");
+                }
                 if (sample is not null && args.Contains("--playback"))
                 {
                     var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);

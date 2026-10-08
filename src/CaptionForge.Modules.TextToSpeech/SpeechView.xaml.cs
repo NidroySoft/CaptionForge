@@ -85,6 +85,9 @@ public partial class SpeechView : UserControl
         UpdatePosition();
     }
     private void Stop(object sender, RoutedEventArgs e) => StopPlayback();
+    private async void NormalizeAudio(object sender, RoutedEventArgs e) { StopPlayback(); await Model.AdjustAudioAsync(normalize: true); }
+    private async void ApplyGain(object sender, RoutedEventArgs e) { StopPlayback(); await Model.AdjustAudioAsync(normalize: false); }
+    private async void RestoreAudio(object sender, RoutedEventArgs e) { StopPlayback(); await Model.AdjustAudioAsync(normalize: false, restore: true); }
     private void SaveAudio(object sender, RoutedEventArgs e)
     {
         if (!Model.HasOutput) return;

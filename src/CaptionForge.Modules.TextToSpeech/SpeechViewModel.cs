@@ -22,6 +22,10 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     private bool _busy;
     private double _progress, _speed = 1, _exaggeration = 0.5;
     private int _seed = 42;
+    private string _originalAudio = "";
+    private double _gainDb;
+    public double GainDb { get => _gainDb; set { _gainDb = value; Notify(); } }
+    public bool CanAdjustAudio => HasOutput && !IsBusy;
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Notify([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new(name));
     private void NotifyAll() => PropertyChanged?.Invoke(this, new(null));
@@ -148,6 +152,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
             _settings.Save();
             var result = await _service.GenerateAsync(request, new Progress<SpeechProgress>(p => { Status = p.Message; Progress = p.Fraction * 100; }), cts.Token);
             OutputPath = result.AudioPath;
+            _originalAudio = result.AudioPath;
             Waveform = await Task.Run(() => WaveformData.Read(result.AudioPath), cts.Token);
             Status = $"Audio listo: {result.DurationSeconds:F1} s · Generación y carga: {result.ElapsedSeconds:F1} s";
         }
@@ -156,6 +161,39 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
         finally { _cts = null; IsBusy = false; }
     }
     public void Cancel() => _cts?.Cancel();
-    public async Task LoadPreviewAsync(string path) { Waveform = await Task.Run(() => WaveformData.Read(path)); OutputPath = path; }
+    public async Task LoadPreviewAsync(string path) { Waveform = await Task.Run(() => WaveformData.Read(path)); OutputPath = path; _originalAudio = path; }
+    public Task AdjustAudioAsync(bool normalize, bool restore = false)
+    {
+        if (!CanAdjustAudio) return Task.CompletedTask;
+        _running = AdjustAudioCoreAsync(normalize, restore); return _running;
+    }
+    private async Task AdjustAudioCoreAsync(bool normalize, bool restore)
+    {
+        IsBusy = true;
+        string? processed = null;
+        try
+        {
+            if (restore)
+            {
+                Waveform = await Task.Run(() => WaveformData.Read(_originalAudio));
+                OutputPath = _originalAudio; Status = "Audio original restaurado."; return;
+            }
+            Status = normalize ? "Midiendo y normalizando el audio…" : "Aplicando ganancia…";
+            processed = Path.Combine(Path.GetDirectoryName(_originalAudio)!, Path.GetFileNameWithoutExtension(_originalAudio) + "-nivel-" + Guid.NewGuid().ToString("N") + ".wav");
+            double? gain = normalize ? null : GainDb;
+            var result = await Task.Run(() => AudioLevelProcessor.Process(_originalAudio, processed, gain));
+            var waveform = await Task.Run(() => WaveformData.Read(processed));
+            OutputPath = processed; Waveform = waveform;
+            Status = $"{(normalize ? "Normalizado a −1 dBFS de pico" : "Ganancia aplicada")}: {result.GainDb:+0.0;-0.0;0.0} dB. " +
+                (result.ClippedSamples > 0 ? $"Saturación en {result.ClippedSamples} muestras; reduce la ganancia." : "Sin saturación. El original se conserva.");
+            processed = null;
+        }
+        catch (Exception e) { Status = "No se pudo ajustar el audio: " + e.Message; }
+        finally
+        {
+            if (processed is not null && File.Exists(processed)) { try { File.Delete(processed); } catch (IOException) { } }
+            IsBusy = false;
+        }
+    }
     public async Task ShutdownAsync() { Cancel(); if (_running is not null) await _running; }
 }
