@@ -7,6 +7,10 @@ using CaptionForge.Desktop.ViewModels;
 using CaptionForge.Desktop.Guidance;
 using CaptionForge.Desktop.Localization;
 using CaptionForge.Desktop.Views;
+using CaptionForge.Modularity;
+using CaptionForge.Desktop.Modules;
+using CaptionForge.Modules.TextToSpeech;
+using System.Windows.Controls;
 
 namespace CaptionForge.Desktop;
 
@@ -18,6 +22,11 @@ public partial class MainWindow : Window
     private HwndSource? _source;
     private AppearanceViewModel? _appearance;
     private TutorialCoordinator? _tutorial;
+    private ModuleRegistry? _modules;
+    private IApplicationModule? _activeModule;
+    private ModuleDefinition? _activeDefinition;
+    private INotifyPropertyChanged? _moduleNotifier;
+    private bool _changingModule;
 
     public MainWindow()
     {
@@ -36,6 +45,13 @@ public partial class MainWindow : Window
             _appearance = (DataContext as MainViewModel)?.Appearance;
             if (_appearance is not null) _appearance.ThemeChanged += OnThemeChanged;
             if (_source is not null) ApplyTitleBarTheme(_source.Handle);
+            // Reparent after WPF finishes propagating the new DataContext to the existing tree.
+            // Moving the view inside DataContextChanged can leave child bindings on the old context.
+            if (DataContext is MainViewModel vm && _modules is null)
+                Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
+                {
+                    if (_modules is null && !_readyToClose && ReferenceEquals(DataContext, vm)) InitializeModules(vm);
+                }));
         };
         SourceInitialized += OnSourceInitialized;
         Loaded += OnLoaded;
@@ -46,8 +62,52 @@ public partial class MainWindow : Window
             _tutorial?.Dispose();
             _source?.RemoveHook(WindowMessages);
             if (_appearance is not null) _appearance.ThemeChanged -= OnThemeChanged;
+            if (_moduleNotifier is not null) _moduleNotifier.PropertyChanged -= ModuleStateChanged;
         };
     }
+
+    private void InitializeModules(MainViewModel vm)
+    {
+        // Registration is the only place the host knows the concrete modules.
+        _modules = new ModuleRegistry();
+        RootLayout.DataContext = vm;
+        _modules.Register(new("subtitles", "Subtítulos de CapCut", () => new SubtitleModule(vm, RootLayout)));
+        _modules.Register(new("text-to-speech", "Texto a voz", () => new TextToSpeechModule()));
+        ModuleContainer.Children.Remove(RootLayout);
+        ModuleSelector.ItemsSource = _modules.Definitions;
+        ModuleSelector.SelectedIndex = 0;
+    }
+
+    private void ModuleChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_changingModule || _modules is null || ModuleSelector.SelectedItem is not ModuleDefinition definition) return;
+        if (_modules.IsBusy)
+        {
+            _changingModule = true; ModuleSelector.SelectedItem = _activeDefinition; _changingModule = false;
+            return;
+        }
+        try
+        {
+            var module = _modules.Get(definition.Id);
+            if (module.View is not FrameworkElement view) throw new InvalidOperationException("El módulo no proporciona una vista de escritorio.");
+            _activeModule?.Deactivate();
+            if (_moduleNotifier is not null) _moduleNotifier.PropertyChanged -= ModuleStateChanged;
+            _activeModule = module; _activeDefinition = definition;
+            ModuleHost.Content = view;
+            _moduleNotifier = view.DataContext as INotifyPropertyChanged;
+            if (_moduleNotifier is not null) _moduleNotifier.PropertyChanged += ModuleStateChanged;
+            ModuleSelector.IsEnabled = !_modules.IsBusy;
+        }
+        catch (Exception ex)
+        {
+            Services.AppLog.Write(ex);
+            _changingModule = true; ModuleSelector.SelectedItem = _activeDefinition; _changingModule = false;
+            MessageBox.Show(this, ex.Message, "Módulos", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void ModuleStateChanged(object? sender, PropertyChangedEventArgs e)
+    { if (!_closing) ModuleSelector.IsEnabled = _modules?.IsBusy != true; }
 
     private void OnSourceInitialized(object? sender, EventArgs e)
     {
@@ -169,13 +229,13 @@ public partial class MainWindow : Window
         if (_closing) return;
         if (DataContext is MainViewModel vm)
         {
-            if (vm.IsBusy && MessageBox.Show(L.T("ui.hayUnaOperacionEnCursoSeSolicitaraLaCancelacion"),
+            if ((vm.IsBusy || _modules?.IsBusy == true) && MessageBox.Show(L.T("ui.hayUnaOperacionEnCursoSeSolicitaraLaCancelacion"),
                     "CaptionForge", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
             _closing = true;
             _tutorial?.Dispose();
             TutorialLayer.Visibility=Visibility.Collapsed;
             IsEnabled = false;
-            try { await vm.ShutdownAsync(); }
+            try { if (_modules is not null) await _modules.ShutdownAsync(); else await vm.ShutdownAsync(); }
             catch (Exception ex) { Services.AppLog.Write(ex); }
         }
         _readyToClose = true;

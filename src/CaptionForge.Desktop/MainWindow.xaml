@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:CaptionForge.Desktop.Views" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" xmlns:g="clr-namespace:CaptionForge.Desktop.Guidance" x:Class="CaptionForge.Desktop.MainWindow" Title="CaptionForge" Icon="Resources/CaptionForge.ico" Style="{StaticResource AppWindow}" Width="1080" Height="740" MinWidth="860" MinHeight="600" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" ResizeMode="CanResize" SizeToContent="Manual">
-  <Grid x:Name="RootLayout" Margin="20,16">
+  <Grid x:Name="ModuleContainer">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+    <DockPanel Margin="20,12,20,0">
+      <TextBlock Text="Herramienta" VerticalAlignment="Center" Margin="0,0,12,0"/>
+      <ComboBox x:Name="ModuleSelector" DisplayMemberPath="DisplayName" SelectionChanged="ModuleChanged" Width="280" HorizontalAlignment="Left" AutomationProperties.Name="Herramienta de CaptionForge"/>
+    </DockPanel>
+    <ContentControl x:Name="ModuleHost" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+  <Grid x:Name="RootLayout" Grid.Row="1" Margin="20,16">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
@@ -126,5 +133,6 @@
       </Grid>
     </Grid>
     <c:TutorialOverlay x:Name="TutorialLayer" Grid.Row="0" Grid.RowSpan="5" Panel.ZIndex="100" Visibility="Collapsed"/>
+  </Grid>
   </Grid>
 </Window>

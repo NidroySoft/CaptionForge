@@ -13,6 +13,12 @@ CaptionForge contains and integrates independently licensed components. The root
 
 Keep the original `LICENSE` and `NOTICE.md` in the compatibility source project. Its independent MIT permissions, including commercial permissions, remain available. A redistribution of the full CaptionForge application that also contains CaptionForge-covered material must satisfy both sets of applicable terms.
 
+## Pocket TTS configurations and local speech engines
+
+`src/CaptionForge.Modules.TextToSpeech/Backend/config/english.yaml` and `spanish.yaml` are Pocket TTS configurations from Kyutai's upstream package, distributed under MIT. The complete upstream license is retained in [licenses/Pocket-TTS-MIT.txt](licenses/Pocket-TTS-MIT.txt). Upstream: https://github.com/kyutai-labs/pocket-tts.
+
+The local speech module integrates separately installed Kokoro, Pocket TTS and Chatterbox Python packages and model weights. Python runtimes, packages, model weights, preset voices and reference recordings are not included in the CaptionForge executable or release ZIP. Their respective terms govern their use and redistribution; the CaptionForge license grants no rights to those assets.
+
 ## Other components
 
 .NET/WPF, the native Whisper runtime and its dependencies, Microsoft.Extensions.AI.Abstractions, and other restored packages are governed by their own notices and licenses. Preserve notices included in the packages and published runtime. This file is not a complete inventory of all transitive dependencies or a substitute for their license texts.

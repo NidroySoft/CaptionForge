@@ -6,6 +6,8 @@
         <TextBlock DockPanel.Dock="Right" Text="{Binding Preview.TimeLabel}" Style="{StaticResource Muted}" Margin="8,0,0,0" FontSize="11" VerticalAlignment="Center"/>
         <TextBlock Text="{Binding Preview.Label}" TextTrimming="CharacterEllipsis" FontWeight="SemiBold" ToolTip="{Binding Preview.Label}"/>
       </DockPanel>
+      <TextBlock Text="{Binding Preview.Detail}" Style="{StaticResource Muted}" FontSize="11"
+                 TextTrimming="CharacterEllipsis" ToolTip="{Binding Preview.Detail}" Margin="0,4,0,0"/>
       <Grid Margin="0,8,0,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
@@ -13,7 +15,7 @@
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Button Content="{Binding Preview.PlayLabel}" Command="{Binding TogglePreview}" Padding="9,5" MinHeight="30" ToolTip="{DynamicResource Loc.ui.reproducirOPausarElRecorteSeleccionado}"/>
-        <Slider Grid.Column="1" Margin="12,0" Minimum="0" Maximum="{Binding Preview.DurationSeconds}" Value="{Binding Preview.PositionSeconds,Mode=TwoWay}" VerticalAlignment="Center" AutomationProperties.Name="{DynamicResource Loc.ui.posicionDelRecorte}"/>
+        <Slider Grid.Column="1" Margin="12,0" Minimum="0" Maximum="{Binding Preview.DurationSeconds}" Value="{Binding Preview.PositionSeconds,Mode=TwoWay}" IsEnabled="{Binding Preview.CanPlay}" VerticalAlignment="Center" AutomationProperties.Name="{DynamicResource Loc.ui.posicionDelRecorte}"/>
         <Button Grid.Column="2" Content="■" Command="{Binding StopPreview}" Padding="9,5" MinHeight="30" ToolTip="{DynamicResource Loc.ui.detenerReproduccion}"/>
       </Grid>
       <TextBlock Text="{Binding Preview.Error}" MaxHeight="36" ToolTip="{Binding Preview.Error}" Foreground="{DynamicResource WarningBrush}" TextWrapping="Wrap"/>

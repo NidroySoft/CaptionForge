@@ -20,5 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="../CaptionForge.Application/CaptionForge.Application.csproj" />
     <ProjectReference Include="../CaptionForge.Infrastructure/CaptionForge.Infrastructure.csproj" />
+    <ProjectReference Include="../CaptionForge.Modularity/CaptionForge.Modularity.csproj" />
+    <ProjectReference Include="../CaptionForge.Modules.TextToSpeech/CaptionForge.Modules.TextToSpeech.csproj" />
   </ItemGroup>
 </Project>

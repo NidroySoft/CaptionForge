@@ -21,6 +21,7 @@
 <p align="center">
   <a href="#instalación">Instalación</a> ·
   <a href="#guía-de-uso">Guía de uso</a> ·
+  <a href="#módulos-y-texto-a-voz">Texto a voz</a> ·
   <a href="#pruebas-y-calidad">Pruebas</a> ·
   <a href="https://github.com/NidroySoft/CaptionForge/releases">Releases</a> ·
   <a href="https://github.com/NidroySoft/CaptionForge/issues">Reportar un problema</a>
@@ -54,12 +55,36 @@ CaptionForge es un proyecto independiente y no está afiliado a CapCut ni a sus 
 | Interfaz | Usar modo claro, oscuro o del sistema, paletas compatibles con cada modo y preferencias persistentes. |
 | Idiomas | Añadir traducciones mediante JSON y descubrirlas al abrir el selector. |
 | Ayuda | Consultar la guía integrada y seguir un tutorial sobre los controles reales de la aplicación. |
+| Módulos | Cambiar de herramienta conservando el estado del trabajo. Los módulos se crean al abrirlos por primera vez. |
+| Texto a voz | Generar, escuchar y exportar WAV locales con Kokoro, Pocket TTS, Chatterbox Nano o Chatterbox Multilingual V3. |
 
 ### Una interfaz pensada para trabajar
 
 La aplicación usa WPF, MVVM y controles reutilizables. La ventana se adapta al espacio disponible y mantiene un tamaño mínimo de trabajo. Las portadas conservan sus proporciones tanto en proyectos verticales como horizontales.
 
 En la pantalla de preparación, cada panel tiene su propio desplazamiento. El reproductor permanece encima de la lista de clips, accesible aunque recorras muchos fragmentos. El engranaje abre la configuración desde cualquier etapa del flujo.
+
+## Módulos y texto a voz
+
+El selector **Herramienta** permite alternar entre **Subtítulos de CapCut** y **Texto a voz**. El módulo de voz tiene su propia vista y configuración; su generación funciona en un proceso Python independiente. La navegación se bloquea durante una operación y cerrar CaptionForge solicita la cancelación del trabajo activo.
+
+1. Selecciona **Texto a voz** y elige motor e idioma.
+2. Para Kokoro o Pocket, elige una voz instalada. Para Chatterbox, selecciona un audio limpio de referencia de más de cinco segundos.
+3. Pega el guion y pulsa **Generar voz**. Puedes cancelar la operación, reproducir el resultado y usar **Guardar WAV como…**.
+4. Si cambias de ubicación los modelos, despliega **Configuración del motor seleccionado y archivos de salida** para indicar el Python, la carpeta de pesos y la salida. Guarda la configuración.
+
+Se detectan las instalaciones del laboratorio existente bajo `%LOCALAPPDATA%\Wondecode`: Kokoro, PocketTTS, ChatterboxNano y ChatterboxMultilingual. Pocket usa su propio entorno Python. **El ejecutable no incluye ni descarga automáticamente Python, dependencias o pesos de voz**; las rutas se pueden configurar en cada equipo. La configuración se guarda en `%LOCALAPPDATA%\CaptionForge\modules\text-to-speech\settings.json` y la salida predeterminada en `%LOCALAPPDATA%\CaptionForge\Speech\Audio`.
+
+| Motor | Idiomas expuestos | Entrada de voz | Ajustes |
+| --- | --- | --- | --- |
+| Kokoro | Inglés y español | Voces `.pt` locales | Velocidad y semilla |
+| Pocket TTS público | Inglés y español | Voces `.safetensors` locales, sin clonación | Semilla |
+| Chatterbox Nano | Inglés | Audio de referencia | Semilla; etiquetas compatibles con el motor |
+| Chatterbox Multilingual V3 | Inglés y español | Audio de referencia | Expresividad y semilla |
+
+Las generaciones se ejecutan de una en una en CPU, por fragmentos, y producen WAV PCM de 16 bits. El proceso libera el modelo al finalizar. Junto al WAV se conserva un registro de diagnóstico y los parámetros de generación. La calidad y el tiempo dependen del motor, de la voz y del equipo; Chatterbox puede tardar varios minutos en CPU. Los controles nuevos de voz están inicialmente en español.
+
+Para añadir nuevas herramientas, consulta [la arquitectura de módulos](docs/Modules.md). Son módulos de código registrados en el proyecto; se compilan con la aplicación.
 
 ## Requisitos
 

@@ -4,6 +4,15 @@
     <ItemsControl.ItemTemplate>
       <DataTemplate>
         <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1" Padding="0,10">
+          <Border.Style>
+            <Style TargetType="Border">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPreviewSelected}" Value="True">
+                  <Setter Property="Background" Value="{DynamicResource SelectionBrush}"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Border.Style>
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="30"/>
@@ -13,6 +22,18 @@
             <CheckBox IsChecked="{Binding Included,Mode=TwoWay}" IsEnabled="{Binding CanInclude}" AutomationProperties.Name="{DynamicResource Loc.ui.incluirFragmento}" ToolTip="{DynamicResource Loc.ui.excluirEsteClipSoloLoOmiteEnLaGeneracion}"/>
             <StackPanel Grid.Column="1" Margin="4,0,12,0">
               <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip="{Binding ResolvedPath}"/>
+              <TextBlock Text="{DynamicResource Loc.preview.selectedClip}" FontSize="10" Margin="0,3,0,0">
+                <TextBlock.Style>
+                  <Style TargetType="TextBlock" BasedOn="{StaticResource Muted}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding IsPreviewSelected}" Value="True">
+                        <Setter Property="Visibility" Value="Visible"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </TextBlock.Style>
+              </TextBlock>
               <TextBlock Text="{Binding TrackLabel}" Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
               <TextBlock Text="{Binding Range}" Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
               <TextBlock Text="{Binding Diagnostic}" Foreground="{DynamicResource WarningBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>

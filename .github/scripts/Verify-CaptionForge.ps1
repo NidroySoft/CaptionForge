@@ -42,5 +42,10 @@ try {
         & dotnet run --project $pass2Checks --configuration Release -- $desktopDirectory $desktopAssembly
         if ($LASTEXITCODE -ne 0) { throw 'Fallaron las comprobaciones del pase 2.' }
     }
+    $moduleChecks = 'checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.csproj'
+    if (Test-Path $moduleChecks) {
+        & dotnet run --project $moduleChecks --configuration Release -- 'artifacts/module-checks'
+        if ($LASTEXITCODE -ne 0) { throw 'Fallaron las comprobaciones de las vistas y navegación de módulos.' }
+    }
 }
 finally { Pop-Location }

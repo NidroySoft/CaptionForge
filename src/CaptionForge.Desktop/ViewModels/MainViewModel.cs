@@ -42,6 +42,7 @@ public sealed class MainViewModel : ObservableObject
     private ProjectItem? _project;
     private TimelineItem? _timeline;
     private SourceTrackItem? _sourceTrack;
+    private AudioSegmentItem? _previewClip;
     private DraftTemplateCandidate? _template;
     private LanguageItem _language=new("auto",L.T("language.auto"));
     private BackupItem? _backup;
@@ -95,11 +96,14 @@ public sealed class MainViewModel : ObservableObject
         {
             if(value is not null && !SourceTracks.Contains(value))return;
             if(!Set(ref _sourceTrack,value))return;
-            Preview.Stop();
+            Preview.Clear();
+            if(_previewClip is not null)_previewClip.IsPreviewSelected=false;
+            _previewClip=null;
             foreach(var item in Segments)item.PropertyChanged-=SegmentChanged;
             Segments.Clear();
             if(value is not null)
                 foreach(var item in value.Segments){item.PropertyChanged+=SegmentChanged;Segments.Add(item);}
+            if(Segments.FirstOrDefault(s=>s.CanInclude) is { } first)LoadPreview(first);
             InvalidateResult();Raise(nameof(SelectedSegmentsSummary));Raise(nameof(SourceTrackHint));
         }
     }
@@ -109,6 +113,7 @@ public sealed class MainViewModel : ObservableObject
     public string RunDirectory=>_result?.Run.RunDirectory ?? (!string.IsNullOrEmpty(_lastRunDirectory)?_lastRunDirectory:SelectedBackup is not null?Path.GetDirectoryName(SelectedBackup.JournalPath)!:"");
     public bool HasResult=>_result is not null;
     public bool Applied=>_applied;
+    public bool HasTranscriptionDiagnostics=>!string.IsNullOrWhiteSpace(RunDirectory) && Directory.Exists(Path.Combine(RunDirectory,"transcription"));
     public ICommand RefreshProjects {get;}
     public ICommand BrowseProjects {get;}
     public ICommand BrowseWorkspace {get;}
@@ -155,9 +160,9 @@ public sealed class MainViewModel : ObservableObject
         RefreshBackups=Async(_=>RunAsync(LoadBackupsAsync),_=>_snapshot is not null);
         Restore=Async(_=>RunAsync(RestoreAsync),_=>SelectedBackup is not null && SelectedBackup.Phase is not ("Restored" or "RolledBack"));
         LocateSource=new RelayCommand(p=>{if(p is AudioSegmentItem item){var path=_dialogs.File(L.T("ui.localizarMedioOriginal"),L.T("ui.audioYVideoMp3WavM4AAacFlacMp4"));if(path is not null)item.OverridePath=path;}},_=>IsIdle);
-        PlaySegment=new RelayCommand(p=>{if(p is AudioSegmentItem item)try{Preview.Play(item.ResolvedPath,item.Model.SourceRange.StartUs,item.Model.SourceRange.DurationUs,item.Name);}catch(Exception ex){ReportError(ex);}},p=>IsIdle && p is AudioSegmentItem item && item.CanInclude);
-        TogglePreview=new RelayCommand(_=>Preview.Toggle(),_=>IsIdle);
-        StopPreview=new RelayCommand(_=>Preview.Stop());
+        PlaySegment=new RelayCommand(p=>{if(p is AudioSegmentItem item && Segments.Contains(item))try{LoadPreview(item);Preview.Toggle();}catch(Exception ex){ReportError(ex);}},p=>IsIdle && p is AudioSegmentItem item && Segments.Contains(item) && item.CanInclude && File.Exists(item.ResolvedPath));
+        TogglePreview=new RelayCommand(_=>{try{Preview.Toggle();}catch(Exception ex){ReportError(ex);}},_=>IsIdle && Preview.CanPlay);
+        StopPreview=new RelayCommand(_=>Preview.Stop(),_=>Preview.HasClip);
         IncludeAll=new RelayCommand(_=>{foreach(var item in Segments)item.Included=true;},_=>IsIdle);
         ExcludeAll=new RelayCommand(_=>{foreach(var item in Segments)item.Included=false;},_=>IsIdle);
     }
@@ -196,10 +201,10 @@ public sealed class MainViewModel : ObservableObject
     }
     public void ReportError(Exception ex)
     {
-        AppLog.Write(ex);Message=ex.Message;Status=L.T("ui.revisaElDiagnostico");
+        AppLog.Write(ex);Message=ex.GetBaseException().Message==ex.Message?ex.Message:L.F("errors.diagnostic",ex.Message,ex.GetBaseException().Message);Status=L.T("ui.revisaElDiagnostico");
         if(ex is CaptionForge.Application.Exceptions.CaptionForgeOperationException {RunId:not null} op && _snapshot is not null)
             _lastRunDirectory=Path.Combine(WorkspaceRoot,_snapshot.Project.Id,"runs",op.RunId);
-        Raise(nameof(RunDirectory));RefreshCommands();
+        Raise(nameof(RunDirectory));Raise(nameof(HasTranscriptionDiagnostics));RefreshCommands();
     }
     private void RefreshCommands()=>CommandManager.InvalidateRequerySuggested();
     private void FilterProjects()
@@ -239,6 +244,9 @@ public sealed class MainViewModel : ObservableObject
     {
         if(SelectedProject is null || SelectedTimeline is null)return;
         string? previousSourceId=SelectedSourceTrack?.Id;
+        string? previousTemplateId=SelectedTemplate?.SegmentId,previousTemplateTrackId=SelectedTemplate?.TrackId;
+        var previousClips=SourceTracks.SelectMany(t=>t.Segments).ToDictionary(s=>s.Id,
+            s=>(s.Included,s.OverridePath,s.Model.SourcePath),StringComparer.Ordinal);
         ClearTimeline();Status=L.T("ui.leyendoTimeline");
         _snapshot=await Task.Run(()=>_catalog.ReadTimelineAsync(SelectedProject.Model,SelectedTimeline.Model,_cts!.Token));
         var managed=await new JsonWorkspaceStore(WorkspaceRoot).ReadManagedSubtitlesAsync(_snapshot.Project.Id,_snapshot.Timeline.Id,_cts!.Token);
@@ -246,7 +254,9 @@ public sealed class MainViewModel : ObservableObject
         // the template on the next run. Hide only the other generated phrases.
         var candidates=await DraftTemplateCatalog.ReadAsync(_snapshot,managed?.Objects.Where(o=>o.Kind==SubtitleObjectKind.Segment).Skip(1).Select(o=>o.Id),_cts!.Token);
         foreach(var item in candidates)Templates.Add(item);
-        if(Templates.Count==1 && Templates[0].IsSupported)SelectedTemplate=Templates[0];
+        SelectedTemplate=Templates.FirstOrDefault(t=>t.SegmentId==previousTemplateId)
+            ?? Templates.FirstOrDefault(t=>t.TrackId==previousTemplateTrackId)
+            ?? (Templates.Count==1 && Templates[0].IsSupported?Templates[0]:null);
         var trackNumbers=new Dictionary<MediaTrackType,int>();
         foreach(var track in _snapshot.Tracks)
         {
@@ -254,6 +264,13 @@ public sealed class MainViewModel : ObservableObject
             int number=trackNumbers.GetValueOrDefault(track.Type)+1;trackNumbers[track.Type]=number;
             if(track.Segments.Count>0)SourceTracks.Add(new SourceTrackItem(track,number));
         }
+        foreach(var clip in SourceTracks.SelectMany(t=>t.Segments))
+            if(previousClips.TryGetValue(clip.Id,out var previous))
+            {
+                clip.Included=previous.Included;
+                if(string.Equals(clip.Model.SourcePath,previous.SourcePath,StringComparison.OrdinalIgnoreCase))
+                    clip.OverridePath=previous.OverridePath;
+            }
         SelectedSourceTrack=SourceTracks.FirstOrDefault(t=>t.Id==previousSourceId) ?? (SourceTracks.Count==1?SourceTracks[0]:null);
         Warnings.Clear();foreach(string warning in _catalog.LastWarnings)Warnings.Add(warning);
         Raise(nameof(SelectedSegmentsSummary));Raise(nameof(SourceTrackHint));await LoadBackupsAsync();Status=L.T("ui.timelineCargada");
@@ -262,11 +279,20 @@ public sealed class MainViewModel : ObservableObject
     private void SegmentChanged(object? sender,PropertyChangedEventArgs e)
     {
         if(e.PropertyName is nameof(AudioSegmentItem.Included) or nameof(AudioSegmentItem.OverridePath)){InvalidateResult();Raise(nameof(SelectedSegmentsSummary));}
+        if(e.PropertyName==nameof(AudioSegmentItem.OverridePath) && sender is AudioSegmentItem item && item==_previewClip)LoadPreview(item);
+    }
+    private void LoadPreview(AudioSegmentItem item)
+    {
+        if(_previewClip is not null)_previewClip.IsPreviewSelected=false;
+        _previewClip=item;item.IsPreviewSelected=true;
+        Preview.Load(item.ResolvedPath,item.Model.SourceRange.StartUs,item.Model.SourceRange.DurationUs,
+            L.F("preview.clipLabel",Segments.IndexOf(item)+1,Segments.Count,item.Name),item.Range);
+        RefreshCommands();
     }
     private void InvalidateResult()
     {
         _result=null;_lastRunDirectory="";_applied=false;_failedApply=false;Captions.Clear();TargetFiles.Clear();
-        Raise(nameof(HasResult));Raise(nameof(Applied));Raise(nameof(ResultSummary));Raise(nameof(RunDirectory));RefreshCommands();
+        Raise(nameof(HasResult));Raise(nameof(Applied));Raise(nameof(ResultSummary));Raise(nameof(RunDirectory));Raise(nameof(HasTranscriptionDiagnostics));RefreshCommands();
     }
     private async Task GenerateAsync()
     {

@@ -69,7 +69,7 @@ jobs:
           RELEASE_COMMIT: ${{ github.sha }}
         run: |
           $publish = Join-Path $PWD 'artifacts/publish'
-          foreach ($relative in @('CaptionForge.exe', 'Languages/es.json')) {
+          foreach ($relative in @('CaptionForge.exe', 'Languages/es.json', 'Modules/TextToSpeech/tts_worker.py', 'Modules/TextToSpeech/config/english.yaml', 'Modules/TextToSpeech/config/spanish.yaml', 'licenses/Pocket-TTS-MIT.txt')) {
             if (!(Test-Path (Join-Path $publish $relative))) { throw "Falta $relative en la publicación." }
           }
           @("Tag: $env:RELEASE_TAG", "Commit: $env:RELEASE_COMMIT", 'Plataforma: Windows x64') |
@@ -91,6 +91,7 @@ jobs:
           Extrae todo el ZIP y ejecuta CaptionForge.exe. Incluye .NET y las dependencias publicadas.
           Configura el modelo Whisper GGML y FFmpeg/FFprobe por separado; no se incluyen modelos ni herramientas externas.
           Conserva Languages junto al ejecutable para añadir tus propios idiomas.
+          Conserva Modules junto al ejecutable. Texto a voz requiere sus entornos Python y modelos configurados por separado.
           '@ | Set-Content (Join-Path $publish 'LEEME.txt') -Encoding utf8
           $zipName = "CaptionForge-$env:RELEASE_TAG-win-x64.zip"
           $zipPath = Join-Path $PWD "artifacts/$zipName"

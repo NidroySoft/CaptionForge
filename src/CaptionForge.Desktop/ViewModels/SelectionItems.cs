@@ -20,10 +20,11 @@ public sealed class TimelineItem(CapCutTimeline model) : ObservableObject
 }
 public sealed class AudioSegmentItem : ObservableObject
 {
- private bool _included;private string? _override;
+ private bool _included,_isPreviewSelected;private string? _override;
  public MediaSegment Model {get;}private readonly string _trackLabel;public string TrackLabel=>L.Render(_trackLabel);public string Id=>Model.Id;
  public bool CanInclude=>Model.Speed==1 && !Model.HasVariableSpeed && !Model.IsReversed && !Model.IsMuted;
  public bool Included {get=>_included;set=>Set(ref _included,value && CanInclude);}
+ public bool IsPreviewSelected {get=>_isPreviewSelected;set=>Set(ref _isPreviewSelected,value);}
  public string? OverridePath {get=>_override;set{if(Set(ref _override,value)){Raise(nameof(ResolvedPath));Raise(nameof(Name));Raise(nameof(Diagnostic));}}}
  public string ResolvedPath=>OverridePath ?? Model.SourcePath;
  public string Name=>Path.GetFileName(ResolvedPath);
@@ -41,4 +42,8 @@ public sealed class CaptionItem(SubtitleCue model) : ObservableObject
 public sealed class BackupItem(string journalPath,string label,string phase) : ObservableObject
 { public string JournalPath {get;}=journalPath;public string Label=>L.Render(label);public string Phase {get;}=phase; }
 public sealed class LanguageItem(string code,string name) : ObservableObject
-{ public string Code {get;}=code;public string Name=>L.T("language."+Code) is var value && value!="language."+Code?value:name; }
+{
+ public string Code {get;}=code;
+ public string Name=>L.T("language."+Code) is var value && value!="language."+Code?value:L.Render(name);
+ public override string ToString()=>Name;
+}

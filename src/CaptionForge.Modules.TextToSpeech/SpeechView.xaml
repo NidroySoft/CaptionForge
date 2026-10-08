@@ -1,0 +1,59 @@
+<UserControl x:Class="CaptionForge.Modules.TextToSpeech.SpeechView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Margin="20,12">
+ <Grid>
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <StackPanel Margin="0,0,0,10">
+   <TextBlock Text="Texto a voz" FontSize="24" FontWeight="SemiBold"/>
+   <TextBlock Text="Genera voces locales, escucha el resultado y exporta el WAV para CapCut o tus clases." Style="{DynamicResource Muted}" Margin="0,4,0,0"/>
+  </StackPanel>
+  <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+   <StackPanel>
+    <StackPanel IsEnabled="{Binding CanEdit}">
+     <Grid>
+      <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="160"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <StackPanel Margin="0,0,12,0"><TextBlock Text="Motor" Style="{DynamicResource Label}"/><ComboBox ItemsSource="{Binding Engines}" SelectedItem="{Binding SelectedEngine}" DisplayMemberPath="Name"/></StackPanel>
+      <StackPanel Grid.Column="1" Margin="0,0,12,0"><TextBlock Text="Idioma" Style="{DynamicResource Label}"/><ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="Name"/></StackPanel>
+      <StackPanel Grid.Column="2" Visibility="{Binding UsesPreset,Converter={StaticResource BoolVisibility}}"><TextBlock Text="Voz instalada" Style="{DynamicResource Label}"/><ComboBox ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}"/></StackPanel>
+     </Grid>
+     <TextBlock Text="{Binding Hint}" Style="{DynamicResource Muted}" Margin="0,10"/>
+     <StackPanel Visibility="{Binding UsesReference,Converter={StaticResource BoolVisibility}}">
+      <TextBlock Text="Referencia de voz (audio limpio de 6–15 segundos)" Style="{DynamicResource Label}"/>
+      <DockPanel><Button Content="Seleccionar audio…" Click="BrowseReference" DockPanel.Dock="Right" Margin="10,0,0,0"/><TextBox Text="{Binding ReferencePath,UpdateSourceTrigger=PropertyChanged}"/></DockPanel>
+     </StackPanel>
+     <TextBlock Text="Texto o guion" Style="{DynamicResource Label}"/>
+     <TextBox Text="{Binding Text,UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" Height="150" VerticalScrollBarVisibility="Auto" MaxLength="6000"/>
+     <Grid Margin="0,8">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <StackPanel Margin="0,0,16,0"><TextBlock Text="Semilla" Style="{DynamicResource Label}"/><TextBox Text="{Binding Seed}"/></StackPanel>
+      <StackPanel Grid.Column="1" Margin="0,0,16,0" Visibility="{Binding IsKokoro,Converter={StaticResource BoolVisibility}}"><TextBlock Text="Velocidad de Kokoro" Style="{DynamicResource Label}"/><Slider Value="{Binding Speed}" Minimum="0.7" Maximum="1.3" TickFrequency="0.05" IsSnapToTickEnabled="True"/><TextBlock Text="{Binding Speed,StringFormat=F2}" Style="{DynamicResource Muted}"/></StackPanel>
+      <StackPanel Grid.Column="2" Visibility="{Binding IsMultilingual,Converter={StaticResource BoolVisibility}}"><TextBlock Text="Expresividad de Chatterbox" Style="{DynamicResource Label}"/><Slider Value="{Binding Exaggeration}" Minimum="0" Maximum="1" TickFrequency="0.05" IsSnapToTickEnabled="True"/></StackPanel>
+     </Grid>
+     <Expander Header="Configuración del motor seleccionado y archivos de salida" Margin="0,8">
+      <StackPanel Margin="0,8">
+       <TextBlock Text="Python del entorno del motor" Style="{DynamicResource Label}"/>
+       <DockPanel><Button Content="Buscar…" Click="BrowsePython" DockPanel.Dock="Right" Margin="10,0,0,0"/><TextBox Text="{Binding PythonExecutable}"/></DockPanel>
+       <TextBlock Text="Carpeta del modelo (contiene los pesos y voces de este motor)" Style="{DynamicResource Label}"/>
+       <DockPanel><Button Content="Buscar…" Click="BrowseModels" DockPanel.Dock="Right" Margin="10,0,0,0"/><TextBox Text="{Binding ModelDirectory}"/></DockPanel>
+       <TextBlock Text="Carpeta para guardar los WAV" Style="{DynamicResource Label}"/>
+       <DockPanel><Button Content="Buscar…" Click="BrowseOutput" DockPanel.Dock="Right" Margin="10,0,0,0"/><TextBox Text="{Binding OutputDirectory}"/></DockPanel>
+       <StackPanel Orientation="Horizontal" Margin="0,10"><Button Content="Actualizar voces" Click="RefreshVoices"/><Button Content="Guardar configuración" Click="SaveSettings" Margin="10,0,0,0"/></StackPanel>
+       <TextBlock Text="Los motores usan entornos Python y modelos ya instalados. Pocket tiene su propio entorno. Cada generación libera el modelo al terminar." Style="{DynamicResource Muted}"/>
+      </StackPanel>
+     </Expander>
+    </StackPanel>
+    <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Padding="12" Margin="0,10" Visibility="{Binding HasOutput,Converter={StaticResource BoolVisibility}}">
+     <StackPanel>
+      <TextBlock Text="Último audio generado" FontWeight="SemiBold"/>
+      <TextBlock Text="{Binding OutputPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding OutputPath}" Style="{DynamicResource Muted}" Margin="0,5"/>
+      <WrapPanel><Button Content="Reproducir" Click="Play"/><Button Content="Detener" Click="Stop" Margin="8,0"/><Button Content="Guardar WAV como…" Click="SaveAudio"/><Button Content="Abrir carpeta" Click="OpenOutputFolder" Margin="8,0,0,0"/></WrapPanel>
+     </StackPanel>
+    </Border>
+   </StackPanel>
+  </ScrollViewer>
+  <StackPanel Grid.Row="2" Margin="0,8,0,0">
+   <ProgressBar Value="{Binding Progress,Mode=OneWay}" Maximum="100" Height="5" Visibility="{Binding IsBusy,Converter={StaticResource BoolVisibility}}"/>
+   <TextBlock Text="{Binding Status}" TextWrapping="Wrap" MaxHeight="70" ToolTip="{Binding Status}" Margin="0,8"/>
+   <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button Content="Cancelar" Click="Cancel" IsEnabled="{Binding IsBusy}" Margin="0,0,10,0"/><Button Content="Generar voz" Click="Generate" IsEnabled="{Binding CanEdit}" Style="{DynamicResource PrimaryButton}"/></StackPanel>
+  </StackPanel>
+ </Grid>
+</UserControl>

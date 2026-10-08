@@ -1,0 +1,1033 @@
+{
+  "schemaVersion": 1,
+  "model": {
+    "isEnglishOnly": false,
+    "audioLayers": 24,
+    "textLayers": 24,
+    "audioState": 1024,
+    "melBins": 80,
+    "alignmentPreset": "Medium"
+  },
+  "segments": [
+    {
+      "text": " Así funciona CaptionForge.",
+      "startTicks": 0,
+      "endTicks": 20800000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 50364,
+          "text": "[_BEG_]",
+          "start10Ms": 0,
+          "end10Ms": 0,
+          "dtwTimestamp": -1
+        },
+        {
+          "id": 17419,
+          "text": " Así",
+          "start10Ms": 6,
+          "end10Ms": 30,
+          "dtwTimestamp": 36
+        },
+        {
+          "id": 26210,
+          "text": " funciona",
+          "start10Ms": 30,
+          "end10Ms": 89,
+          "dtwTimestamp": 90
+        },
+        {
+          "id": 9480,
+          "text": " Capt",
+          "start10Ms": 100,
+          "end10Ms": 112,
+          "dtwTimestamp": 128
+        },
+        {
+          "id": 313,
+          "text": "ion",
+          "start10Ms": 120,
+          "end10Ms": 137,
+          "dtwTimestamp": 148
+        },
+        {
+          "id": 37,
+          "text": "F",
+          "start10Ms": 146,
+          "end10Ms": 151,
+          "dtwTimestamp": 174
+        },
+        {
+          "id": 4685,
+          "text": "orge",
+          "start10Ms": 151,
+          "end10Ms": 176,
+          "dtwTimestamp": 186
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 208,
+          "end10Ms": 208,
+          "dtwTimestamp": 230
+        },
+        {
+          "id": 50468,
+          "text": "[_TT_104]",
+          "start10Ms": 208,
+          "end10Ms": 208,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Convierte tu audio en subtítulos",
+      "startTicks": 20800000,
+      "endTicks": 39200000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 2656,
+          "text": " Con",
+          "start10Ms": 214,
+          "end10Ms": 222,
+          "dtwTimestamp": 246
+        },
+        {
+          "id": 85,
+          "text": "v",
+          "start10Ms": 228,
+          "end10Ms": 229,
+          "dtwTimestamp": 254
+        },
+        {
+          "id": 23123,
+          "text": "ierte",
+          "start10Ms": 233,
+          "end10Ms": 260,
+          "dtwTimestamp": 266
+        },
+        {
+          "id": 2604,
+          "text": " tu",
+          "start10Ms": 266,
+          "end10Ms": 276,
+          "dtwTimestamp": 288
+        },
+        {
+          "id": 6278,
+          "text": " audio",
+          "start10Ms": 276,
+          "end10Ms": 297,
+          "dtwTimestamp": 312
+        },
+        {
+          "id": 465,
+          "text": " en",
+          "start10Ms": 308,
+          "end10Ms": 319,
+          "dtwTimestamp": 336
+        },
+        {
+          "id": 7257,
+          "text": " subt",
+          "start10Ms": 319,
+          "end10Ms": 344,
+          "dtwTimestamp": 354
+        },
+        {
+          "id": 6712,
+          "text": "ít",
+          "start10Ms": 344,
+          "end10Ms": 363,
+          "dtwTimestamp": 374
+        },
+        {
+          "id": 28348,
+          "text": "ulos",
+          "start10Ms": 363,
+          "end10Ms": 384,
+          "dtwTimestamp": 392
+        },
+        {
+          "id": 50560,
+          "text": "[_TT_196]",
+          "start10Ms": 392,
+          "end10Ms": 392,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " y conserva la plantilla que elegiste en CapCut.",
+      "startTicks": 39200000,
+      "endTicks": 70000000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 288,
+          "text": " y",
+          "start10Ms": 398,
+          "end10Ms": 398,
+          "dtwTimestamp": 418
+        },
+        {
+          "id": 9704,
+          "text": " conserv",
+          "start10Ms": 398,
+          "end10Ms": 439,
+          "dtwTimestamp": 452
+        },
+        {
+          "id": 64,
+          "text": "a",
+          "start10Ms": 439,
+          "end10Ms": 444,
+          "dtwTimestamp": 460
+        },
+        {
+          "id": 635,
+          "text": " la",
+          "start10Ms": 449,
+          "end10Ms": 456,
+          "dtwTimestamp": 480
+        },
+        {
+          "id": 3709,
+          "text": " plant",
+          "start10Ms": 456,
+          "end10Ms": 481,
+          "dtwTimestamp": 502
+        },
+        {
+          "id": 5291,
+          "text": "illa",
+          "start10Ms": 492,
+          "end10Ms": 504,
+          "dtwTimestamp": 518
+        },
+        {
+          "id": 631,
+          "text": " que",
+          "start10Ms": 512,
+          "end10Ms": 529,
+          "dtwTimestamp": 542
+        },
+        {
+          "id": 14459,
+          "text": " eleg",
+          "start10Ms": 538,
+          "end10Ms": 568,
+          "dtwTimestamp": 566
+        },
+        {
+          "id": 8375,
+          "text": "iste",
+          "start10Ms": 605,
+          "end10Ms": 605,
+          "dtwTimestamp": 590
+        },
+        {
+          "id": 465,
+          "text": " en",
+          "start10Ms": 608,
+          "end10Ms": 622,
+          "dtwTimestamp": 618
+        },
+        {
+          "id": 8363,
+          "text": " Cap",
+          "start10Ms": 622,
+          "end10Ms": 642,
+          "dtwTimestamp": 642
+        },
+        {
+          "id": 34,
+          "text": "C",
+          "start10Ms": 649,
+          "end10Ms": 655,
+          "dtwTimestamp": 656
+        },
+        {
+          "id": 325,
+          "text": "ut",
+          "start10Ms": 655,
+          "end10Ms": 672,
+          "dtwTimestamp": 688
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 672,
+          "end10Ms": 699,
+          "dtwTimestamp": 710
+        },
+        {
+          "id": 50714,
+          "text": "[_TT_350]",
+          "start10Ms": 700,
+          "end10Ms": 700,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Primero, importamos el archivo de audio",
+      "startTicks": 70000000,
+      "endTicks": 94000000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 19671,
+          "text": " Prim",
+          "start10Ms": 706,
+          "end10Ms": 727,
+          "dtwTimestamp": 744
+        },
+        {
+          "id": 2032,
+          "text": "ero",
+          "start10Ms": 727,
+          "end10Ms": 747,
+          "dtwTimestamp": 774
+        },
+        {
+          "id": 11,
+          "text": ",",
+          "start10Ms": 747,
+          "end10Ms": 760,
+          "dtwTimestamp": 794
+        },
+        {
+          "id": 974,
+          "text": " import",
+          "start10Ms": 760,
+          "end10Ms": 800,
+          "dtwTimestamp": 818
+        },
+        {
+          "id": 2151,
+          "text": "amos",
+          "start10Ms": 800,
+          "end10Ms": 828,
+          "dtwTimestamp": 838
+        },
+        {
+          "id": 806,
+          "text": " el",
+          "start10Ms": 828,
+          "end10Ms": 837,
+          "dtwTimestamp": 856
+        },
+        {
+          "id": 3912,
+          "text": " arch",
+          "start10Ms": 846,
+          "end10Ms": 864,
+          "dtwTimestamp": 882
+        },
+        {
+          "id": 6340,
+          "text": "ivo",
+          "start10Ms": 871,
+          "end10Ms": 877,
+          "dtwTimestamp": 890
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 901,
+          "end10Ms": 901,
+          "dtwTimestamp": 912
+        },
+        {
+          "id": 6278,
+          "text": " audio",
+          "start10Ms": 916,
+          "end10Ms": 940,
+          "dtwTimestamp": 936
+        },
+        {
+          "id": 50834,
+          "text": "[_TT_470]",
+          "start10Ms": 940,
+          "end10Ms": 940,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " y lo añadimos a la línea de tiempo de nuestro proyecto.",
+      "startTicks": 94000000,
+      "endTicks": 124400000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 288,
+          "text": " y",
+          "start10Ms": 945,
+          "end10Ms": 945,
+          "dtwTimestamp": 958
+        },
+        {
+          "id": 450,
+          "text": " lo",
+          "start10Ms": 946,
+          "end10Ms": 955,
+          "dtwTimestamp": 980
+        },
+        {
+          "id": 44980,
+          "text": " añad",
+          "start10Ms": 960,
+          "end10Ms": 985,
+          "dtwTimestamp": 1000
+        },
+        {
+          "id": 8372,
+          "text": "imos",
+          "start10Ms": 985,
+          "end10Ms": 1008,
+          "dtwTimestamp": 1016
+        },
+        {
+          "id": 257,
+          "text": " a",
+          "start10Ms": 1008,
+          "end10Ms": 1013,
+          "dtwTimestamp": 1034
+        },
+        {
+          "id": 635,
+          "text": " la",
+          "start10Ms": 1013,
+          "end10Ms": 1024,
+          "dtwTimestamp": 1048
+        },
+        {
+          "id": 37452,
+          "text": " línea",
+          "start10Ms": 1024,
+          "end10Ms": 1052,
+          "dtwTimestamp": 1070
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 1060,
+          "end10Ms": 1070,
+          "dtwTimestamp": 1092
+        },
+        {
+          "id": 11772,
+          "text": " tiempo",
+          "start10Ms": 1070,
+          "end10Ms": 1104,
+          "dtwTimestamp": 1114
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 1111,
+          "end10Ms": 1119,
+          "dtwTimestamp": 1138
+        },
+        {
+          "id": 14726,
+          "text": " nuestro",
+          "start10Ms": 1156,
+          "end10Ms": 1171,
+          "dtwTimestamp": 1166
+        },
+        {
+          "id": 32285,
+          "text": " proyecto",
+          "start10Ms": 1171,
+          "end10Ms": 1223,
+          "dtwTimestamp": 1214
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 1223,
+          "end10Ms": 1244,
+          "dtwTimestamp": 1256
+        },
+        {
+          "id": 50986,
+          "text": "[_TT_622]",
+          "start10Ms": 1244,
+          "end10Ms": 1244,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Después, abrimos las plantillas de texto",
+      "startTicks": 124400000,
+      "endTicks": 149600000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 40995,
+          "text": " Después",
+          "start10Ms": 1250,
+          "end10Ms": 1298,
+          "dtwTimestamp": 1320
+        },
+        {
+          "id": 11,
+          "text": ",",
+          "start10Ms": 1301,
+          "end10Ms": 1311,
+          "dtwTimestamp": 1356
+        },
+        {
+          "id": 410,
+          "text": " ab",
+          "start10Ms": 1311,
+          "end10Ms": 1324,
+          "dtwTimestamp": 1360
+        },
+        {
+          "id": 5565,
+          "text": "rim",
+          "start10Ms": 1324,
+          "end10Ms": 1333,
+          "dtwTimestamp": 1370
+        },
+        {
+          "id": 329,
+          "text": "os",
+          "start10Ms": 1344,
+          "end10Ms": 1357,
+          "dtwTimestamp": 1378
+        },
+        {
+          "id": 2439,
+          "text": " las",
+          "start10Ms": 1365,
+          "end10Ms": 1377,
+          "dtwTimestamp": 1404
+        },
+        {
+          "id": 3709,
+          "text": " plant",
+          "start10Ms": 1377,
+          "end10Ms": 1408,
+          "dtwTimestamp": 1428
+        },
+        {
+          "id": 20243,
+          "text": "illas",
+          "start10Ms": 1415,
+          "end10Ms": 1422,
+          "dtwTimestamp": 1440
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 1457,
+          "end10Ms": 1457,
+          "dtwTimestamp": 1464
+        },
+        {
+          "id": 35503,
+          "text": " texto",
+          "start10Ms": 1460,
+          "end10Ms": 1494,
+          "dtwTimestamp": 1492
+        },
+        {
+          "id": 51112,
+          "text": "[_TT_748]",
+          "start10Ms": 1496,
+          "end10Ms": 1496,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " y elegimos el estilo que queremos utilizar.",
+      "startTicks": 149600000,
+      "endTicks": 175600000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 288,
+          "text": " y",
+          "start10Ms": 1502,
+          "end10Ms": 1502,
+          "dtwTimestamp": 1524
+        },
+        {
+          "id": 14459,
+          "text": " eleg",
+          "start10Ms": 1502,
+          "end10Ms": 1528,
+          "dtwTimestamp": 1546
+        },
+        {
+          "id": 8372,
+          "text": "imos",
+          "start10Ms": 1528,
+          "end10Ms": 1553,
+          "dtwTimestamp": 1564
+        },
+        {
+          "id": 806,
+          "text": " el",
+          "start10Ms": 1554,
+          "end10Ms": 1567,
+          "dtwTimestamp": 1590
+        },
+        {
+          "id": 37470,
+          "text": " estilo",
+          "start10Ms": 1567,
+          "end10Ms": 1606,
+          "dtwTimestamp": 1614
+        },
+        {
+          "id": 631,
+          "text": " que",
+          "start10Ms": 1606,
+          "end10Ms": 1626,
+          "dtwTimestamp": 1638
+        },
+        {
+          "id": 26813,
+          "text": " queremos",
+          "start10Ms": 1626,
+          "end10Ms": 1670,
+          "dtwTimestamp": 1668
+        },
+        {
+          "id": 24060,
+          "text": " utilizar",
+          "start10Ms": 1712,
+          "end10Ms": 1732,
+          "dtwTimestamp": 1724
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 1732,
+          "end10Ms": 1756,
+          "dtwTimestamp": 1766
+        },
+        {
+          "id": 51242,
+          "text": "[_TT_878]",
+          "start10Ms": 1756,
+          "end10Ms": 1756,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Aquí, usamos una plantilla",
+      "startTicks": 175600000,
+      "endTicks": 191200000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 24386,
+          "text": " Aquí",
+          "start10Ms": 1762,
+          "end10Ms": 1787,
+          "dtwTimestamp": 1804
+        },
+        {
+          "id": 11,
+          "text": ",",
+          "start10Ms": 1787,
+          "end10Ms": 1799,
+          "dtwTimestamp": 1820
+        },
+        {
+          "id": 505,
+          "text": " us",
+          "start10Ms": 1799,
+          "end10Ms": 1808,
+          "dtwTimestamp": 1836
+        },
+        {
+          "id": 2151,
+          "text": "amos",
+          "start10Ms": 1813,
+          "end10Ms": 1835,
+          "dtwTimestamp": 1850
+        },
+        {
+          "id": 2002,
+          "text": " una",
+          "start10Ms": 1835,
+          "end10Ms": 1845,
+          "dtwTimestamp": 1876
+        },
+        {
+          "id": 3709,
+          "text": " plant",
+          "start10Ms": 1856,
+          "end10Ms": 1884,
+          "dtwTimestamp": 1904
+        },
+        {
+          "id": 5291,
+          "text": "illa",
+          "start10Ms": 1884,
+          "end10Ms": 1912,
+          "dtwTimestamp": 1920
+        },
+        {
+          "id": 51320,
+          "text": "[_TT_956]",
+          "start10Ms": 1912,
+          "end10Ms": 1912,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " que resalta las palabras durante la reproducción.",
+      "startTicks": 191200000,
+      "endTicks": 219200000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 631,
+          "text": " que",
+          "start10Ms": 1918,
+          "end10Ms": 1927,
+          "dtwTimestamp": 1948
+        },
+        {
+          "id": 725,
+          "text": " res",
+          "start10Ms": 1932,
+          "end10Ms": 1945,
+          "dtwTimestamp": 1968
+        },
+        {
+          "id": 37896,
+          "text": "alta",
+          "start10Ms": 1953,
+          "end10Ms": 1971,
+          "dtwTimestamp": 1982
+        },
+        {
+          "id": 2439,
+          "text": " las",
+          "start10Ms": 1974,
+          "end10Ms": 1990,
+          "dtwTimestamp": 2012
+        },
+        {
+          "id": 35240,
+          "text": " palabras",
+          "start10Ms": 1990,
+          "end10Ms": 2038,
+          "dtwTimestamp": 2042
+        },
+        {
+          "id": 14427,
+          "text": " durante",
+          "start10Ms": 2038,
+          "end10Ms": 2076,
+          "dtwTimestamp": 2078
+        },
+        {
+          "id": 635,
+          "text": " la",
+          "start10Ms": 2083,
+          "end10Ms": 2089,
+          "dtwTimestamp": 2106
+        },
+        {
+          "id": 11408,
+          "text": " reprodu",
+          "start10Ms": 2128,
+          "end10Ms": 2134,
+          "dtwTimestamp": 2130
+        },
+        {
+          "id": 14735,
+          "text": "cción",
+          "start10Ms": 2134,
+          "end10Ms": 2170,
+          "dtwTimestamp": 2162
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 2170,
+          "end10Ms": 2192,
+          "dtwTimestamp": 2210
+        },
+        {
+          "id": 51460,
+          "text": "[_TT_1096]",
+          "start10Ms": 2192,
+          "end10Ms": 2192,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Colocamos su texto de ejemplo en la línea de tiempo",
+      "startTicks": 219200000,
+      "endTicks": 245600000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 4004,
+          "text": " Col",
+          "start10Ms": 2198,
+          "end10Ms": 2207,
+          "dtwTimestamp": 2228
+        },
+        {
+          "id": 905,
+          "text": "oc",
+          "start10Ms": 2212,
+          "end10Ms": 2222,
+          "dtwTimestamp": 2238
+        },
+        {
+          "id": 2151,
+          "text": "amos",
+          "start10Ms": 2222,
+          "end10Ms": 2244,
+          "dtwTimestamp": 2250
+        },
+        {
+          "id": 459,
+          "text": " su",
+          "start10Ms": 2249,
+          "end10Ms": 2258,
+          "dtwTimestamp": 2264
+        },
+        {
+          "id": 35503,
+          "text": " texto",
+          "start10Ms": 2258,
+          "end10Ms": 2281,
+          "dtwTimestamp": 2296
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 2292,
+          "end10Ms": 2301,
+          "dtwTimestamp": 2320
+        },
+        {
+          "id": 13358,
+          "text": " ejemplo",
+          "start10Ms": 2301,
+          "end10Ms": 2348,
+          "dtwTimestamp": 2348
+        },
+        {
+          "id": 465,
+          "text": " en",
+          "start10Ms": 2348,
+          "end10Ms": 2357,
+          "dtwTimestamp": 2368
+        },
+        {
+          "id": 635,
+          "text": " la",
+          "start10Ms": 2363,
+          "end10Ms": 2369,
+          "dtwTimestamp": 2382
+        },
+        {
+          "id": 37452,
+          "text": " línea",
+          "start10Ms": 2407,
+          "end10Ms": 2407,
+          "dtwTimestamp": 2402
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 2408,
+          "end10Ms": 2419,
+          "dtwTimestamp": 2426
+        },
+        {
+          "id": 11772,
+          "text": " tiempo",
+          "start10Ms": 2419,
+          "end10Ms": 2455,
+          "dtwTimestamp": 2452
+        },
+        {
+          "id": 51592,
+          "text": "[_TT_1228]",
+          "start10Ms": 2456,
+          "end10Ms": 2456,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " y ajustamos la posición.",
+      "startTicks": 245600000,
+      "endTicks": 262800000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 288,
+          "text": " y",
+          "start10Ms": 2462,
+          "end10Ms": 2463,
+          "dtwTimestamp": 2480
+        },
+        {
+          "id": 41023,
+          "text": " ajust",
+          "start10Ms": 2463,
+          "end10Ms": 2498,
+          "dtwTimestamp": 2514
+        },
+        {
+          "id": 2151,
+          "text": "amos",
+          "start10Ms": 2498,
+          "end10Ms": 2526,
+          "dtwTimestamp": 2532
+        },
+        {
+          "id": 635,
+          "text": " la",
+          "start10Ms": 2526,
+          "end10Ms": 2540,
+          "dtwTimestamp": 2554
+        },
+        {
+          "id": 46595,
+          "text": " posición",
+          "start10Ms": 2540,
+          "end10Ms": 2604,
+          "dtwTimestamp": 2592
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 2604,
+          "end10Ms": 2621,
+          "dtwTimestamp": 2638
+        },
+        {
+          "id": 51678,
+          "text": "[_TT_1314]",
+          "start10Ms": 2628,
+          "end10Ms": 2628,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " Ese será el diseño de nuestros subtítulos.",
+      "startTicks": 262800000,
+      "endTicks": 288800000,
+      "language": "es",
+      "tokens": [
+        {
+          "id": 462,
+          "text": " E",
+          "start10Ms": 2634,
+          "end10Ms": 2634,
+          "dtwTimestamp": 2664
+        },
+        {
+          "id": 405,
+          "text": "se",
+          "start10Ms": 2634,
+          "end10Ms": 2643,
+          "dtwTimestamp": 2674
+        },
+        {
+          "id": 16502,
+          "text": " será",
+          "start10Ms": 2648,
+          "end10Ms": 2677,
+          "dtwTimestamp": 2700
+        },
+        {
+          "id": 806,
+          "text": " el",
+          "start10Ms": 2677,
+          "end10Ms": 2688,
+          "dtwTimestamp": 2724
+        },
+        {
+          "id": 3814,
+          "text": " dise",
+          "start10Ms": 2690,
+          "end10Ms": 2714,
+          "dtwTimestamp": 2750
+        },
+        {
+          "id": 7716,
+          "text": "ño",
+          "start10Ms": 2714,
+          "end10Ms": 2732,
+          "dtwTimestamp": 2762
+        },
+        {
+          "id": 368,
+          "text": " de",
+          "start10Ms": 2732,
+          "end10Ms": 2741,
+          "dtwTimestamp": 2780
+        },
+        {
+          "id": 24099,
+          "text": " nuestros",
+          "start10Ms": 2746,
+          "end10Ms": 2792,
+          "dtwTimestamp": 2802
+        },
+        {
+          "id": 7257,
+          "text": " subt",
+          "start10Ms": 2792,
+          "end10Ms": 2805,
+          "dtwTimestamp": 2832
+        },
+        {
+          "id": 6712,
+          "text": "ít",
+          "start10Ms": 2837,
+          "end10Ms": 2837,
+          "dtwTimestamp": 2852
+        },
+        {
+          "id": 28348,
+          "text": "ulos",
+          "start10Ms": 2844,
+          "end10Ms": 2862,
+          "dtwTimestamp": 2872
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 2862,
+          "end10Ms": 2888,
+          "dtwTimestamp": 2872
+        },
+        {
+          "id": 51808,
+          "text": "[_TT_1444]",
+          "start10Ms": 2888,
+          "end10Ms": 2888,
+          "dtwTimestamp": -1
+        }
+      ]
+    }
+  ]
+}

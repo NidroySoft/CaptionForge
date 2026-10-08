@@ -43,9 +43,9 @@
     "help.projects.title": "1. Proyecto y timeline",
     "help.projects.body": "Busca la carpeta de proyectos de CapCut y selecciona el proyecto. Después elige la timeline por su nombre y portada. El pin de CapCut no se cambia. Si la timeline seleccionada está fijada, se actualizan también el draft y su .bak de la raíz; si no está fijada, esos archivos de la raíz se conservan.",
     "help.audio.title": "2. Clips y medios",
-    "help.audio.body": "Elige primero la pista de origen: audio o vídeo con audio. El desplegable muestra sus archivos y cantidad de clips. Después marca los clips de esa pista que quieras transcribir. Cada clip conserva sus rangos de origen, posición y huecos en la timeline. Las otras pistas no se transcriben. Incluir todos y Excluir todos afectan solo a la pista visible. Cambiar de pista conserva sus casillas durante esta sesión y descarta el resultado preparado. Excluir no elimina ni recorta archivos. El botón ▶ reproduce el recorte original. Si moviste o renombraste el medio, utiliza Localizar en cada clip afectado.",
+    "help.audio.body": "Elige primero la pista de origen por su nombre. Si CapCut no le asignó uno, se muestra el nombre de un archivo de esa pista. El tipo Audio o Vídeo aparece por separado y corresponde al tipo de pista de CapCut. Después marca los clips de esa pista que quieras transcribir. Cada clip conserva sus recortes, posición y huecos en la timeline. Las demás pistas quedan fuera de esta generación. Incluir todos y Excluir todos afectan solo a la pista visible. Excluir no elimina archivos. Si modificaste el proyecto en CapCut, guarda y pulsa Actualizar: se recargan pistas y plantillas, conservando la selección y las casillas de los clips que siguen existiendo. Actualizar descarta el resultado preparado anterior. El botón ▶ reproduce el recorte; utiliza Localizar si moviste o renombraste un medio.",
     "help.template.title": "3. Plantilla y Whisper",
-    "help.template.body": "Añade en CapCut un subtítulo con la plantilla y el formato que deseas usar, guarda y vuelve a cargar la timeline. Selecciona esa pista en CaptionForge. Su fuente, colores, posición y animación servirán de molde. Elige el modelo GGML, el idioma de transcripción y los hilos de CPU; el idioma de la interfaz se configura por separado.",
+    "help.template.body": "Añade en CapCut un subtítulo con la plantilla y el formato que deseas usar, guarda y pulsa Actualizar en CaptionForge. Selecciona esa pista de plantilla. Su fuente, colores, posición y animación servirán de molde. Elige el modelo GGML, el idioma de transcripción y los hilos de CPU; el idioma de la interfaz se configura por separado.",
     "help.generate.title": "4. Generar y revisar",
     "help.generate.body": "Pulsa Generar subtítulos. Se preparará el audio y Whisper lo transcribirá. El progreso cuenta clips completados; un clip largo puede tardar más sin que avance la barra. Revisa todos los bloques y tiempos del resultado. Puedes exportar el texto completo a SRT antes de aplicarlo.",
     "help.apply.title": "5. Aplicar y sobrescribir",
@@ -79,7 +79,7 @@
     "tutorial.audio.clips.title": "Incluye sólo los clips necesarios",
     "tutorial.audio.clips.body": "Marca los clips de la pista de origen que quieras transcribir. Incluir todos y Excluir todos afectan únicamente a esta pista. Los recortes y los huecos de la timeline se conservan; excluir un clip no lo elimina del proyecto.",
     "tutorial.audio.preview.title": "Escucha cada recorte",
-    "tutorial.audio.preview.body": "Pulsa ▶ en un clip para cargarlo y escucharlo. Aquí puedes pausar, mover la posición o detener la reproducción del recorte original.",
+    "tutorial.audio.preview.body": "Al elegir una pista, su primer clip reproducible queda preparado sin empezar a sonar. Pulsa Reproducir en la barra para escucharlo. El título indica el número de fragmento y su archivo, y la fila cargada queda resaltada. Pulsar ▶ en otro clip cambia el reproductor a ese recorte. Pausar conserva la posición y Detener vuelve al inicio; después puedes reproducirlo otra vez.",
     "tutorial.template.choose.title": "Escoge la pista de plantilla",
     "tutorial.template.choose.body": "Selecciona el molde que preparaste en CapCut. La generación conservará su aspecto y animación. Aplicar reemplazará esa pista; las otras se conservarán.",
     "tutorial.whisper.options.title": "Configura la transcripción",
@@ -294,6 +294,12 @@
     "source.selectedHint": "Solo se transcribirán los clips marcados de esta pista. Se conservan sus recortes, posiciones y huecos.",
     "source.noClipsSelected": "Selecciona al menos un clip de la pista de origen.",
     "tutorial.audio.source.title": "Elige la pista de origen",
-    "tutorial.audio.source.body": "Selecciona la pista que contiene la voz que quieres transcribir. El desplegable muestra el tipo, el archivo y la cantidad de clips. Puedes elegir audio o vídeo con audio. La música y las demás pistas quedan fuera de esta generación; la plantilla de destino se elige por separado."
+    "tutorial.audio.source.body": "Selecciona la pista que contiene la voz que quieres transcribir. Cada opción muestra el nombre de la pista o, si no tiene nombre, un archivo que permite identificarla. Audio o Vídeo aparece por separado. Después de elegir se muestran el reproductor y únicamente los clips de esa pista. Si añadiste pistas o plantillas en CapCut, guarda allí y pulsa Actualizar aquí. La plantilla de destino se elige por separado.",
+    "source.refresh": "↻ Actualizar",
+    "source.refreshHint": "Guarda los cambios en CapCut y pulsa Actualizar para recargar las pistas, los clips y las plantillas. El resultado generado anteriormente se descartará.",
+    "preview.clipLabel": "Fragmento {0} de {1} · {2}",
+    "preview.selectedClip": "En el reproductor",
+    "preview.openDiagnostics": "Abrir diagnóstico",
+    "preview.diagnosticsHint": "Abre la carpeta de la ejecución. En transcription están el JSON de transcripción y el archivo que termina en -native.json para revisar los tiempos originales."
   }
 }

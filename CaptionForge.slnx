@@ -7,9 +7,14 @@
     <Project Path="src/CaptionForge.Core/CaptionForge.Core.csproj" />
     <Project Path="src/CaptionForge.Desktop/CaptionForge.Desktop.csproj" />
     <Project Path="src/CaptionForge.Infrastructure/CaptionForge.Infrastructure.csproj" />
+    <Project Path="src/CaptionForge.Modularity/CaptionForge.Modularity.csproj" />
+    <Project Path="src/CaptionForge.Modules.TextToSpeech/CaptionForge.Modules.TextToSpeech.csproj" />
     <Project Path="src/CaptionForge.WhisperCompat/CaptionForge.WhisperCompat.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/CaptionForge.Tests/CaptionForge.Tests.csproj" />
+  </Folder>
+  <Folder Name="/checks/">
+    <Project Path="checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.csproj" />
   </Folder>
 </Solution>

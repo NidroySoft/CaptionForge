@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\src\CaptionForge.Core\CaptionForge.Core.csproj" />
     <ProjectReference Include="..\..\src\CaptionForge.Application\CaptionForge.Application.csproj" />
     <ProjectReference Include="..\..\src\CaptionForge.Infrastructure\CaptionForge.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\CaptionForge.Modularity\CaptionForge.Modularity.csproj" />
   </ItemGroup>
 
 </Project>

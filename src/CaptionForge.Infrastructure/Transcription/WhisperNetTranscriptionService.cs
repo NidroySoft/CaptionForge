@@ -52,7 +52,9 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
                 {
                     language=segment.Language;raw.Add(new JsonObject { ["text"]=segment.Text,["startTicks"]=segment.Start.Ticks,["endTicks"]=segment.End.Ticks,["language"]=segment.Language,
                         ["tokens"]=new JsonArray(segment.Tokens.Select(t=>(JsonNode)new JsonObject { ["id"]=t.Id,["text"]=t.Text,["start10Ms"]=t.Start,["end10Ms"]=t.End,["dtwTimestamp"]=t.DtwTimestamp }).ToArray()) });
-                    segments.Add(WhisperTokenNormalizer.Normalize(segment,info.IsEnglishOnly));
+                    var normalized=WhisperTokenNormalizer.Normalize(segment,info.IsEnglishOnly,out var recoveries);
+                    if (recoveries.Count>0) raw[^1]!["wordTimingRecoveries"]=JsonFiles.Node(recoveries);
+                    segments.Add(normalized);
                 }
                 var result=new TranscriptionResult(audio.SourceSegmentId,options.ModelName,language,audio.DurationUs,segments);
                 await JsonFiles.WriteAsync(Path.Combine(run.RunDirectory,"transcription",key+".json"),JsonFiles.Node(result),cancellationToken).ConfigureAwait(false);
