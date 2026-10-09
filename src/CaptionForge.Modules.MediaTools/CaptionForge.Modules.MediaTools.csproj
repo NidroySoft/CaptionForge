@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><EnableWindowsTargeting>true</EnableWindowsTargeting><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../CaptionForge.Modularity/CaptionForge.Modularity.csproj" />
+    <ProjectReference Include="../CaptionForge.Modules.MediaTools.Core/CaptionForge.Modules.MediaTools.Core.csproj" />
+    <Content Include="module.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="README.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../LICENSE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="LICENSE" Link="LICENSE" />
+    <Content Include="../../NOTICE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="NOTICE" Link="NOTICE" />
+    <Content Include="../../THIRD_PARTY_NOTICES.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="THIRD_PARTY_NOTICES.md" Link="THIRD_PARTY_NOTICES.md" />
+    <Content Include="../../licenses/WhisperCompat-NOTICE.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/WhisperCompat-NOTICE.md" Link="licenses/WhisperCompat-NOTICE.md" />
+    <Content Include="../../licenses/Whisper.net-MIT.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/Whisper.net-MIT.txt" Link="licenses/Whisper.net-MIT.txt" Condition="Exists('../../licenses/Whisper.net-MIT.txt')" />
+  </ItemGroup>
+</Project>
+

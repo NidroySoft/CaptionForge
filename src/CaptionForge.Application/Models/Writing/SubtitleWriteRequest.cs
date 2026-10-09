@@ -11,8 +11,10 @@ public sealed record SubtitleWriteRequest
     public TimelineSnapshot Snapshot { get; }
     public IReadOnlyList<SubtitleCue> Captions { get; }
     public ManagedSubtitleSet? PreviouslyManaged { get; }
+    public string? RemoveSourceTrackId { get; }
+    public string? SourceSubtitleTrackId { get; }
 
-    public SubtitleWriteRequest(RunContext run, TimelineSnapshot snapshot, IEnumerable<SubtitleCue> captions, ManagedSubtitleSet? previouslyManaged = null)
+    public SubtitleWriteRequest(RunContext run, TimelineSnapshot snapshot, IEnumerable<SubtitleCue> captions, ManagedSubtitleSet? previouslyManaged = null, string? removeSourceTrackId = null, string? sourceSubtitleTrackId = null)
     {
 
         ArgumentNullException.ThrowIfNull(run);
@@ -27,6 +29,8 @@ public sealed record SubtitleWriteRequest
         Snapshot = snapshot;
         Captions = copy;
         PreviouslyManaged = previouslyManaged;
+        RemoveSourceTrackId = removeSourceTrackId;
+        SourceSubtitleTrackId = sourceSubtitleTrackId;
     }
 
     public string TemplateResourceId => "7535399757947161873";

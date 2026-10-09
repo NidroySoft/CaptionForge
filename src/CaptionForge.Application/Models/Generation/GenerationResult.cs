@@ -11,18 +11,19 @@ public sealed record GenerationResult
 {
     public RunContext Run { get; }
     public TimelineSnapshot Snapshot { get; }
-    public TranscriptionOptions Options { get; }
+    public TranscriptionOptions? Options { get; }
+    public CaptionImportOrigin? ImportOrigin { get; }
     public IReadOnlyList<SubtitleCue> Captions { get; }
     public IReadOnlyList<TranscriptionResult> Transcriptions { get; }
     public PreparedSubtitlePlan Plan { get; }
 
-    public GenerationResult(RunContext run, TimelineSnapshot snapshot, TranscriptionOptions options,
-        IEnumerable<SubtitleCue> captions, IEnumerable<TranscriptionResult> transcriptions, PreparedSubtitlePlan plan)
+    public GenerationResult(RunContext run, TimelineSnapshot snapshot, TranscriptionOptions? options,
+        IEnumerable<SubtitleCue> captions, IEnumerable<TranscriptionResult> transcriptions, PreparedSubtitlePlan plan, CaptionImportOrigin? importOrigin = null)
     {
 
         ArgumentNullException.ThrowIfNull(run);
         ArgumentNullException.ThrowIfNull(snapshot);
-        ArgumentNullException.ThrowIfNull(options);
+        if (importOrigin is null) ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(plan);
         var captionCopy = Guard.Copy(captions, nameof(captions));
         var transcriptionCopy = Guard.Copy(transcriptions, nameof(transcriptions));
@@ -30,11 +31,12 @@ public sealed record GenerationResult
         if (captionCopy.Count == 0 || plan.CaptionCount != captionCopy.Count || plan.Run != run ||
             snapshot.Project.Id != run.ProjectId || snapshot.Timeline.Id != run.TimelineId)
             throw new ArgumentException("Resultado, captura y plan no corresponden.", nameof(plan));
-        if (captionCopy.Any(c => !transcriptionCopy.Any(t => t.SourceSegmentId == c.SourceSegmentId)))
+        if (importOrigin is null && captionCopy.Any(c => !transcriptionCopy.Any(t => t.SourceSegmentId == c.SourceSegmentId)))
             throw new ArgumentException("Hay captions sin su transcripción.", nameof(captions));
         Run = run;
         Snapshot = snapshot;
         Options = options;
+        ImportOrigin = importOrigin;
         Captions = captionCopy;
         Transcriptions = transcriptionCopy;
         Plan = plan;

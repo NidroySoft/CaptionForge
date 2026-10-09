@@ -32,6 +32,26 @@ internal static class Program
                 Directory.CreateDirectory(directory);
                 LocalizationService.Current.Initialize();
                 var vm = new MainViewModel(new DesktopDialogs(), new AudioPreviewService());
+                Require(!vm.RemoveOriginalSubtitleTrack, "Subtitle source removal must be opt-in");
+                var importView = new CaptionForge.Desktop.Views.ConfigurationView { DataContext = vm, Foreground = (Brush)app.FindResource("TextBrush") };
+                foreach (var sourceId in new[] { "CapCutTrack", "SubtitleFile", "Audio" })
+                {
+                    vm.SelectedCaptionSource = vm.CaptionSources.Single(s => s.Id == sourceId);
+                    await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+                    importView.Measure(new Size(1000, 550));
+                    importView.Arrange(new Rect(0, 0, 1000, 550));
+                    importView.UpdateLayout();
+                    var sourceSelector = (ComboBox)importView.FindName("CaptionSourceSelector");
+                    Require(sourceSelector.Items.Count == 3 && Equals(sourceSelector.SelectedItem, vm.SelectedCaptionSource), "Subtitle source selector did not bind");
+                    Require(vm.UsesAudioSource == (sourceId == "Audio") && vm.UsesTrackSource == (sourceId == "CapCutTrack") && vm.UsesFileSource == (sourceId == "SubtitleFile"), "Subtitle source controls do not match selection");
+                    var bitmap = new RenderTargetBitmap(1000, 550, 96, 96, PixelFormats.Pbgra32);
+                    var background = new DrawingVisual();
+                    using (var drawing = background.RenderOpen()) drawing.DrawRectangle((Brush)app.FindResource("BackgroundBrush"), null, new Rect(0, 0, 1000, 550));
+                    bitmap.Render(background); bitmap.Render(importView);
+                    var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
+                    using var stream = File.Create(Path.Combine(directory, $"subtitle-source-{sourceId}.png")); encoder.Save(stream);
+                }
+                Console.WriteLine("PASS: subtitle origins, default source retention and WPF rendering.");
                 var window = new MainWindow { DataContext = vm };
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
                 var selector = (ComboBox)window.FindName("ModuleSelector");
@@ -44,12 +64,12 @@ internal static class Program
                     Console.WriteLine("PASS: CaptionForge works with no optional modules installed.");
                     await vm.ShutdownAsync(); exitCode = 0; return;
                 }
-                selector.SelectedIndex = 1;
+                selector.SelectedItem = selector.Items.Cast<CaptionForge.Modularity.ModuleDefinition>().Single(m => m.Id == "text-to-speech");
                 Require(host.Content is SpeechView, "Speech module did not load");
                 var voiceView = (SpeechView)host.Content;
                 var tabs = (TabControl)window.FindName("ModuleTabs");
                 Require(tabs.Items.Count == 2, "Expected subtitle and speech tabs");
-                selector.SelectedIndex = 1;
+                selector.SelectedItem = selector.Items.Cast<CaptionForge.Modularity.ModuleDefinition>().Single(m => m.Id == "text-to-speech");
                 Require(tabs.Items.Count == 2 && ReferenceEquals(host.Content, voiceView), "Opening a module duplicated its tab");
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
                 Render(window, Path.Combine(directory, "empty-result.png"));
@@ -161,12 +181,12 @@ internal static class Program
                     "Subtitle project view bindings did not load");
                 Require(Descendants(subtitleView).OfType<CaptionForge.Desktop.Views.ResultsView>().Single().Visibility == Visibility.Collapsed,
                     "Inactive subtitle view remained visible");
-                selector.SelectedIndex = 1;
+                selector.SelectedItem = selector.Items.Cast<CaptionForge.Modularity.ModuleDefinition>().Single(m => m.Id == "text-to-speech");
                 Require(ReferenceEquals(host.Content, voiceView) && voiceView.Model.Text == preservedText, "Speech state was replaced");
                 Console.WriteLine("PASS: WPF views, language controls, local voices and navigation retain state.");
                 window.CloseModuleTab("text-to-speech");
                 Require(tabs.Items.Count == 1 && ReferenceEquals(host.Content, subtitles), "Closing a tab failed");
-                selector.SelectedIndex = 1;
+                selector.SelectedItem = selector.Items.Cast<CaptionForge.Modularity.ModuleDefinition>().Single(m => m.Id == "text-to-speech");
                 Require(tabs.Items.Count == 2 && ReferenceEquals(host.Content, voiceView), "Reopening a tab duplicated its instance");
                 window.CloseModuleTab("subtitles"); window.CloseModuleTab("text-to-speech");
                 Require(tabs.Items.Count == 0 && host.Content is null, "Closing the last tab failed");

@@ -1,0 +1,115 @@
+<UserControl x:Class="CaptionForge.Modules.MediaTools.MediaToolsView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:CaptionForge.Modules.MediaTools" Margin="20,16" Foreground="{DynamicResource TextBrush}" FontFamily="Segoe UI" FontSize="13" Background="{DynamicResource BackgroundBrush}">
+ <UserControl.Resources>
+  <BooleanToVisibilityConverter x:Key="MediaBoolVisibility"/>
+  <Style TargetType="ComboBox">
+    <Setter Property="Background" Value="{DynamicResource InputBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="MinHeight" Value="34"/>
+    <Setter Property="Padding" Value="10,6"/>
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ComboBox">
+          <Grid>
+            <ToggleButton x:Name="DropDownButton" Focusable="False" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" IsChecked="{Binding IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+              <ToggleButton.Template>
+                <ControlTemplate TargetType="ToggleButton">
+                  <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6">
+                    <Path Data="M 0 0 L 4 4 L 8 0" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                  </Border>
+                </ControlTemplate>
+              </ToggleButton.Template>
+            </ToggleButton>
+            <ContentPresenter IsHitTestVisible="False" Content="{TemplateBinding SelectedItem}" ContentTemplate="{TemplateBinding ItemTemplate}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" Margin="10,6,32,6" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}"/>
+            <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True" Focusable="False">
+              <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="6" Width="{Binding ActualWidth,RelativeSource={RelativeSource TemplatedParent}}" MaxHeight="280" Padding="3">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" CanContentScroll="True">
+                  <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                </ScrollViewer>
+              </Border>
+            </Popup>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+              <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="Height" Value="36"/><Setter Property="MinHeight" Value="36"/><Setter Property="Padding" Value="10,5"/></Style>
+  <Style x:Key="Label" TargetType="TextBlock" BasedOn="{StaticResource Label}"><Setter Property="Margin" Value="0,8,0,5"/></Style>
+  <Style x:Key="EmptyTranscript" TargetType="TextBlock" BasedOn="{StaticResource Muted}"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding HasTranscript}" Value="False"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style>
+ </UserControl.Resources>
+ <Grid>
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+  <DockPanel Margin="0,0,0,16"><TextBlock DockPanel.Dock="Right" Text="LOCAL · CPU" Foreground="{DynamicResource AccentBrush}" VerticalAlignment="Center"/><StackPanel><TextBlock Text="Audio y transcripción" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="Selecciona un tramo, extrae el audio o conviértelo en texto y subtítulos." Style="{DynamicResource Muted}" Margin="0,4,0,0"/></StackPanel></DockPanel>
+  <Grid Grid.Row="1">
+   <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+   <Border x:Name="OptionsPanel" Style="{DynamicResource Panel}">
+    <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,8,0">
+      <StackPanel>
+       <TextBlock Text="Archivo y selección" Style="{DynamicResource Section}"/>
+       <StackPanel IsEnabled="{Binding CanEdit}">
+        <DockPanel><Button Content="Abrir archivo…" Click="BrowseSource" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBlock Text="{Binding SourceName}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip="{Binding SourcePath}"/></DockPanel>
+        <TextBlock Text="Pista de audio" Style="{DynamicResource Label}"/>
+        <ComboBox x:Name="TrackSelector" ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+        <local:SelectionWaveform x:Name="Waveform" Height="75" Margin="0,10,0,8" Audio="{Binding Waveform}" Start="{Binding RangeStart,Mode=TwoWay}" End="{Binding RangeEnd,Mode=TwoWay}" IsEnabled="{Binding CanSelect}" AutomationProperties.Name="Barras de audio y selección de tramo"/>
+        <TextBlock x:Name="TimeLabel" Text="00:00:00.000 / 00:00:00.000" Style="{DynamicResource Muted}" HorizontalAlignment="Right" Margin="0,0,0,8"/>
+        <UniformGrid Columns="3" IsEnabled="{Binding CanPlay}"><Button x:Name="PlayButton" Content="▶ Escuchar" Click="Play" Margin="0,0,4,0"/><Button Content="▶ Selección" Click="PlaySelection" Margin="4,0"/><Button Content="■ Detener" Click="Stop" Margin="4,0,0,0"/></UniformGrid>
+        <Grid Margin="0,2,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+         <StackPanel><TextBlock Text="Inicio · hh:mm:ss.fff" Style="{DynamicResource Label}"/><TextBox x:Name="StartField" Text="{Binding StartTime,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="Inicio de selección"/></StackPanel>
+         <StackPanel Grid.Column="2"><TextBlock Text="Fin · hh:mm:ss.fff" Style="{DynamicResource Label}"/><TextBox x:Name="EndField" Text="{Binding EndTime,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="Fin de selección"/></StackPanel>
+        </Grid>
+        <DockPanel Margin="0,8,0,0"><Button Content="Todo" Click="SelectAll" DockPanel.Dock="Right" Margin="8,0,0,0" IsEnabled="{Binding CanSelect}"/><TextBlock Text="{Binding SelectionText}" Style="{DynamicResource Muted}" VerticalAlignment="Center"/></DockPanel>
+        <TextBlock Text="Arrastra sobre las barras para seleccionar y mueve los extremos para afinar." Style="{DynamicResource Muted}" FontSize="12" Margin="0,4,0,0"/>
+        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+         <StackPanel><TextBlock Text="Audio" Style="{DynamicResource Label}"/><ComboBox ItemsSource="{Binding Formats}" SelectedItem="{Binding Format}"/></StackPanel>
+         <StackPanel Grid.Column="2"><TextBlock Text="Idioma de transcripción" Style="{DynamicResource Label}"/><ComboBox x:Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
+        </Grid>
+        <Expander Header="Whisper y opciones avanzadas" Margin="0,14,0,4"><StackPanel>
+         <TextBlock Text="Modelo Whisper · archivo GGML" Style="{DynamicResource Label}"/><DockPanel><Button Content="Buscar…" Click="BrowseModel" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding ModelPath,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ModelPath}"/></DockPanel>
+         <TextBlock Text="FFmpeg" Style="{DynamicResource Label}"/><TextBox Text="{Binding FfmpegPath,UpdateSourceTrigger=PropertyChanged}"/>
+         <TextBlock Text="FFprobe" Style="{DynamicResource Label}"/><TextBox Text="{Binding FfprobePath,UpdateSourceTrigger=PropertyChanged}"/>
+         <TextBlock Text="Hilos de CPU" Style="{DynamicResource Label}"/><TextBox Text="{Binding CpuThreads}"/>
+         <Button Content="Guardar ajustes" Click="SaveSettings" Margin="0,12,0,0"/>
+        </StackPanel></Expander>
+       </StackPanel>
+      </StackPanel>
+     </ScrollViewer>
+     <StackPanel Grid.Row="1" Margin="0,12,0,0"><ProgressBar Value="{Binding Progress,Mode=OneWay}" IsIndeterminate="{Binding IsIndeterminate}" Maximum="100" Height="4" Visibility="{Binding IsBusy,Converter={StaticResource MediaBoolVisibility}}" Margin="0,0,0,10"/>
+      <UniformGrid Columns="2"><Button Content="Extraer audio…" Click="ExtractAudio" IsEnabled="{Binding CanProcess}" Margin="0,0,6,0"/><Button Content="Transcribir" Click="Transcribe" IsEnabled="{Binding CanTranscribe}" Style="{DynamicResource PrimaryButton}" Height="36" Margin="6,0,0,0"/></UniformGrid>
+     </StackPanel>
+    </Grid>
+   </Border>
+   <Border x:Name="ResultPanel" Grid.Column="2" Style="{DynamicResource Panel}">
+    <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <StackPanel>
+      <TextBlock Text="Resultado" Style="{DynamicResource Section}"/>
+      <TextBlock x:Name="ResultEmptyMessage" Text="Tu transcripción aparecerá aquí. Puedes extraer el audio completo o seleccionar un fragmento y usarlo como muestra de voz." Style="{StaticResource EmptyTranscript}" Margin="0,0,0,12"/>
+      <TextBlock Text="{Binding TranscriptInfo}" Style="{DynamicResource Muted}" FontSize="12" Margin="0,0,0,10"/>
+     </StackPanel>
+     <TextBox x:Name="TranscriptBox" Grid.Row="1" Text="{Binding TranscriptText,Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="60" Padding="12"/>
+     <StackPanel Grid.Row="2" Margin="0,12,0,0">
+      <CheckBox Content="Tiempos del archivo original · SRT / VTT" IsChecked="{Binding OriginalTimestamps}" IsEnabled="{Binding CanExport}" ToolTip="Sin activar, el fragmento empieza en cero. Activado, se suma su posición en el archivo original." Margin="0,0,0,10"/>
+      <UniformGrid Columns="3" IsEnabled="{Binding CanExport}"><Button Content="Guardar TXT" Tag="txt" Click="ExportText" Margin="0,0,4,0"/><Button Content="Guardar SRT" Tag="srt" Click="ExportText" Margin="4,0"/><Button Content="Guardar VTT" Tag="vtt" Click="ExportText" Margin="4,0,0,0"/></UniformGrid>
+      <TextBlock Text="{Binding OutputPath}" Foreground="{DynamicResource MutedBrush}" TextTrimming="CharacterEllipsis" ToolTip="{Binding OutputPath}" Margin="0,12,0,0"/>
+      <Border Background="{DynamicResource InputBrush}" CornerRadius="6" Padding="10" Margin="0,8,0,10"><TextBlock Text="{Binding Status}" TextWrapping="Wrap" MaxHeight="72" ToolTip="{Binding Status}" Foreground="{DynamicResource MutedBrush}"/></Border>
+      <UniformGrid Columns="2"><Button Content="Cancelar" Click="Cancel" IsEnabled="{Binding IsBusy}" Margin="0,0,6,0"/><Button Content="Abrir carpeta" Click="OpenFolder" IsEnabled="{Binding CanOpenOutput}" Margin="6,0,0,0"/></UniformGrid>
+     </StackPanel>
+    </Grid>
+   </Border>
+  </Grid>
+ </Grid>
+</UserControl>

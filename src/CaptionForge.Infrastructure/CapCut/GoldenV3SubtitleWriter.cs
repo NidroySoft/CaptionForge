@@ -47,6 +47,7 @@ public sealed class GoldenV3SubtitleWriter : ICapCutSubtitleWriter
         if(_templateSegmentId is not null)
         {
             string selectedTrack=JsonFiles.String(JsonFiles.Array(original,"tracks").Single(t=>JsonFiles.Array(t,"segments").Any(s=>s?["id"]?.GetValue<string>()==_templateSegmentId)),"id");
+            if (selectedTrack == request.SourceSubtitleTrackId) throw new InvalidDataException("Selecciona una plantilla en una pista distinta de los subtítulos originales.");
             var entry=entries.SingleOrDefault(e=>DraftTemplateRegistry.TrackId(JsonWorkspaceStore.ReadManaged(e!["managed"]!))==selectedTrack);
             selectedManaged=entry is null?null:JsonWorkspaceStore.ReadManaged(entry["managed"]!);
             if(entry?["prototype"] is JsonObject cached && entry["seedFingerprint"]?.GetValue<string>()==DraftTemplateRegistry.Fingerprint(original,_templateSegmentId))
@@ -59,6 +60,21 @@ public sealed class GoldenV3SubtitleWriter : ICapCutSubtitleWriter
             ? GoldenV3DocumentPatcher.Patch(request,original,_assets!)
             : DraftTemplateDocumentPatcher.Patch(new SubtitleWriteRequest(request.Run,request.Snapshot,request.Captions,selectedManaged),original,_templateSegmentId,prototype);
         var warnings=patchWarnings.ToList();
+        if (request.RemoveSourceTrackId is { } removeId)
+        {
+            if (_templateSegmentId is null) throw new InvalidDataException("Eliminar el origen requiere una plantilla del proyecto.");
+            var sourceTracks = await ExistingSubtitleCatalog.ReadAsync(request.Snapshot, cancellationToken).ConfigureAwait(false);
+            var source = sourceTracks.SingleOrDefault(t => t.Id == removeId && t.IsSupported)
+                ?? throw new InvalidDataException("La pista original no es una pista completa de subtítulos compatible.");
+            if (DraftTemplateRegistry.TrackId(managed) == removeId) throw new InvalidDataException("La pista original y la plantilla deben ser distintas.");
+            if (!source.Captions.SequenceEqual(request.Captions) &&
+                !source.Captions.Select(c => (c.SourceSegmentId, c.Text, c.TimelineRange)).SequenceEqual(request.Captions.Select(c => (c.SourceSegmentId, c.Text, c.TimelineRange))))
+                throw new InvalidDataException("El resultado no corresponde a todos los subtítulos de la pista que se va a eliminar.");
+            var tracks = JsonFiles.Array(document, "tracks");
+            var remove = tracks.Single(t => t?["id"]?.GetValue<string>() == removeId); tracks.Remove(remove);
+            foreach (var entry in entries.Where(e => DraftTemplateRegistry.TrackId(JsonWorkspaceStore.ReadManaged(e!["managed"]!)) == removeId).ToArray()) entries.Remove(entry);
+            warnings.Add("Se eliminará la pista original al aplicar el resultado. El backup permite restaurarla.");
+        }
         if(overwrite?.RequiresConfirmation==true) warnings.Add(overwrite.Message);
         if(_templateSegmentId is not null)
         {

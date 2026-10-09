@@ -21,6 +21,8 @@ Los módulos son código local de confianza y tienen los permisos del proceso. E
 - `CaptionForge.Modules.TextToSpeech`: pantalla, preferencias, reproducción y forma de onda.
 - `CaptionForge.Modules.TextToSpeech.Core`: motores, validaciones, proceso Python, instalación privada y lectura de WAV. No depende del núcleo, Application o Infrastructure de CaptionForge.
 - `Modules.TextToSpeech/Backend`: generación Python, instalación de dependencias y descarga de modelos oficiales.
+- `CaptionForge.Modules.MediaTools`: selección de pistas, forma de onda con recorte, reproductor y exportaciones en una pestaña propia.
+- `CaptionForge.Modules.MediaTools.Core`: FFmpeg/FFprobe, lectura PCM y transcripción mediante la biblioteca compartida `WhisperCompat`. No referencia Core, Application, Infrastructure ni el módulo de voces.
 
 El registro crea las herramientas al seleccionarlas por primera vez. `Deactivate()` detiene reproducción; `ShutdownAsync()` cancela y espera la tarea activa. La vista notifica sus cambios de estado mediante `INotifyPropertyChanged`. Los recursos visuales compartidos del anfitrión permiten conservar colores, fuentes y controles, mientras cada módulo controla su interfaz.
 
@@ -57,3 +59,5 @@ dotnet run --project checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.
 Las comprobaciones WPF validan carga, navegación, contexto de subtítulos, contenido del selector de voces y renderizado. Las pruebas xUnit cubren manifiestos inválidos, rutas fuera de la instalación, lectura de WAV, errores y cancelación de Python. Las comprobaciones de reproducción nativa son adicionales a las de renderizado.
 
 `--real-speech` genera muestras reales en inglés y español con Kokoro y Pocket instalados. `--install-kokoro` prueba el recorrido de instalación privada y una generación real; descarga dependencias y modelos. No se ejecuta en CI por defecto. `--no-modules` comprueba el anfitrión en una copia sin carpeta Modules.
+
+`checks/CaptionForge.MediaToolsChecks` genera un vídeo de prueba con dos pistas, comprueba selección y extracción, layouts claro/oscuro/compacto y una sola pestaña por módulo. Requiere FFmpeg en PATH. `--playback` comprueba además que la reproducción nativa se limite al tramo (silenciada; requiere los componentes multimedia de Windows). `--real-transcription` añade reproducción y una comprobación local con el modelo medium.en y una muestra Kokoro ya instalados; no descarga modelos ni se ejecuta en CI. Las exportaciones de prueba y capturas quedan en `artifacts/media-tools-checks`.

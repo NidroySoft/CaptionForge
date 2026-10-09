@@ -12,6 +12,8 @@ public interface IWorkspaceStore
     /// Esta operación es íntegra: si falla, no deja una ejecución válida sin identidad recuperable.
     /// </summary>
     Task<RunContext> CreateRunAsync(GenerateCaptionsRequest request, CancellationToken cancellationToken = default);
+    Task<RunContext> CreateRunAsync(ExistingCaptionsRequest request, CancellationToken cancellationToken = default)
+        => throw new NotSupportedException("Este almacén no admite importar subtítulos.");
     Task<ManagedSubtitleSet?> ReadManagedSubtitlesAsync(string projectId, string timelineId, CancellationToken cancellationToken = default);
     /// <summary>Guarda resultado revisable y su plan dentro del run; no cambia el registro de IDs ya aplicados.</summary>
     Task SaveGenerationAsync(GenerationResult result, CancellationToken cancellationToken = default);

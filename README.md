@@ -22,6 +22,7 @@
   <a href="#instalación">Instalación</a> ·
   <a href="#guía-de-uso">Guía de uso</a> ·
   <a href="#módulos-y-texto-a-voz">Texto a voz</a> ·
+  <a href="#audio-y-transcripción-sin-proyectos-de-capcut">Audio y transcripción</a> ·
   <a href="#pruebas-y-calidad">Pruebas</a> ·
   <a href="https://github.com/NidroySoft/CaptionForge/releases">Releases</a> ·
   <a href="https://github.com/NidroySoft/CaptionForge/issues">Reportar un problema</a>
@@ -29,7 +30,7 @@
 
 ## Qué es CaptionForge
 
-**CaptionForge es una aplicación de escritorio para Windows que genera subtítulos desde los clips de audio o vídeo de una timeline de CapCut y les aplica el formato de una plantilla ya presente en el proyecto.**
+**CaptionForge es una aplicación de escritorio para Windows que transcribe audio, reutiliza pistas de subtítulos de CapCut o importa SRT/WebVTT y aplica el formato de una plantilla ya presente en el proyecto.**
 
 Elige la plantilla en CapCut; CaptionForge se encarga de transcribir, preparar los bloques y escribirlos en el borrador correspondiente. Conserva los recursos de esa plantilla —fuente, colores, posición, efectos y animación— y utiliza tiempos de palabras para acompañar el texto.
 
@@ -57,6 +58,7 @@ CaptionForge es un proyecto independiente y no está afiliado a CapCut ni a sus 
 | Ayuda | Consultar la guía integrada y seguir un tutorial sobre los controles reales de la aplicación. |
 | Módulos | Cambiar de herramienta conservando el estado del trabajo. Los módulos se crean al abrirlos por primera vez. |
 | Texto a voz | Generar, escuchar y exportar WAV locales con Kokoro, Pocket TTS, Chatterbox Nano o Chatterbox Multilingual V3. |
+| Audio y transcripción | Abrir un audio o vídeo independiente, elegir pista, seleccionar un tramo sobre las barras, extraer WAV/MP3 y transcribir a TXT/SRT/VTT. |
 
 ### Una interfaz pensada para trabajar
 
@@ -66,7 +68,7 @@ En la pantalla de preparación, cada panel tiene su propio desplazamiento. El re
 
 ## Módulos y texto a voz
 
-El selector **Herramienta** permite alternar entre **Subtítulos de CapCut** y **Texto a voz**. El módulo de voz tiene su propia vista y configuración; su generación funciona en un proceso Python independiente. La navegación se bloquea durante una operación y cerrar CaptionForge solicita la cancelación del trabajo activo.
+El selector **Abrir herramienta** abre **Obtener subtítulos**, **Generar audio** o **Audio y transcripción** en pestañas dentro de la misma ventana. Cada herramienta tiene una sola instancia; volver a abrirla selecciona su pestaña y conserva el estado. Se puede cambiar de pestaña durante una operación, pero la que está trabajando solo se puede cerrar después de terminar o cancelar. Cerrar CaptionForge solicita la cancelación del trabajo activo. El módulo de voz tiene su propia vista y configuración; su generación funciona en un proceso Python independiente.
 
 1. Selecciona **Texto a voz** y elige motor e idioma.
 2. Para Kokoro o Pocket, elige una voz instalada. Para Chatterbox, selecciona un audio limpio de referencia de más de cinco segundos.
@@ -85,6 +87,16 @@ Se detectan las instalaciones del laboratorio existente bajo `%LOCALAPPDATA%\Won
 Las generaciones se ejecutan de una en una en CPU, por fragmentos, y producen WAV PCM de 16 bits. El proceso libera el modelo al finalizar. Junto al WAV se conserva un registro de diagnóstico y los parámetros de generación. La calidad y el tiempo dependen del motor, de la voz y del equipo; Chatterbox puede tardar varios minutos en CPU. Los controles nuevos de voz están inicialmente en español.
 
 Para añadir nuevas herramientas, consulta [la arquitectura de módulos](docs/Modules.md). Se publican de forma independiente y se descubren desde su carpeta: CaptionForge no conoce sus funciones ni necesita recompilarse para agregarlos. La reproducción de voz incluye barras de amplitud, pausa y navegación sobre la forma de onda.
+
+### Audio y transcripción sin proyectos de CapCut
+
+1. Abre **Audio y transcripción** y pulsa **Abrir archivo…**. Admite audio y vídeo; si hay varias pistas, elige la que necesitas.
+2. Arrastra sobre las barras para seleccionar un tramo, ajusta sus extremos o escribe inicio y fin. **Todo** selecciona el archivo completo. **Escuchar** reproduce el audio y **Selección** escucha únicamente el tramo marcado.
+3. Elige WAV o MP3 y pulsa **Extraer audio…** para guardarlo en otra ubicación. WAV conserva los canales y la frecuencia de la pista original.
+4. Para obtener texto, comprueba el modelo GGML en **Whisper y opciones avanzadas**, elige idioma y pulsa **Transcribir**. Exporta TXT, SRT o VTT cuando termine.
+5. Los subtítulos del fragmento comienzan en cero. Activa **Tiempos del archivo original** si necesitas conservar su posición original.
+
+Este módulo usa FFmpeg/FFprobe y Whisper en CPU, sin Python ni dependencia del módulo de voces. La vista previa temporal es mono 16 kHz; el original no se modifica. La configuración del módulo se guarda en `%LOCALAPPDATA%\CaptionForge\modules\media-tools\settings.json`; en su primera apertura lee las rutas ya configuradas en CaptionForge. Los tiempos de transcripción corresponden a segmentos de Whisper.
 
 ## Requisitos
 
@@ -185,6 +197,14 @@ Una plantilla puede tener varias capas internas. CaptionForge analiza su estruct
 ### 5. Genera y revisa
 
 Pulsa **Generar subtítulos**. El flujo prepara los recortes, transcribe con Whisper, normaliza los tiempos de palabras y prepara los bloques y el plan de escritura.
+
+### Reutilizar subtítulos de CapCut o importar un archivo
+
+En **Obtener subtítulos**, selecciona el proyecto y la timeline. En la configuración, cambia **Origen de los subtítulos** a **Pista de subtítulos de CapCut** o **Archivo SRT / VTT**. Selecciona la pista original o el archivo y elige una plantilla compatible presente en otra pista de la timeline. Estos dos orígenes no requieren Whisper ni extracción de audio.
+
+Pulsa **Preparar subtítulos**, revisa el resultado y aplica el plan. Se conserva el texto y el inicio y duración de cada bloque; el formato procede de la plantilla. Si no existen tiempos por palabra, se distribuyen aproximadamente dentro del bloque para las animaciones y se muestra una advertencia: no equivalen a una alineación de voz.
+
+La pista original se conserva por defecto. **Eliminar la pista original al aplicar** permite quitarla en la misma operación protegida por backup. Nunca se utiliza la pista original como pista de plantilla, ni se elimina antes de preparar y validar el resultado. Restaurar el backup recupera también la pista original. Los archivos importados no se modifican.
 
 Revisa el texto completo y los intervalos del resultado. El progreso cuenta clips completados: un clip largo puede tardar mientras la barra permanece en el mismo punto.
 
@@ -356,6 +376,8 @@ Seleccionar los proyectos explícitamente evita depender de si la solución usa 
 Core define el dominio; Application depende de Core; Infrastructure implementa los contratos; Desktop compone los servicios y presenta el flujo. La transcripción utiliza la biblioteca .NET y su runtime nativo; FFmpeg y FFprobe sí se invocan como procesos externos.
 
 ## Pruebas y calidad
+
+Última comprobación local del módulo **Audio y transcripción** (8 de octubre de 2026): **324 pruebas aprobadas, 0 fallidas y 2 omitidas** de 326. Se comprobaron además las vistas WPF, extracción con FFmpeg, selección de pistas y una transcripción real con medium.en en CPU. Las omitidas son las integraciones personales de CapCut y Whisper/DTW; la prueba de Whisper del módulo independiente se ejecutó por separado. Este resultado local no afirma una nueva ejecución de GitHub Actions.
 
 ### Resultado verificado del MVP
 

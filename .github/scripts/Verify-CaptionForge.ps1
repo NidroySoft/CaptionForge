@@ -19,6 +19,7 @@ try {
     Remove-Item Env:CAPTIONFORGE_TEST_MODEL -ErrorAction SilentlyContinue
     Remove-Item Env:CAPTIONFORGE_TEST_VOICE -ErrorAction SilentlyContinue
     Remove-Item Env:CAPTIONFORGE_TEST_CAPCUT_PROJECT -ErrorAction SilentlyContinue
+    Remove-Item Env:CAPTIONFORGE_TEST_IMPORT_DRAFT -ErrorAction SilentlyContinue
 
     New-Item -ItemType Directory -Path 'artifacts/test-results' -Force | Out-Null
     # Package optional modules independently. Desktop has no reference to their implementations.
@@ -56,6 +57,12 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Fallaron las comprobaciones de las vistas y navegación de módulos.' }
     }
     $hostChecks = 'checks/CaptionForge.HostChecks/CaptionForge.HostChecks.csproj'
+    $mediaChecks = 'checks/CaptionForge.MediaToolsChecks/CaptionForge.MediaToolsChecks.csproj'
+    if (Test-Path $mediaChecks) {
+        # Generated media only: no model download or personal recordings in CI.
+        & dotnet run --project $mediaChecks --configuration Release
+        if ($LASTEXITCODE -ne 0) { throw 'Fallaron las comprobaciones de audio y transcripción.' }
+    }
     if (Test-Path $hostChecks) {
         & dotnet run --project $hostChecks --configuration Release
         if ($LASTEXITCODE -ne 0) { throw 'Falló la carga independiente de módulos.' }

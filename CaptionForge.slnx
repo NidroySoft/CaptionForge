@@ -9,6 +9,8 @@
     <Project Path="src/CaptionForge.Infrastructure/CaptionForge.Infrastructure.csproj" />
     <Project Path="src/CaptionForge.Modularity/CaptionForge.Modularity.csproj" />
     <Project Path="src/CaptionForge.Modules.TextToSpeech/CaptionForge.Modules.TextToSpeech.csproj" />
+    <Project Path="src/CaptionForge.Modules.MediaTools.Core/CaptionForge.Modules.MediaTools.Core.csproj" />
+    <Project Path="src/CaptionForge.Modules.MediaTools/CaptionForge.Modules.MediaTools.csproj" />
     <Project Path="src/CaptionForge.Modules.TextToSpeech.Core/CaptionForge.Modules.TextToSpeech.Core.csproj" />
     <Project Path="src/CaptionForge.WhisperCompat/CaptionForge.WhisperCompat.csproj" />
   </Folder>
@@ -16,6 +18,7 @@
     <Project Path="tests/CaptionForge.Tests/CaptionForge.Tests.csproj" />
   </Folder>
   <Folder Name="/checks/">
+    <Project Path="checks/CaptionForge.MediaToolsChecks/CaptionForge.MediaToolsChecks.csproj" />
     <Project Path="checks/CaptionForge.ModuleChecks/CaptionForge.ModuleChecks.csproj" />
     <Project Path="checks/CaptionForge.HostChecks/CaptionForge.HostChecks.csproj" />
   </Folder>

@@ -16,26 +16,30 @@ public sealed class JsonWorkspaceStore : IWorkspaceStore
     public JsonWorkspaceStore(string rootDirectory, TimeProvider? timeProvider = null)
     { RootDirectory=PathSafety.Full(rootDirectory); _clock=timeProvider ?? TimeProvider.System; }
 
-    public async Task<RunContext> CreateRunAsync(GenerateCaptionsRequest request, CancellationToken cancellationToken = default)
+    public Task<RunContext> CreateRunAsync(GenerateCaptionsRequest request, CancellationToken cancellationToken = default)
+        => CreateRunAsync(request.Snapshot, request.WorkspaceRoot, JsonFiles.Node(request), cancellationToken);
+    public Task<RunContext> CreateRunAsync(ExistingCaptionsRequest request, CancellationToken cancellationToken = default)
+        => CreateRunAsync(request.Snapshot, request.WorkspaceRoot, JsonFiles.Node(request), cancellationToken);
+    private async Task<RunContext> CreateRunAsync(Application.Models.CapCut.TimelineSnapshot snapshot, string workspaceRoot, JsonNode request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request); cancellationToken.ThrowIfCancellationRequested();
-        if (!PathSafety.Full(request.WorkspaceRoot).Equals(RootDirectory,PathSafety.Comparison))
+        if (!PathSafety.Full(workspaceRoot).Equals(RootDirectory,PathSafety.Comparison))
             throw new InvalidDataException("La raíz de la petición no coincide con el almacén configurado.");
-        PathSafety.RequireSeparate(RootDirectory,request.Snapshot.Project.DirectoryPath);
-        var projectsRoot=Directory.GetParent(PathSafety.Full(request.Snapshot.Project.DirectoryPath))?.FullName;
+        PathSafety.RequireSeparate(RootDirectory,snapshot.Project.DirectoryPath);
+        var projectsRoot=Directory.GetParent(PathSafety.Full(snapshot.Project.DirectoryPath))?.FullName;
         if (projectsRoot is not null) PathSafety.RequireSeparate(RootDirectory,projectsRoot);
         PathSafety.RejectLinks(RootDirectory);
-        string projectDirectory=Path.Combine(RootDirectory,PathSafety.Part(request.Snapshot.Project.Id));
+        string projectDirectory=Path.Combine(RootDirectory,PathSafety.Part(snapshot.Project.Id));
         DateTimeOffset at=_clock.GetUtcNow();
         string id=at.ToString("yyyyMMdd'T'HHmmssfff'Z'",System.Globalization.CultureInfo.InvariantCulture)+"_"+Guid.NewGuid().ToString("N");
         string directory=Path.Combine(projectDirectory,"runs",id);
-        var run=new RunContext(id,request.Snapshot.Project.Id,request.Snapshot.Timeline.Id,projectDirectory,directory,at);
+        var run=new RunContext(id,snapshot.Project.Id,snapshot.Timeline.Id,projectDirectory,directory,at);
         try
         {
             Directory.CreateDirectory(directory);
             foreach (string name in new[] { "audio","transcription","result","backup","logs" }) Directory.CreateDirectory(Path.Combine(directory,name));
             var manifest=new JsonObject { ["schemaVersion"]=1,["run"]=JsonFiles.Node(run),["status"]=RunStatus.Created.ToString(),
-                ["updatedAt"]=JsonFiles.Node(at),["request"]=JsonFiles.Node(request),["error"]=null };
+                ["updatedAt"]=JsonFiles.Node(at),["request"]=request.DeepClone(),["error"]=null };
             await JsonFiles.WriteAsync(Path.Combine(directory,"run.json"),manifest,cancellationToken).ConfigureAwait(false);
             return run;
         }
@@ -119,7 +123,7 @@ public sealed class JsonWorkspaceStore : IWorkspaceStore
         RunStatus.RecoveryRequired => from == RunStatus.Applying,
         RunStatus.PreparingAudio => from is RunStatus.Created or RunStatus.Transcribing,
         RunStatus.Transcribing => from == RunStatus.PreparingAudio,
-        RunStatus.PreparingSubtitles => from == RunStatus.Transcribing,
+        RunStatus.PreparingSubtitles => from is RunStatus.Transcribing or RunStatus.Created,
         RunStatus.ReadyToApply => from is RunStatus.PreparingSubtitles or RunStatus.Applying,
         RunStatus.Applying => from == RunStatus.ReadyToApply,
         _ => false

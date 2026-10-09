@@ -2,21 +2,49 @@
 <UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:g="clr-namespace:CaptionForge.Desktop.Guidance" xmlns:c="clr-namespace:CaptionForge.Desktop.Controls" x:Class="CaptionForge.Desktop.Views.ConfigurationView">
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <c:AdaptiveGrid StackAtWidth="700">
-      <c:AudioPreparationPanel/>
+    <Border Style="{StaticResource Panel}" Margin="0,0,0,10"><DockPanel>
+      <TextBlock Text="Origen de los subtítulos" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,16,0" DockPanel.Dock="Left"/>
+      <ComboBox x:Name="CaptionSourceSelector" Width="280" HorizontalAlignment="Left" ItemsSource="{Binding CaptionSources}" SelectedItem="{Binding SelectedCaptionSource}" IsEnabled="{Binding IsIdle}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+    </DockPanel></Border>
+    <c:AdaptiveGrid Grid.Row="1" StackAtWidth="700">
+      <Grid>
+       <c:AudioPreparationPanel Visibility="{Binding UsesAudioSource,Converter={StaticResource BoolVisibility}}"/>
+       <Border><Border.Style><Style TargetType="Border" BasedOn="{StaticResource Panel}"><Setter Property="Visibility" Value="Visible"/><Style.Triggers><DataTrigger Binding="{Binding UsesAudioSource}" Value="True"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style>
+        <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+         <StackPanel>
+          <DockPanel><Button Content="Actualizar timeline" Command="{Binding ReloadTimeline}" DockPanel.Dock="Right" FontSize="12" Padding="9,4" MinHeight="28" Margin="8,0,0,0"/><TextBlock Text="Subtítulos existentes" Style="{StaticResource Section}"/></DockPanel>
+          <StackPanel Visibility="{Binding UsesTrackSource,Converter={StaticResource BoolVisibility}}" IsEnabled="{Binding IsIdle}">
+           <TextBlock Text="Pista original de CapCut" Style="{StaticResource Label}"/>
+           <ComboBox x:Name="SubtitleTrackSelector" ItemsSource="{Binding SubtitleTracks}" SelectedItem="{Binding SelectedSubtitleTrack}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding UnsupportedReason}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+           <CheckBox Content="Eliminar la pista original al aplicar" IsChecked="{Binding RemoveOriginalSubtitleTrack}" Margin="0,14,0,6"/>
+           <TextBlock Text="Desmarcado: conserva el origen para eliminarlo manualmente desde CapCut." Style="{StaticResource Muted}" FontSize="12"/>
+          </StackPanel>
+          <StackPanel Visibility="{Binding UsesFileSource,Converter={StaticResource BoolVisibility}}" IsEnabled="{Binding IsIdle}">
+           <TextBlock Text="Archivo de subtítulos · SRT / WebVTT" Style="{StaticResource Label}"/>
+           <DockPanel><Button Content="Buscar…" Command="{Binding BrowseSubtitleFile}" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding SubtitleFilePath,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SubtitleFilePath}"/></DockPanel>
+          </StackPanel>
+          <TextBlock Text="{Binding SubtitleImportHint}" Style="{StaticResource Muted}" Margin="0,12,0,12"/>
+         </StackPanel>
+         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="{Binding UsesTrackSource,Converter={StaticResource BoolVisibility}}">
+          <ItemsControl ItemsSource="{Binding ImportedPreview}"><ItemsControl.ItemTemplate><DataTemplate><Border Background="{DynamicResource InputBrush}" CornerRadius="6" Padding="10" Margin="0,0,0,6"><StackPanel><TextBlock Text="{Binding Time}" Style="{StaticResource Muted}" FontSize="11"/><TextBlock Text="{Binding Text}" TextWrapping="Wrap" Margin="0,4,0,0"/></StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+         </ScrollViewer>
+        </Grid>
+       </Border>
+      </Grid>
       <c:ConfigurationOptionsPanel/>
     </c:AdaptiveGrid>
-    <Border Grid.Row="1" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,10,0,0">
+    <Border Grid.Row="2" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,10,0,0">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="{DynamicResource Loc.ui.generaYRevisaElResultadoAntesDeAplicarloA}" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-        <Button g:TutorialTarget.Id="captions.generate" Grid.Column="1" Content="{DynamicResource Loc.ui.generarSubtitulos}" Command="{Binding Generate}" Style="{StaticResource PrimaryButton}"/>
+        <Button g:TutorialTarget.Id="captions.generate" Grid.Column="1" Content="{Binding GenerateLabel}" Command="{Binding Generate}" Style="{StaticResource PrimaryButton}"/>
       </Grid>
     </Border>
   </Grid>

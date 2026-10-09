@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+ <ItemGroup><ProjectReference Include="../CaptionForge.WhisperCompat/CaptionForge.WhisperCompat.csproj"/><PackageReference Include="Whisper.net.Runtime" Version="1.9.1"/></ItemGroup>
+</Project>

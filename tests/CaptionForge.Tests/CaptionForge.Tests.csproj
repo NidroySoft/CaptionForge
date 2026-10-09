@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\src\CaptionForge.Infrastructure\CaptionForge.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\CaptionForge.Modularity\CaptionForge.Modularity.csproj" />
     <ProjectReference Include="../../src/CaptionForge.Modules.TextToSpeech.Core/CaptionForge.Modules.TextToSpeech.Core.csproj" />
+    <ProjectReference Include="../../src/CaptionForge.Modules.MediaTools.Core/CaptionForge.Modules.MediaTools.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -111,6 +111,27 @@ public sealed class CaptionGenerationService
         }
     }
 
+    public async Task<GenerationResult> PrepareExistingAsync(ExistingCaptionsRequest request, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        var run = await _workspace.CreateRunAsync(request, cancellationToken).ConfigureAwait(false);
+        RunStatus status = RunStatus.Created;
+        try
+        {
+            var previous = await _workspace.ReadManagedSubtitlesAsync(run.ProjectId, run.TimelineId, cancellationToken).ConfigureAwait(false);
+            await _workspace.TransitionAsync(run, new(status, RunStatus.PreparingSubtitles, _clock.GetUtcNow()), cancellationToken).ConfigureAwait(false);
+            status = RunStatus.PreparingSubtitles;
+            var plan = await _writer.PrepareAsync(new SubtitleWriteRequest(run, request.Snapshot, request.Captions, previous, request.RemoveSourceTrackId, request.Origin.TrackId), cancellationToken).ConfigureAwait(false);
+            ValidatePlan(plan, run, request.Snapshot, request.Captions.Count);
+            var result = new GenerationResult(run, request.Snapshot, null, request.Captions, [], plan, request.Origin);
+            await _workspace.SaveGenerationAsync(result, cancellationToken).ConfigureAwait(false);
+            await _workspace.TransitionAsync(run, new(status, RunStatus.ReadyToApply, _clock.GetUtcNow()), cancellationToken).ConfigureAwait(false);
+            return result;
+        }
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested) { await RecordTerminalAsync(run, status, RunStatus.Cancelled, ex).ConfigureAwait(false); throw; }
+        catch (Exception ex) { await RecordTerminalAsync(run, status, RunStatus.Failed, ex).ConfigureAwait(false); throw; }
+    }
+
     /// <summary>Aplica el resultado revisado. Un fallo desde Applying exige reconciliar el journal antes de reintentar.</summary>
     public async Task<SubtitleApplyResult> ApplyAsync(GenerationResult result,
         CancellationToken cancellationToken = default)

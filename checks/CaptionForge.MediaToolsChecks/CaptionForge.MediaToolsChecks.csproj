@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/CaptionForge.Desktop/CaptionForge.Desktop.csproj" />
+    <ProjectReference Include="../../src/CaptionForge.Modules.MediaTools/CaptionForge.Modules.MediaTools.csproj" />
+    <Resource Include="../../src/CaptionForge.Desktop/Resources/Palettes.json" Link="Resources/Palettes.json" />
+    <Resource Include="../../src/CaptionForge.Desktop/Languages/es.json" Link="Languages/es.json" />
+  </ItemGroup>
+  <Target Name="CopyInstalledModules" AfterTargets="Build"><ItemGroup><InstalledModuleFiles Include="../../artifacts/modules/**/*" /></ItemGroup><Copy SourceFiles="@(InstalledModuleFiles)" DestinationFiles="@(InstalledModuleFiles->'$(TargetDir)Modules/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" /></Target>
+</Project>

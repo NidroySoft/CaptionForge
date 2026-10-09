@@ -1,0 +1,7 @@
+{
+  "id": "media-tools",
+  "displayName": "Audio y transcripción",
+  "assembly": "CaptionForge.Modules.MediaTools.dll",
+  "entryType": "CaptionForge.Modules.MediaTools.MediaToolsModule",
+  "contractVersion": 1
+}
