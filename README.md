@@ -5,8 +5,8 @@
 <h1 align="center">CaptionForge</h1>
 
 <p align="center">
-  <strong>Tu audio. Tus subtítulos. La plantilla que elegiste en CapCut.</strong><br />
-  Transcripción local con Whisper y aplicación de subtítulos animados sobre proyectos reales de CapCut.
+  <strong>Subtítulos, voces y audio. En una sola aplicación.</strong><br />
+  Herramientas locales para Windows: plantillas de CapCut, texto a voz y extracción y transcripción de audio.
 </p>
 
 <p align="center">
@@ -21,6 +21,7 @@
 <p align="center">
   <a href="#instalación">Instalación</a> ·
   <a href="#guía-de-uso">Guía de uso</a> ·
+  <a href="#reutilizar-subtítulos-de-capcut-o-importar-un-archivo">Importar subtítulos</a> ·
   <a href="#módulos-y-texto-a-voz">Texto a voz</a> ·
   <a href="#audio-y-transcripción-sin-proyectos-de-capcut">Audio y transcripción</a> ·
   <a href="#pruebas-y-calidad">Pruebas</a> ·
@@ -30,13 +31,15 @@
 
 ## Qué es CaptionForge
 
-**CaptionForge es una aplicación de escritorio para Windows que transcribe audio, reutiliza pistas de subtítulos de CapCut o importa SRT/WebVTT y aplica el formato de una plantilla ya presente en el proyecto.**
+**CaptionForge reúne tres herramientas locales para Windows: Obtener subtítulos, Generar audio y Audio y transcripción.** Se abren en pestañas dentro de la misma ventana y conservan el estado al cambiar entre ellas.
 
-Elige la plantilla en CapCut; CaptionForge se encarga de transcribir, preparar los bloques y escribirlos en el borrador correspondiente. Conserva los recursos de esa plantilla —fuente, colores, posición, efectos y animación— y utiliza tiempos de palabras para acompañar el texto.
+En **Obtener subtítulos**, puedes transcribir clips, reutilizar una pista de subtítulos de CapCut o importar SRT/WebVTT y aplicar una plantilla existente en el proyecto. Conserva sus recursos —fuente, colores, posición, efectos y animación— y permite revisar el resultado antes de escribirlo, con backups para recuperar el estado anterior.
+
+**Generar audio** convierte guiones en voces con motores locales y permite ajustar su volumen. **Audio y transcripción** trabaja con archivos de audio o vídeo sin necesitar un proyecto de CapCut: selecciona un tramo, extrae su audio o exporta el texto y los subtítulos.
 
 La transcripción se ejecuta localmente con **Whisper.net y alineación DTW en CPU**. La aplicación no necesita interpretar la salida de `whisper-cli.exe` ni enviar el audio a un servicio de transcripción.
 
-> **Estado: MVP funcional validado.** Última ejecución de xUnit confirmada en GitHub Actions: **272 pruebas aprobadas, 0 fallidas y 2 omitidas**, de un total de 274. El badge de CI refleja el estado actual del workflow; este recuento documenta la ejecución verificada del MVP.
+> **Estado: aplicación modular funcional.** Última comprobación local del 8 de octubre de 2026: **337 pruebas aprobadas, 0 fallidas y 2 omitidas**, de 339. Incluye la conversión de cuatro subtítulos de un JSON real sobre una copia y comprobaciones de interfaz WPF y carga independiente de módulos. El badge superior muestra el estado de GitHub Actions; este recuento corresponde a la ejecución local.
 
 CaptionForge es un proyecto independiente y no está afiliado a CapCut ni a sus desarrolladores.
 
@@ -48,16 +51,18 @@ CaptionForge es un proyecto independiente y no está afiliado a CapCut ni a sus 
 | Timelines | Seleccionar la timeline por nombre y portada, identificar la fijada y trabajar sin cambiar el pin de CapCut. |
 | Clips | Incluir o excluir fragmentos individualmente, seleccionar todos, escuchar sus recortes y localizar medios movidos o renombrados. |
 | Transcripción | Elegir un modelo Whisper GGML, el idioma y la cantidad de hilos de CPU. |
+| Subtítulos existentes | Tomar el texto y los tiempos de una pista de CapCut o importar SRT/WebVTT, sin transcribir de nuevo. |
 | Plantillas | Usar una plantilla existente en el draft y conservar sus recursos visuales y animación. |
 | Resultado | Revisar todos los bloques generados y sus tiempos antes de aplicar los cambios. |
 | Exportación | Exportar el resultado completo a SRT, incluso sin aplicarlo al proyecto. |
-| Escritura | Sustituir los subtítulos de la pista seleccionada y conservar las demás pistas. |
+| Escritura | Aplicar sobre la pista de plantilla; conservar el origen por defecto o eliminarlo al aplicar si lo eliges. Las demás pistas se conservan. |
 | Recuperación | Guardar el estado anterior de los archivos afectados, consultar las ejecuciones y restaurar un backup válido. |
 | Interfaz | Usar modo claro, oscuro o del sistema, paletas compatibles con cada modo y preferencias persistentes. |
 | Idiomas | Añadir traducciones mediante JSON y descubrirlas al abrir el selector. |
 | Ayuda | Consultar la guía integrada y seguir un tutorial sobre los controles reales de la aplicación. |
 | Módulos | Cambiar de herramienta conservando el estado del trabajo. Los módulos se crean al abrirlos por primera vez. |
 | Texto a voz | Generar, escuchar y exportar WAV locales con Kokoro, Pocket TTS, Chatterbox Nano o Chatterbox Multilingual V3. |
+| Volumen de voz | Normalizar el pico automáticamente, aplicar ganancia manual y recuperar el audio generado original. |
 | Audio y transcripción | Abrir un audio o vídeo independiente, elegir pista, seleccionar un tramo sobre las barras, extraer WAV/MP3 y transcribir a TXT/SRT/VTT. |
 
 ### Una interfaz pensada para trabajar
@@ -70,7 +75,7 @@ En la pantalla de preparación, cada panel tiene su propio desplazamiento. El re
 
 El selector **Abrir herramienta** abre **Obtener subtítulos**, **Generar audio** o **Audio y transcripción** en pestañas dentro de la misma ventana. Cada herramienta tiene una sola instancia; volver a abrirla selecciona su pestaña y conserva el estado. Se puede cambiar de pestaña durante una operación, pero la que está trabajando solo se puede cerrar después de terminar o cancelar. Cerrar CaptionForge solicita la cancelación del trabajo activo. El módulo de voz tiene su propia vista y configuración; su generación funciona en un proceso Python independiente.
 
-1. Selecciona **Texto a voz** y elige motor e idioma.
+1. Abre **Generar audio** y elige motor e idioma.
 2. Para Kokoro o Pocket, elige una voz instalada. Para Chatterbox, selecciona un audio limpio de referencia de más de cinco segundos.
 3. Pega el guion y pulsa **Generar voz**. Puedes cancelar la operación, reproducir el resultado y usar **Guardar WAV como…**.
 4. Para preparar un motor nuevo, pulsa **Instalar motor**. Para reutilizar el laboratorio, pulsa **Detectar instalaciones**. Si cambias de ubicación los modelos, despliega **Configuración del motor seleccionado y archivos de salida** para indicar el Python, la carpeta de pesos y la salida. Guarda la configuración.
@@ -88,6 +93,8 @@ Las generaciones se ejecutan de una en una en CPU, por fragmentos, y producen WA
 
 Para añadir nuevas herramientas, consulta [la arquitectura de módulos](docs/Modules.md). Se publican de forma independiente y se descubren desde su carpeta: CaptionForge no conoce sus funciones ni necesita recompilarse para agregarlos. La reproducción de voz incluye barras de amplitud, pausa y navegación sobre la forma de onda.
 
+Si el resultado queda bajo, **Normalizar automáticamente** mide su pico y ajusta el nivel a **−1 dBFS**. Es normalización de pico, no de sonoridad LUFS. **Ganancia manual · experto** permite ajustar entre −60 y +30 dB e informa de saturación. Los ajustes generan un WAV nuevo desde el original; no acumulan ganancia al repetirlos. **Original** recupera la versión generada, y **Guardar WAV como…** exporta la versión seleccionada.
+
 ### Audio y transcripción sin proyectos de CapCut
 
 1. Abre **Audio y transcripción** y pulsa **Abrir archivo…**. Admite audio y vídeo; si hay varias pistas, elige la que necesitas.
@@ -103,10 +110,11 @@ Este módulo usa FFmpeg/FFprobe y Whisper en CPU, sin Python ni dependencia del 
 | Requisito | Uso |
 | --- | --- |
 | Windows x64 | Plataforma de la distribución portable. |
-| CapCut para Windows | Proyecto local con un draft JSON legible y una plantilla de subtítulos existente. |
-| Modelo Whisper GGML `.bin` | Motor de reconocimiento local; se configura por separado. |
-| FFmpeg y FFprobe | Lectura del medio y preparación del audio para Whisper. |
-| Recursos de la plantilla | Fuentes y efectos referenciados por el draft disponibles en el equipo. |
+| CapCut para Windows | Solo para aplicar plantillas: proyecto local con un draft JSON legible y una plantilla compatible existente. |
+| Modelo Whisper GGML `.bin` | Solo para transcribir audio; no se necesita para reutilizar una pista o importar subtítulos. |
+| FFmpeg y FFprobe | Extracción, lectura y preparación de audio; no son necesarios para convertir subtítulos existentes con una plantilla. |
+| Recursos de la plantilla | Para aplicar en CapCut: fuentes y efectos referenciados por el draft disponibles en el equipo. |
+| Motores de texto a voz | Se instalan desde el módulo, incluyendo su entorno Python privado; la descarga inicial requiere conexión. |
 | Espacio de trabajo | Audio preparado, transcripciones, resultados y backups de las ejecuciones. |
 
 El modelo y la duración de los clips determinan buena parte del uso de memoria y del tiempo de transcripción. El MVP utiliza CPU; no requiere GPU y no ofrece aceleración GPU.
@@ -121,7 +129,7 @@ La integración se ha comprobado con muestras de proyectos y plantillas del desa
 2. Extrae **todo el ZIP** en una carpeta donde puedas mantener la aplicación y sus archivos.
 3. Ejecuta `CaptionForge.exe`.
 4. Abre Configuración para revisar las herramientas y la carpeta de trabajo.
-5. Selecciona el modelo GGML en la pantalla de preparación.
+5. Abre la herramienta que necesites. Para transcribir, selecciona un modelo GGML; para voces, instala un motor desde **Generar audio**. Para importar subtítulos, elige su origen y una plantilla en otra pista de CapCut.
 
 Los releases automáticos incluyen .NET y las dependencias publicadas de la aplicación. **Los modelos Whisper y FFmpeg/FFprobe se proporcionan por separado.** La distribución es portable; no es un instalador.
 
@@ -329,15 +337,17 @@ Sus pasos usan identificadores estables y un catálogo extensible, preparado par
 
 ## Limitaciones actuales
 
-El MVP se concentra en el flujo de subtítulos con plantillas existentes:
+El flujo de CapCut trabaja con plantillas existentes:
 
 - No incluye editor de plantillas ni emulación de sus animaciones. Ajusta y comprueba la apariencia en CapCut.
 - No incorpora edición manual del texto o de los tiempos desde el panel de resultados.
-- No procesa clips silenciados, invertidos ni con velocidad modificada o variable.
+- La transcripción de clips de CapCut no procesa clips silenciados, invertidos ni con velocidad modificada o variable.
 - Procesa los clips seleccionados por separado; no reproduce ni mezcla todos los efectos de audio de la timeline como un render de CapCut.
 - La vista previa depende de los códecs disponibles para el reproductor de Windows; un medio que FFmpeg puede leer puede no reproducirse allí.
 - No crea un proyecto de CapCut desde cero ni reemplaza sus herramientas de edición.
-- No descarga modelos automáticamente ni ofrece aceleración GPU en este MVP.
+- Whisper se configura con un modelo GGML proporcionado por separado. El módulo de voces sí permite instalar sus motores y modelos automáticamente.
+- Las herramientas actuales trabajan en CPU; no ofrecen aceleración GPU.
+- Al importar subtítulos sin tiempos por palabra, sus animaciones usan una distribución aproximada dentro de cada bloque.
 
 Whisper puede cometer errores de reconocimiento. Revisa el resultado y comprueba la aplicación en CapCut antes de exportar tu vídeo.
 
@@ -367,6 +377,9 @@ Seleccionar los proyectos explícitamente evita depender de si la solución usa 
 | `src/CaptionForge.Infrastructure` | Catálogo de CapCut, lectura y escritura JSON, FFmpeg, transcripción y almacenamiento. |
 | `src/CaptionForge.WhisperCompat` | Integración compatible de Whisper.net utilizada para conservar la entrega final de datos DTW. |
 | `src/CaptionForge.Desktop` | Aplicación WPF, MVVM, controles, reproducción, preferencias, idiomas y tutorial. |
+| `src/CaptionForge.Modularity` | Contrato del anfitrión para descubrir y abrir módulos independientes. |
+| `src/CaptionForge.Modules.TextToSpeech` y `.Core` | Generación de voz local, instalación de motores, reproducción y ajustes de nivel. |
+| `src/CaptionForge.Modules.MediaTools` y `.Core` | Selección de fragmentos, extracción de audio y transcripción independiente de CapCut. |
 | `tests/CaptionForge.Tests` | Pruebas xUnit del dominio, aplicación, infraestructura e integración. |
 | `tests/CaptionForge.Tests/Fixtures` | Muestras completas de Whisper y CapCut utilizadas por las pruebas. |
 | `checks/` | Comprobaciones adicionales de apariencia e interfaz, si están incluidas. |
@@ -377,9 +390,9 @@ Core define el dominio; Application depende de Core; Infrastructure implementa l
 
 ## Pruebas y calidad
 
-Última comprobación local del módulo **Audio y transcripción** (8 de octubre de 2026): **324 pruebas aprobadas, 0 fallidas y 2 omitidas** de 326. Se comprobaron además las vistas WPF, extracción con FFmpeg, selección de pistas y una transcripción real con medium.en en CPU. Las omitidas son las integraciones personales de CapCut y Whisper/DTW; la prueba de Whisper del módulo independiente se ejecutó por separado. Este resultado local no afirma una nueva ejecución de GitHub Actions.
+Última comprobación local (8 de octubre de 2026): **337 pruebas aprobadas, 0 fallidas y 2 omitidas** de 339. Se verificaron la lectura de SRT/WebVTT, la reutilización de pistas con y sin eliminación del origen, regeneración y restauración. Un JSON real con cuatro bloques se convirtió sobre una copia temporal sin modificar el archivo original. Pasaron también las comprobaciones WPF de los tres orígenes, navegación por pestañas, controles de voz, extracción con FFmpeg y carga independiente de módulos. Las dos omitidas requieren las integraciones personales de CapCut y Whisper/DTW. Este resultado local no afirma una nueva ejecución de GitHub Actions.
 
-### Resultado verificado del MVP
+### Resultado histórico del MVP en GitHub Actions
 
 | Métrica de la ejecución confirmada | Resultado |
 | --- | ---: |
@@ -390,7 +403,7 @@ Core define el dominio; Application depende de Core; Infrastructure implementa l
 
 Las dos omitidas requieren un modelo y audio de prueba o un proyecto real de CapCut. **No se presentan como pruebas aprobadas en CI.** Su ejecución local se configura por separado.
 
-El badge superior consulta [CaptionForge CI](https://github.com/NidroySoft/CaptionForge/actions/workflows/ci.yml). Si cambia el número de casos, actualiza también esta tabla: el badge indica el estado del workflow, no calcula el recuento de pruebas.
+La tabla conserva el resultado histórico de esa ejecución del MVP. El badge superior consulta [CaptionForge CI](https://github.com/NidroySoft/CaptionForge/actions/workflows/ci.yml) y muestra el estado del workflow actual; no calcula el recuento de pruebas.
 
 ### Qué verifica la suite
 
