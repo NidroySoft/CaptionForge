@@ -188,6 +188,29 @@ public sealed class SpanishWordTimingRegressionTests(ITestOutputHelper output) :
         Assert.False(File.Exists(s.RootDraft + ".bak"));
     }
 
+    [Fact]
+    public void ReintentoConservaTextoYRangoYDescartaLaColaReconocida()
+    {
+        var original=Phrase(Token(" uno",0,20,10),Token(" dos",20,20,35),Token(" tres",20,80,60));
+        Assert.Throws<InvalidDataException>(()=>WhisperTokenNormalizer.Normalize(original,false));
+        var retry=Phrase(Token(" uno",0,15,10),Token(" dos",15,35,25),Token(" tres",35,80,60),Token(" extra",80,100,90));
+        var recovered=Assert.IsType<CaptionForge.Core.Models.Transcription.TranscriptionSegment>(WhisperTokenNormalizer.RecoverFromRetry(original,[retry],false));
+        Assert.Equal(original.Text,recovered.Text);
+        Assert.Equal(original.Start.Ticks/10,recovered.Range.StartUs);
+        Assert.Equal(original.End.Ticks/10,recovered.Range.EndUs);
+        Assert.Equal("uno dos tres",string.Concat(CaptionForge.Core.Rules.WordTimingBuilder.Build(recovered.Tokens,recovered.Range).Select(w=>w.Text)));
+        Assert.Equal(150_000,recovered.Tokens[1].Range.StartUs);
+        Assert.Equal(350_000,recovered.Tokens[1].Range.EndUs);
+    }
+    [Fact]
+    public void ReintentoNoAceptaCambiosDeTextoNiTiemposColapsados()
+    {
+        var original=Phrase(Token(" uno",0,20,10),Token(" dos",20,20,35),Token(" tres",20,80,60));
+        var changed=Phrase(Token(" uno",0,15,10),Token(" otro",15,35,25),Token(" tres",35,80,60));
+        Assert.Null(WhisperTokenNormalizer.RecoverFromRetry(original,[changed],false));
+        Assert.Null(WhisperTokenNormalizer.RecoverFromRetry(original,[original],false));
+    }
+
     private static WhisperToken Token(string text, long start, long end, long anchor)
         => new() { Id = 1, Text = text, Start = start, End = end, DtwTimestamp = anchor };
 

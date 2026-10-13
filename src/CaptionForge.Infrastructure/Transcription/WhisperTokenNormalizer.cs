@@ -46,6 +46,31 @@ public static class WhisperTokenNormalizer
         return new(segment.Text, new(from, to - from), tokens);
     }
 
+    /// <summary>Accepts native retry timings only when the complete original text is reproduced exactly.</summary>
+    public static TranscriptionSegment? RecoverFromRetry(SegmentData original, IEnumerable<SegmentData> retry, bool englishOnly)
+    {
+        var target = original.Text.Trim(); var tokens = new List<WhisperToken>(); var text = new System.Text.StringBuilder();
+        int eot = englishOnly ? 50256 : 50257;
+        foreach (var segment in retry)
+        foreach (var token in segment.Tokens)
+        {
+            if (token.Id >= eot) continue;
+            tokens.Add(token); text.Append(token.Text);
+            var partial = text.ToString().Trim();
+            if (!target.StartsWith(partial, StringComparison.Ordinal)) return null;
+            if (partial != target) continue;
+            var matched = new SegmentData(original.Text, original.Start, original.End, 0, 0, 0, 0, original.Language, tokens.ToArray());
+            try
+            {
+                var normalized = Normalize(matched, englishOnly);
+                var words = CaptionForge.Core.Rules.WordTimingBuilder.Build(normalized.Tokens, normalized.Range);
+                return string.Concat(words.Select(w => w.Text)).Trim() == target ? normalized : null;
+            }
+            catch (Exception ex) when (ex is InvalidDataException or InvalidOperationException or ArgumentException) { return null; }
+        }
+        return null;
+    }
+
     private static IReadOnlyList<WhisperWordTimingRecovery> RecoverCollapsedWords(
         List<TranscriptionToken> tokens, List<long?> anchors, long from, long to)
     {

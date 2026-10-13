@@ -25,7 +25,7 @@ public sealed class MediaTranscriber
             var builder = factory.CreateBuilder().WithThreads(Math.Clamp(threads, 1, Environment.ProcessorCount))
                 .WithMaxSegmentLength(84).SplitOnWord().WithProgressHandler(value => progress?.Report(value));
             if (language == "auto") builder.WithLanguageDetection(); else builder.WithLanguage(language);
-            using var processor = builder.Build(); await using var input = File.OpenRead(wave);
+            await using var processor = builder.Build(); await using var input = File.OpenRead(wave);
             List<TranscriptSegment> segments = []; string detected = language;
             await foreach (var segment in processor.ProcessAsync(input, ct))
             {

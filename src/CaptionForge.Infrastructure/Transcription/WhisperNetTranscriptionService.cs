@@ -42,8 +42,9 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
             var builder=_factory.CreateBuilder().WithThreads(options.CpuThreads).WithTokenTimestamps();
             if (options.Language=="auto" && !info.IsEnglishOnly) builder.WithLanguageDetection();
             else builder.WithLanguage(info.IsEnglishOnly?"en":options.Language);
-            using var processor=builder.Build();await using var stream=File.OpenRead(audio.Path);
-            var segments=new List<TranscriptionSegment>();var raw=new JsonArray();string language=info.IsEnglishOnly?"en":options.Language;
+            await using var processor=builder.Build();await using var stream=File.OpenRead(audio.Path);
+            var segments=new List<TranscriptionSegment>();var raw=new JsonArray();
+            var pending=new List<(int Index,SegmentData Segment,InvalidDataException Error)>();string language=info.IsEnglishOnly?"en":options.Language;
             string key=JsonFiles.Hash(Encoding.UTF8.GetBytes(audio.SourceSegmentId))[..24];
             Exception? originalFailure=null;
             try
@@ -52,9 +53,29 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
                 {
                     language=segment.Language;raw.Add(new JsonObject { ["text"]=segment.Text,["startTicks"]=segment.Start.Ticks,["endTicks"]=segment.End.Ticks,["language"]=segment.Language,
                         ["tokens"]=new JsonArray(segment.Tokens.Select(t=>(JsonNode)new JsonObject { ["id"]=t.Id,["text"]=t.Text,["start10Ms"]=t.Start,["end10Ms"]=t.End,["dtwTimestamp"]=t.DtwTimestamp }).ToArray()) });
-                    var normalized=WhisperTokenNormalizer.Normalize(segment,info.IsEnglishOnly,out var recoveries);
-                    if (recoveries.Count>0) raw[^1]!["wordTimingRecoveries"]=JsonFiles.Node(recoveries);
-                    segments.Add(normalized);
+                    try {
+                        var normalized=WhisperTokenNormalizer.Normalize(segment,info.IsEnglishOnly,out var recoveries);
+                        if (recoveries.Count>0) raw[^1]!["wordTimingRecoveries"]=JsonFiles.Node(recoveries);
+                        segments.Add(normalized);
+                    } catch (InvalidDataException error) {
+                        pending.Add((segments.Count,segment,error)); segments.Add(null!);
+                    }
+                }
+                // Finish the current native pass before using the same factory for a bounded retry.
+                if (pending.Count>3) throw pending[0].Error;
+                foreach (var failed in pending) {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    var retryBuilder=_factory.CreateBuilder().WithThreads(options.CpuThreads).WithTokenTimestamps()
+                        .WithLanguage(failed.Segment.Language).WithOffset(failed.Segment.Start)
+                        .WithDuration(failed.Segment.End-failed.Segment.Start);
+                    await using var retryProcessor=retryBuilder.Build(); await using var retryStream=File.OpenRead(audio.Path);
+                    var retrySegments=new List<SegmentData>();
+                    await foreach (var candidate in retryProcessor.ProcessAsync(retryStream,cancellationToken).ConfigureAwait(false)) retrySegments.Add(candidate);
+                    var recovered=WhisperTokenNormalizer.RecoverFromRetry(failed.Segment,retrySegments,info.IsEnglishOnly);
+                    if (recovered is null) throw failed.Error;
+                    segments[failed.Index]=recovered;
+                    raw[failed.Index]!["alignmentRetry"]=new JsonObject { ["reason"]=failed.Error.Message, ["textPreserved"]=true,
+                        ["tokens"]=JsonFiles.Node(recovered.Tokens),["range"]=JsonFiles.Node(recovered.Range) };
                 }
                 var result=new TranscriptionResult(audio.SourceSegmentId,options.ModelName,language,audio.DurationUs,segments);
                 await JsonFiles.WriteAsync(Path.Combine(run.RunDirectory,"transcription",key+".json"),JsonFiles.Node(result),cancellationToken).ConfigureAwait(false);
