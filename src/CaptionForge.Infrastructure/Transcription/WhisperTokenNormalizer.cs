@@ -46,19 +46,44 @@ public static class WhisperTokenNormalizer
         return new(segment.Text, new(from, to - from), tokens);
     }
 
+    /// <summary>Uses the next native phrase as context when a word straddles Whisper's phrase boundary.</summary>
+    public static TranscriptionSegment? RecoverWithFollowing(SegmentData original, SegmentData following, bool englishOnly)
+    {
+        if (original.Language != following.Language || following.Start < original.Start ||
+            following.End <= original.End || following.Start - original.End > TimeSpan.FromMilliseconds(250) ||
+            following.End - original.Start > TimeSpan.FromSeconds(12)) return null;
+        int eot = englishOnly ? 50256 : 50257;
+        // Only repair a collapsed lexical token at the phrase edge. Internal defects retain the retry path.
+        var last = original.Tokens.LastOrDefault(t => t.Id < eot && !string.IsNullOrWhiteSpace(t.Text) && !IsPunctuationOnly(t.Text.Trim()));
+        if (last is null || last.Start != last.End || last.DtwTimestamp <= last.Start ||
+            last.Start * 10_000 != original.End.Ticks / 10) return null;
+        var text = original.Text + following.Text;
+        var combined = new SegmentData(text, original.Start, following.End, 0, 0, 0, 0, original.Language,
+            original.Tokens.Concat(following.Tokens).ToArray());
+        try
+        {
+            var normalized = Normalize(combined, englishOnly);
+            var words = CaptionForge.Core.Rules.WordTimingBuilder.Build(normalized.Tokens, normalized.Range);
+            return string.Concat(words.Select(w => w.Text)).Trim() == text.Trim() ? normalized : null;
+        }
+        catch (Exception ex) when (ex is InvalidDataException or InvalidOperationException or ArgumentException) { return null; }
+    }
+
     /// <summary>Accepts native retry timings only when the complete original text is reproduced exactly.</summary>
     public static TranscriptionSegment? RecoverFromRetry(SegmentData original, IEnumerable<SegmentData> retry, bool englishOnly)
     {
         var target = original.Text.Trim(); var tokens = new List<WhisperToken>(); var text = new System.Text.StringBuilder();
         int eot = englishOnly ? 50256 : 50257;
-        foreach (var segment in retry)
-        foreach (var token in segment.Tokens)
+        var lexical = retry.SelectMany(s => s.Tokens).Where(t => t.Id < eot && !string.IsNullOrEmpty(t.Text)).ToArray();
+        for (int index = 0; index < lexical.Length; index++)
         {
-            if (token.Id >= eot) continue;
+            var token = lexical[index];
             tokens.Add(token); text.Append(token.Text);
             var partial = text.ToString().Trim();
             if (!target.StartsWith(partial, StringComparison.Ordinal)) return null;
             if (partial != target) continue;
+            // Exact text must finish at a word boundary, not in the middle of a BPE word or before its punctuation.
+            if (index + 1 < lexical.Length && !char.IsWhiteSpace(lexical[index + 1].Text![0])) return null;
             var matched = new SegmentData(original.Text, original.Start, original.End, 0, 0, 0, 0, original.Language, tokens.ToArray());
             try
             {

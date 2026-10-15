@@ -23,7 +23,7 @@ try {
 
     New-Item -ItemType Directory -Path 'artifacts/test-results' -Force | Out-Null
     # Package optional modules independently. Desktop has no reference to their implementations.
-    foreach ($manifest in Get-ChildItem -Path 'src' -Filter module.json -Recurse) {
+    foreach ($manifest in Get-ChildItem -Path 'src/CaptionForge.Modules.*/module.json') {
         $moduleProject = Get-ChildItem -LiteralPath $manifest.DirectoryName -Filter '*.csproj' | Select-Object -First 1
         if (!$moduleProject) { throw "Falta el proyecto del módulo $($manifest.DirectoryName)." }
         $moduleName = $manifest.Directory.Name.Replace('CaptionForge.Modules.', '')

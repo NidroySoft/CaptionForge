@@ -5,4 +5,5 @@
   <ItemGroup><InstalledModuleFiles Include="../../artifacts/modules/**/*" /></ItemGroup>
   <Copy SourceFiles="@(InstalledModuleFiles)" DestinationFiles="@(InstalledModuleFiles->'$(TargetDir)Modules/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
  </Target>
+ <ItemGroup><Content Include="../../src/CaptionForge.Desktop/Languages/*.json" Link="Languages/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
 </Project>

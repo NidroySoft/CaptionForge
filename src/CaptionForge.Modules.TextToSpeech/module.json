@@ -3,5 +3,6 @@
   "displayName": "Generar audio",
   "assembly": "CaptionForge.Modules.TextToSpeech.dll",
   "entryType": "CaptionForge.Modules.TextToSpeech.TextToSpeechModule",
-  "contractVersion": 1
+  "contractVersion": 1,
+  "displayNameEn": "Generate audio"
 }

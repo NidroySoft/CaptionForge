@@ -11,5 +11,6 @@
     <Content Include="../../licenses/WhisperCompat-NOTICE.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/WhisperCompat-NOTICE.md" Link="licenses/WhisperCompat-NOTICE.md" />
     <Content Include="../../licenses/Whisper.net-MIT.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/Whisper.net-MIT.txt" Link="licenses/Whisper.net-MIT.txt" Condition="Exists('../../licenses/Whisper.net-MIT.txt')" />
   </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Languages/en.json" /></ItemGroup>
 </Project>
 

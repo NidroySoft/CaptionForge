@@ -21,7 +21,8 @@ public partial class MediaToolsView : UserControl
     public MediaToolsView() : this(new MediaToolsViewModel()) { }
     public MediaToolsView(MediaToolsViewModel model)
     {
-        Model = model; InitializeComponent(); DataContext = Model;
+        Model = model; Ui.Publish(); InitializeComponent(); DataContext = Model;
+        CaptionForge.Modularity.InterfaceLanguage.Changed += InterfaceLanguageChanged;
         Model.PreviewChanging += ReleasePlayer;
         Model.PropertyChanged += Changed;
         Waveform.SeekRequested += Seek;
@@ -32,6 +33,18 @@ public partial class MediaToolsView : UserControl
             UpdatePosition(player.Position.TotalSeconds);
         };
         Unloaded += (_, _) => StopPlayback();
+    }
+    private static void RefreshChoices(DependencyObject parent)
+    {
+        if (parent is ComboBox combo) combo.Items.Refresh();
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++) RefreshChoices(VisualTreeHelper.GetChild(parent, i));
+    }
+    private void InterfaceLanguageChanged(object? sender, EventArgs e)
+    {
+        Ui.Publish(); Model.RefreshInterfaceLanguage();
+        RefreshChoices(this);
+        PlayButton.Content = Ui.T(playing ? "❚❚ Pausar" : "▶ Escuchar");
+        // Do not recreate the view or reset generated media on an interface change.
     }
     private void Changed(object? sender, PropertyChangedEventArgs e)
     {
@@ -54,14 +67,14 @@ public partial class MediaToolsView : UserControl
     {
         if (!Model.CanPlay) return;
         if (selection && !Model.SelectionValid) return;
-        if (!selection && playing) { player?.Pause(); playing = false; timer.Stop(); PlayButton.Content = "▶ Escuchar"; return; }
+        if (!selection && playing) { player?.Pause(); playing = false; timer.Stop(); PlayButton.Content = Ui.T("▶ Escuchar"); return; }
         double desired = selection ? Model.RangeStart : Waveform.Position;
         if (desired >= Model.Duration - .01) desired = 0;
         EnsurePlayer(); if (player is null) return;
         selectionPlayback = selection; pendingPosition = desired; stopAt = selection ? Model.RangeEnd : Model.Duration;
         player.Volume = PreviewVolume; playing = true;
         if (opened) { player.Position = TimeSpan.FromSeconds(desired); player.Play(); }
-        timer.Start(); PlayButton.Content = "❚❚ Pausar";
+        timer.Start(); PlayButton.Content = Ui.T("❚❚ Pausar");
     }
     private void UpdatePosition(double position) { Waveform.Position = position; TimeLabel.Text = $"{AudioRange.Format(position)} / {Model.DurationText}"; }
     private void Seek(double position)
@@ -72,16 +85,16 @@ public partial class MediaToolsView : UserControl
         UpdatePosition(position);
     }
     public void StopPlayback()
-    { player?.Pause(); playing = false; selectionPlayback = false; timer.Stop(); if (PlayButton is not null) PlayButton.Content = "▶ Escuchar"; }
+    { player?.Pause(); playing = false; selectionPlayback = false; timer.Stop(); if (PlayButton is not null) PlayButton.Content = Ui.T("▶ Escuchar"); }
     private void ReleasePlayer() { StopPlayback(); player?.Close(); player = null; opened = false; loadedPath = ""; pendingPosition = 0; }
-    public async Task ShutdownAsync() { ReleasePlayer(); await Model.ShutdownAsync(); }
+    public async Task ShutdownAsync() { CaptionForge.Modularity.InterfaceLanguage.Changed -= InterfaceLanguageChanged; ReleasePlayer(); await Model.ShutdownAsync(); }
     private async void BrowseSource(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFileDialog { Title = "Abrir audio o vídeo", Filter = "Audio y vídeo|*.mp4;*.mkv;*.mov;*.avi;*.webm;*.wav;*.mp3;*.m4a;*.aac;*.flac;*.ogg;*.wma;*.opus|Todos los archivos|*.*" };
+        var dialog = new OpenFileDialog { Title = Ui.T("Abrir audio o vídeo"), Filter = Ui.T("Audio y vídeo|*.mp4;*.mkv;*.mov;*.avi;*.webm;*.wav;*.mp3;*.m4a;*.aac;*.flac;*.ogg;*.wma;*.opus|Todos los archivos|*.*") };
         if (dialog.ShowDialog() == true) await Model.LoadAsync(dialog.FileName);
     }
     private void BrowseModel(object sender, RoutedEventArgs e)
-    { var dialog = new OpenFileDialog { Title = "Modelo GGML de Whisper", Filter = "Modelo Whisper|*.bin|Todos los archivos|*.*" }; if (dialog.ShowDialog() == true) Model.ModelPath = dialog.FileName; }
+    { var dialog = new OpenFileDialog { Title = Ui.T("Modelo GGML de Whisper"), Filter = Ui.T("Modelo Whisper|*.bin|Todos los archivos|*.*") }; if (dialog.ShowDialog() == true) Model.ModelPath = dialog.FileName; }
     private void Play(object sender, RoutedEventArgs e) => BeginPlayback(false);
     private void PlaySelection(object sender, RoutedEventArgs e) => BeginPlayback(true);
     private void Stop(object sender, RoutedEventArgs e) { StopPlayback(); Seek(0); }
@@ -91,14 +104,14 @@ public partial class MediaToolsView : UserControl
     private async void ExtractAudio(object sender, RoutedEventArgs e)
     {
         string ext = Model.Format.ToLowerInvariant();
-        var dialog = new SaveFileDialog { Title = "Extraer audio seleccionado", Filter = ext.ToUpperInvariant() + "|*." + ext, DefaultExt = ext, FileName = SafeStem() + "-audio." + ext, OverwritePrompt = true };
+        var dialog = new SaveFileDialog { Title = Ui.T("Extraer audio seleccionado"), Filter = ext.ToUpperInvariant() + "|*." + ext, DefaultExt = ext, FileName = SafeStem() + "-audio." + ext, OverwritePrompt = true };
         if (dialog.ShowDialog() == true) await Model.ExtractAsync(dialog.FileName);
     }
     private async void Transcribe(object sender, RoutedEventArgs e) => await Model.TranscribeAsync();
     private async void ExportText(object sender, RoutedEventArgs e)
     {
         string ext = (string)((Button)sender).Tag;
-        var dialog = new SaveFileDialog { Title = "Guardar transcripción", Filter = ext.ToUpperInvariant() + "|*." + ext, DefaultExt = ext, FileName = SafeStem() + "." + ext, OverwritePrompt = true };
+        var dialog = new SaveFileDialog { Title = Ui.T("Guardar transcripción"), Filter = ext.ToUpperInvariant() + "|*." + ext, DefaultExt = ext, FileName = SafeStem() + "." + ext, OverwritePrompt = true };
         if (dialog.ShowDialog() == true) await Model.ExportAsync(dialog.FileName);
     }
     private string SafeStem() { string stem = Path.GetFileNameWithoutExtension(Model.SourcePath); return stem[..Math.Min(stem.Length, 100)]; }

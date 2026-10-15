@@ -24,11 +24,11 @@ public partial class ReferenceAudioView : UserControl
     public event Action? PlaybackStarted;
     public ReferenceAudioView()
     {
-        InitializeComponent();
+        Ui.Publish(); InitializeComponent();
         Bars.Seek += Seek;
         _player.MediaOpened += (_, _) => { _opened = true; _player.Position = TimeSpan.FromSeconds(_pending); if (_afterOpen) { _player.Play(); _playing = true; _timer.Start(); } Update(); };
         _player.MediaEnded += (_, _) => StopPlayback();
-        _player.MediaFailed += (_, e) => { StopPlayback(); Info.Text = "No se pudo reproducir la referencia: " + e.ErrorException.Message; };
+        _player.MediaFailed += (_, e) => { StopPlayback(); Info.Text = Ui.T("No se pudo reproducir la referencia: ") + e.ErrorException.Message; };
         _timer.Tick += (_, _) => Update(); Unloaded += (_, _) => StopPlayback();
     }
     private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -36,16 +36,16 @@ public partial class ReferenceAudioView : UserControl
     private async Task LoadAsync(string path)
     {
         int version = ++_version; StopPlayback(); DeleteTemporary(); Bars.Audio = null; Controls.IsEnabled = false;
-        Info.Text = "Selecciona una muestra para ver sus barras y escucharla.";
+        Info.Text = Ui.T("Selecciona una muestra para ver sus barras y escucharla.");
         if (!File.Exists(path)) return;
         string decoded = Path.Combine(Path.GetTempPath(), "CaptionForge-reference-" + Guid.NewGuid().ToString("N") + ".wav");
         try
         {
-            Info.Text = "Preparando muestra…";
+            Info.Text = Ui.T("Preparando muestra…");
             var waveform = await Task.Run(() =>
             {
                 using var reader = new AudioFileReader(path);
-                if (reader.TotalTime.TotalMinutes > 10) throw new InvalidDataException("Selecciona una muestra de hasta 10 minutos; para clonar recomendamos 6–15 segundos.");
+                if (reader.TotalTime.TotalMinutes > 10) throw new InvalidDataException(Ui.T("Selecciona una muestra de hasta 10 minutos; para clonar recomendamos 6–15 segundos."));
                 WaveFileWriter.CreateWaveFile16(decoded, reader);
                 return WaveformData.Read(decoded);
             });
@@ -55,7 +55,7 @@ public partial class ReferenceAudioView : UserControl
         catch (Exception e)
         {
             if (File.Exists(decoded)) File.Delete(decoded);
-            if (version == _version) Info.Text = "No se pudo leer la muestra. Prueba con WAV o MP3. " + e.Message;
+            if (version == _version) Info.Text = Ui.T("No se pudo leer la muestra. Prueba con WAV o MP3. ") + e.Message;
         }
     }
     private void Update()

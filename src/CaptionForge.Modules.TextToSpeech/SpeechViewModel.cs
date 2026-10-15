@@ -6,8 +6,34 @@ using CaptionForge.Modules.TextToSpeech.Core;
 
 namespace CaptionForge.Modules.TextToSpeech;
 
-public sealed record EngineChoice(SpeechEngine Engine, string Name) { public override string ToString() => Name; }
-public sealed record LanguageChoice(string Code, string Name) { public override string ToString() => Name; }
+public sealed record EngineChoice : INotifyPropertyChanged
+{
+    public SpeechEngine Engine { get; }
+    private string Label { get; }
+    public string Name => Ui.Render(Label);
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public EngineChoice(SpeechEngine value, string label)
+    {
+        Engine = value; Label = label;
+        // Choice objects share the cached module lifetime; refresh their bound labels only.
+        CaptionForge.Modularity.InterfaceLanguage.Changed += (_, _) => PropertyChanged?.Invoke(this, new(nameof(Name)));
+    }
+    public override string ToString() => Name;
+}
+public sealed record LanguageChoice : INotifyPropertyChanged
+{
+    public string Code { get; }
+    private string Label { get; }
+    public string Name => Ui.Render(Label);
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public LanguageChoice(string value, string label)
+    {
+        Code = value; Label = label;
+        // Choice objects share the cached module lifetime; refresh their bound labels only.
+        CaptionForge.Modularity.InterfaceLanguage.Changed += (_, _) => PropertyChanged?.Invoke(this, new(nameof(Name)));
+    }
+    public override string ToString() => Name;
+}
 
 public sealed class SpeechViewModel : INotifyPropertyChanged
 {
@@ -18,7 +44,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     private Task? _running;
     private EngineChoice _engine;
     private LanguageChoice _language;
-    private string _text = "Ever hear your recorded voice and wonder why it sounds like a stranger?", _voice = "", _status = "Listo", _output = "";
+    private string _text = "Ever hear your recorded voice and wonder why it sounds like a stranger?", _voice = "", _status = Ui.T("Listo"), _output = "";
     private bool _busy;
     private double _progress, _speed = 1, _exaggeration = 0.5;
     private int _seed = 42;
@@ -27,6 +53,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     public double GainDb { get => _gainDb; set { _gainDb = value; Notify(); } }
     public bool CanAdjustAudio => HasOutput && !IsBusy;
     public event PropertyChangedEventHandler? PropertyChanged;
+    public void RefreshInterfaceLanguage() { NotifyAll(); }
     private void Notify([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new(name));
     private void NotifyAll()
     {
@@ -45,7 +72,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     {
         try { _settings = SpeechSettings.Load(); }
         catch (Exception e) when (e is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
-        { _settings = SpeechSettings.Defaults(); _status = "No se pudo leer la configuración de voz: " + e.Message; }
+        { _settings = SpeechSettings.Defaults(); _status = Ui.T("No se pudo leer la configuración de voz: ") + e.Message; }
         _engine = Engines.Single(e => e.Engine == _settings.SelectedEngine);
         _language = Languages.FirstOrDefault(l => l.Code == _settings.Language) ?? Languages[0];
         RefreshVoices();
@@ -84,26 +111,26 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     public bool IsBusy { get => _busy; private set { _busy = value; NotifyAll(); } }
     public bool CanEdit => !IsBusy;
     public bool CanGenerate => !IsBusy && File.Exists(PythonExecutable) && Directory.Exists(ModelDirectory) && (UsesReference ? File.Exists(ReferencePath) : Voices.Count > 0);
-    public string InstallationStatus => !File.Exists(PythonExecutable) ? "Este motor necesita preparación. Pulsa «Instalar motor»." : !Directory.Exists(ModelDirectory) ? "No se encuentra el modelo. Instálalo o selecciona su carpeta." : UsesPreset && Voices.Count == 0 ? "No hay voces del idioma seleccionado en esta carpeta. Usa «Detectar instalaciones» o instala el motor." : UsesPreset ? $"{Voices.Count} voces locales disponibles · {ModelDirectory}" : "Motor local disponible. Selecciona una referencia de voz.";
+    public string InstallationStatus => !File.Exists(PythonExecutable) ? Ui.T("Este motor necesita preparación. Pulsa «Instalar motor».") : !Directory.Exists(ModelDirectory) ? Ui.T("No se encuentra el modelo. Instálalo o selecciona su carpeta.") : UsesPreset && Voices.Count == 0 ? Ui.T("No hay voces del idioma seleccionado en esta carpeta. Usa «Detectar instalaciones» o instala el motor.") : UsesPreset ? Ui.F("{0} voces locales disponibles · {1}", Voices.Count, ModelDirectory) : Ui.T("Motor local disponible. Selecciona una referencia de voz.");
     private WaveformData? _waveform;
     public WaveformData? Waveform { get => _waveform; private set { _waveform = value; Notify(); } }
     public bool HasOutput => File.Exists(OutputPath);
     public string OutputPath { get => _output; private set { _output = value; NotifyAll(); } }
-    public string Status { get => _status; private set { _status = value; Notify(); } }
+    public string Status { get => Ui.Render(_status); private set { _status = value; Notify(); } }
     public double Progress { get => _progress; private set { _progress = value; Notify(); } }
     public string Hint => SelectedEngine.Engine switch
     {
-        SpeechEngine.Kokoro => "Voces predefinidas. Usa texto limpio. Las voces af/am son americanas y bf/bm británicas.",
-        SpeechEngine.Pocket => "Versión pública sin clonación. Usa texto limpio y una voz predefinida del idioma seleccionado.",
-        SpeechEngine.Nano => "Solo inglés. Audio de referencia limpio de 6–15 segundos. Puedes probar [chuckle], [sigh] o [gasp].",
-        _ => "Inglés y español con referencia de voz. Este modelo puede tardar varios minutos en CPU."
+        SpeechEngine.Kokoro => Ui.T("Voces predefinidas. Usa texto limpio. Las voces af/am son americanas y bf/bm británicas."),
+        SpeechEngine.Pocket => Ui.T("Versión pública sin clonación. Usa texto limpio y una voz predefinida del idioma seleccionado."),
+        SpeechEngine.Nano => Ui.T("Solo inglés. Audio de referencia limpio de 6–15 segundos. Puedes probar [chuckle], [sigh] o [gasp]."),
+        _ => Ui.T("Inglés y español con referencia de voz. Este modelo puede tardar varios minutos en CPU.")
     };
     public void RefreshVoices()
     {
         var remembered = _settings.Voices.GetValueOrDefault(VoiceKey);
         Voices.Clear();
         try { foreach (var voice in SpeechEngineCatalog.GetVoices(SelectedEngine.Engine, SelectedLanguage.Code, ModelDirectory)) Voices.Add(voice); }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException) { Status = "No se pudieron leer las voces: " + e.Message; }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException) { Status = Ui.T("No se pudieron leer las voces: ") + e.Message; }
         string preferred = SelectedEngine.Engine == SpeechEngine.Kokoro ? (SelectedLanguage.Code == "es" ? "ef_dora" : "af_heart") : (SelectedLanguage.Code == "es" ? "lola" : "alba");
         SelectedVoice = remembered is not null && Voices.Contains(remembered) ? remembered : Voices.Contains(preferred) ? preferred : Voices.FirstOrDefault() ?? "";
         Notify(nameof(InstallationStatus)); Notify(nameof(CanGenerate));
@@ -114,7 +141,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
         var defaults = SpeechSettings.Defaults();
         foreach (var (engine, runtime) in defaults.Engines)
             if (File.Exists(runtime.PythonExecutable) && Directory.Exists(runtime.ModelDirectory)) _settings.Engines[engine] = runtime;
-        RefreshVoices(); NotifyAll(); Status = "Instalaciones locales revisadas.";
+        RefreshVoices(); NotifyAll(); Status = Ui.T("Instalaciones locales revisadas.");
     }
     public Task InstallAsync()
     {
@@ -130,16 +157,16 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
             var installer = new EngineInstaller(Path.Combine(ModuleDirectory, "Backend"), SpeechSettings.InstallationRoot);
             var installed = await installer.InstallAsync(SelectedEngine.Engine, new Progress<SpeechProgress>(p => { Status = p.Message; Progress = p.Fraction * 100; }), cts.Token);
             Runtime.PythonExecutable = installed.PythonExecutable; Runtime.ModelDirectory = installed.ModelDirectory;
-            RefreshVoices(); _settings.Save(); Status = "Motor instalado. Ya puedes generar voz.";
+            RefreshVoices(); _settings.Save(); Status = Ui.T("Motor instalado. Ya puedes generar voz.");
         }
-        catch (OperationCanceledException) { Status = "Instalación cancelada. Puedes volver a intentarlo."; }
-        catch (Exception e) { Status = "No se pudo preparar el motor: " + e.Message; }
+        catch (OperationCanceledException) { Status = Ui.T("Instalación cancelada. Puedes volver a intentarlo."); }
+        catch (Exception e) { Status = Ui.T("No se pudo preparar el motor: ") + e.Message; }
         finally { _cts = null; IsBusy = false; }
     }
     public void SaveSettings()
     {
-        try { _settings.Save(); Status = "Configuración de este módulo guardada."; }
-        catch (Exception e) { Status = "No se pudo guardar la configuración: " + e.Message; }
+        try { _settings.Save(); Status = Ui.T("Configuración de este módulo guardada."); }
+        catch (Exception e) { Status = Ui.T("No se pudo guardar la configuración: ") + e.Message; }
     }
     public Task GenerateAsync()
     {
@@ -161,10 +188,10 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
             OutputPath = result.AudioPath;
             _originalAudio = result.AudioPath;
             Waveform = await Task.Run(() => WaveformData.Read(result.AudioPath), cts.Token);
-            Status = $"Audio listo: {result.DurationSeconds:F1} s · Generación y carga: {result.ElapsedSeconds:F1} s";
+            Status = Ui.F("Audio listo: {0:F1} s · Generación y carga: {1:F1} s", result.DurationSeconds, result.ElapsedSeconds);
         }
-        catch (OperationCanceledException) { Status = "Generación cancelada."; }
-        catch (Exception e) { Status = "No se pudo generar el audio: " + e.Message; }
+        catch (OperationCanceledException) { Status = Ui.T("Generación cancelada."); }
+        catch (Exception e) { Status = Ui.T("No se pudo generar el audio: ") + e.Message; }
         finally { _cts = null; IsBusy = false; }
     }
     public void Cancel() => _cts?.Cancel();
@@ -183,20 +210,20 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
             if (restore)
             {
                 Waveform = await Task.Run(() => WaveformData.Read(_originalAudio));
-                OutputPath = _originalAudio; Status = "Audio original restaurado."; return;
+                OutputPath = _originalAudio; Status = Ui.T("Audio original restaurado."); return;
             }
-            Status = normalize ? "Midiendo y normalizando el audio…" : "Aplicando ganancia…";
+            Status = normalize ? Ui.T("Midiendo y normalizando el audio…") : Ui.T("Aplicando ganancia…");
             var stem = Path.GetFileNameWithoutExtension(_originalAudio);
             processed = Path.Combine(Path.GetDirectoryName(_originalAudio)!, stem[..Math.Min(64, stem.Length)] + "-nivel-" + Guid.NewGuid().ToString("N") + ".wav");
             double? gain = normalize ? null : GainDb;
             var result = await Task.Run(() => AudioLevelProcessor.Process(_originalAudio, processed, gain));
             var waveform = await Task.Run(() => WaveformData.Read(processed));
             OutputPath = processed; Waveform = waveform;
-            Status = $"{(normalize ? "Normalizado a −1 dBFS de pico" : "Ganancia aplicada")}: {result.GainDb:+0.0;-0.0;0.0} dB. " +
-                (result.ClippedSamples > 0 ? $"Saturación en {result.ClippedSamples} muestras; reduce la ganancia." : "Sin saturación. El original se conserva.");
+            Status = $"{(normalize ? Ui.T("Normalizado a −1 dBFS de pico") : Ui.T("Ganancia aplicada"))}: {result.GainDb:+0.0;-0.0;0.0} dB. " +
+                (result.ClippedSamples > 0 ? Ui.F("Saturación en {0} muestras; reduce la ganancia.", result.ClippedSamples) : Ui.T("Sin saturación. El original se conserva."));
             processed = null;
         }
-        catch (Exception e) { Status = "No se pudo ajustar el audio: " + e.Message; }
+        catch (Exception e) { Status = Ui.T("No se pudo ajustar el audio: ") + e.Message; }
         finally
         {
             if (processed is not null && File.Exists(processed)) { try { File.Delete(processed); } catch (IOException) { } }

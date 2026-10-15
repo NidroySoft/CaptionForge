@@ -11,7 +11,9 @@ public interface IApplicationModule
 
 public sealed record ModuleDefinition(string Id, string DisplayName, Func<IApplicationModule> Create)
 {
-    public override string ToString() => DisplayName;
+    public string? EnglishDisplayName { get; init; }
+    public string LocalizedDisplayName => InterfaceLanguage.Code == "en" ? EnglishDisplayName ?? DisplayName : DisplayName;
+    public override string ToString() => LocalizedDisplayName;
 }
 
 /// <summary>Explicit registration; modules are constructed only on first use.</summary>

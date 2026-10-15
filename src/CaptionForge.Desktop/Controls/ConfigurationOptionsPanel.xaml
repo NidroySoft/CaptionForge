@@ -24,7 +24,7 @@
         <TextBlock Text="{DynamicResource Loc.ui.hilosDeCpu}" Style="{StaticResource Label}"/>
         <c:CpuThreadSelector/>
         </StackPanel>
-        <TextBlock Text="Los subtítulos existentes se preparan directamente. No necesitan Whisper ni extraer el audio." Margin="0,16,0,0"><TextBlock.Style><Style TargetType="TextBlock" BasedOn="{StaticResource Muted}"><Style.Triggers><DataTrigger Binding="{Binding UsesAudioSource}" Value="True"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+        <TextBlock Text="{DynamicResource Loc.import.0}" Margin="0,16,0,0"><TextBlock.Style><Style TargetType="TextBlock" BasedOn="{StaticResource Muted}"><Style.Triggers><DataTrigger Binding="{Binding UsesAudioSource}" Value="True"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
       </StackPanel>
     </ScrollViewer>
   </Border>

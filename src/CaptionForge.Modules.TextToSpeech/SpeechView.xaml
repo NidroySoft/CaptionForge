@@ -52,65 +52,65 @@
  </UserControl.Resources>
  <Grid>
   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-  <DockPanel Margin="0,0,0,16"><TextBlock DockPanel.Dock="Right" Text="LOCAL · CPU" Foreground="{DynamicResource AccentBrush}" VerticalAlignment="Center"/><StackPanel><TextBlock Text="Generar audio" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="Prepara tu voz a la izquierda y escucha el resultado a la derecha." Style="{DynamicResource Muted}" Margin="0,4,0,0"/></StackPanel></DockPanel>
+  <DockPanel Margin="0,0,0,16"><TextBlock DockPanel.Dock="Right" Text="LOCAL · CPU" Foreground="{DynamicResource AccentBrush}" VerticalAlignment="Center"/><StackPanel><TextBlock Text="{DynamicResource TextToSpeech.t0eeb8525e181ca5c}" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="{DynamicResource TextToSpeech.tf39e2cd99518dcbe}" Style="{DynamicResource Muted}" Margin="0,4,0,0"/></StackPanel></DockPanel>
   <Grid Grid.Row="1">
    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
    <Border x:Name="OptionsPanel" Grid.Column="0" Style="{DynamicResource Panel}">
     <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,8,0">
       <StackPanel>
-       <TextBlock Text="Generación" Style="{DynamicResource Section}"/>
+       <TextBlock Text="{DynamicResource TextToSpeech.t7d468a776808730f}" Style="{DynamicResource Section}"/>
        <StackPanel IsEnabled="{Binding CanEdit}">
         <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="130"/></Grid.ColumnDefinitions>
-         <StackPanel Margin="0,0,12,0"><TextBlock Text="Motor" Style="{DynamicResource Label}"/><ComboBox x:Name="EngineSelector" ItemsSource="{Binding Engines}" SelectedItem="{Binding SelectedEngine}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}" Foreground="{DynamicResource TextBrush}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
-         <StackPanel Grid.Column="1"><TextBlock Text="Idioma" Style="{DynamicResource Label}"/><ComboBox x:Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}" Foreground="{DynamicResource TextBrush}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
+         <StackPanel Margin="0,0,12,0"><TextBlock Text="{DynamicResource TextToSpeech.tb25a14f2be99acaa}" Style="{DynamicResource Label}"/><ComboBox x:Name="EngineSelector" ItemsSource="{Binding Engines}" SelectedItem="{Binding SelectedEngine}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}" Foreground="{DynamicResource TextBrush}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
+         <StackPanel Grid.Column="1"><TextBlock Text="{DynamicResource TextToSpeech.t7ae9d418353b399f}" Style="{DynamicResource Label}"/><ComboBox x:Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}" Foreground="{DynamicResource TextBrush}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
         </Grid>
-        <StackPanel Visibility="{Binding UsesPreset,Converter={StaticResource SpeechBoolVisibility}}"><TextBlock Text="Voz instalada" Style="{DynamicResource Label}"/><ComboBox x:Name="VoiceSelector" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice,Mode=TwoWay}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding}" Foreground="{DynamicResource TextBrush}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
+        <StackPanel Visibility="{Binding UsesPreset,Converter={StaticResource SpeechBoolVisibility}}"><TextBlock Text="{DynamicResource TextToSpeech.t2390e12c55b1ccb8}" Style="{DynamicResource Label}"/><ComboBox x:Name="VoiceSelector" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice,Mode=TwoWay}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding}" Foreground="{DynamicResource TextBrush}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
         <TextBlock Text="{Binding InstallationStatus}" Style="{DynamicResource Muted}" MaxHeight="36" TextTrimming="CharacterEllipsis" ToolTip="{Binding InstallationStatus}" Margin="0,8,0,0"/>
-        <UniformGrid Columns="2" Margin="0,10,0,0"><Button Content="Detectar instalaciones" Click="DetectInstallations" Margin="0,0,6,0"/><Button Content="Instalar motor" Click="InstallEngine" Margin="6,0,0,0"/></UniformGrid>
+        <UniformGrid Columns="2" Margin="0,10,0,0"><Button Content="{DynamicResource TextToSpeech.te211f1fb58129489}" Click="DetectInstallations" Margin="0,0,6,0"/><Button Content="{DynamicResource TextToSpeech.t54f9ce32c976917e}" Click="InstallEngine" Margin="6,0,0,0"/></UniformGrid>
         <TextBlock Text="{Binding Hint}" Style="{DynamicResource Muted}" Margin="0,10,0,0"/>
         <StackPanel Visibility="{Binding UsesReference,Converter={StaticResource SpeechBoolVisibility}}">
-         <TextBlock Text="Muestra de voz · 6–15 segundos" Style="{DynamicResource Label}"/>
-         <DockPanel><Button DockPanel.Dock="Right" Content="Elegir…" Click="BrowseReference" Margin="8,0,0,0"/><TextBox Text="{Binding ReferencePath,UpdateSourceTrigger=LostFocus}" ToolTip="{Binding ReferencePath}"/></DockPanel>
+         <TextBlock Text="{DynamicResource TextToSpeech.t78bebfd32a129a57}" Style="{DynamicResource Label}"/>
+         <DockPanel><Button DockPanel.Dock="Right" Content="{DynamicResource TextToSpeech.t9d75abb2998210c2}" Click="BrowseReference" Margin="8,0,0,0"/><TextBox Text="{Binding ReferencePath,UpdateSourceTrigger=LostFocus}" ToolTip="{Binding ReferencePath}"/></DockPanel>
          <local:ReferenceAudioView x:Name="ReferencePlayer" AudioPath="{Binding ReferencePath}"/>
         </StackPanel>
-        <TextBlock Text="Texto o guion" Style="{DynamicResource Label}"/>
+        <TextBlock Text="{DynamicResource TextToSpeech.tf3e52fcf327cb666}" Style="{DynamicResource Label}"/>
         <TextBox Text="{Binding Text,UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" Height="140" VerticalScrollBarVisibility="Auto" MaxLength="6000"/>
         <Grid Margin="0,8,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-         <StackPanel Margin="0,0,16,0"><TextBlock Text="Semilla" Style="{DynamicResource Label}"/><TextBox Text="{Binding Seed}"/></StackPanel>
-         <StackPanel Grid.Column="1" Visibility="{Binding IsKokoro,Converter={StaticResource SpeechBoolVisibility}}"><DockPanel><TextBlock DockPanel.Dock="Right" Text="{Binding Speed,StringFormat=F2}" Style="{DynamicResource Label}"/><TextBlock Text="Velocidad" Style="{DynamicResource Label}"/></DockPanel><Slider Value="{Binding Speed}" Minimum="0.7" Maximum="1.3" TickFrequency="0.05" IsSnapToTickEnabled="True"/></StackPanel>
-         <StackPanel Grid.Column="1" Visibility="{Binding IsMultilingual,Converter={StaticResource SpeechBoolVisibility}}"><TextBlock Text="Expresividad" Style="{DynamicResource Label}"/><Slider Value="{Binding Exaggeration}" Minimum="0" Maximum="1" TickFrequency="0.05" IsSnapToTickEnabled="True"/></StackPanel>
+         <StackPanel Margin="0,0,16,0"><TextBlock Text="{DynamicResource TextToSpeech.t9196cf1f1f16acdc}" Style="{DynamicResource Label}"/><TextBox Text="{Binding Seed}"/></StackPanel>
+         <StackPanel Grid.Column="1" Visibility="{Binding IsKokoro,Converter={StaticResource SpeechBoolVisibility}}"><DockPanel><TextBlock DockPanel.Dock="Right" Text="{Binding Speed,StringFormat=F2}" Style="{DynamicResource Label}"/><TextBlock Text="{DynamicResource TextToSpeech.ta60b5f318d9ffa20}" Style="{DynamicResource Label}"/></DockPanel><Slider Value="{Binding Speed}" Minimum="0.7" Maximum="1.3" TickFrequency="0.05" IsSnapToTickEnabled="True"/></StackPanel>
+         <StackPanel Grid.Column="1" Visibility="{Binding IsMultilingual,Converter={StaticResource SpeechBoolVisibility}}"><TextBlock Text="{DynamicResource TextToSpeech.t523625400311940e}" Style="{DynamicResource Label}"/><Slider Value="{Binding Exaggeration}" Minimum="0" Maximum="1" TickFrequency="0.05" IsSnapToTickEnabled="True"/></StackPanel>
         </Grid>
        </StackPanel>
-       <Expander Header="Rutas y configuración avanzada" IsEnabled="{Binding CanEdit}" Margin="0,14,0,4"><StackPanel>
-        <TextBlock Text="Python privado del motor" Style="{DynamicResource Label}"/><DockPanel><Button Content="Buscar…" Click="BrowsePython" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding PythonExecutable,UpdateSourceTrigger=LostFocus}"/></DockPanel>
-        <TextBlock Text="Carpeta del modelo" Style="{DynamicResource Label}"/><DockPanel><Button Content="Buscar…" Click="BrowseModels" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding ModelDirectory,UpdateSourceTrigger=LostFocus}"/></DockPanel>
-        <TextBlock Text="Carpeta de salida" Style="{DynamicResource Label}"/><DockPanel><Button Content="Buscar…" Click="BrowseOutput" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding OutputDirectory}"/></DockPanel>
-        <UniformGrid Columns="2" Margin="0,12,0,0"><Button Content="Actualizar voces" Click="RefreshVoices" Margin="0,0,6,0"/><Button Content="Guardar ajustes" Click="SaveSettings" Margin="6,0,0,0"/></UniformGrid>
+       <Expander Header="{DynamicResource TextToSpeech.tc6c4981a1ca2fe5b}" IsEnabled="{Binding CanEdit}" Margin="0,14,0,4"><StackPanel>
+        <TextBlock Text="{DynamicResource TextToSpeech.t3dfc9b38879966bc}" Style="{DynamicResource Label}"/><DockPanel><Button Content="{DynamicResource TextToSpeech.t9120df43bebb82c8}" Click="BrowsePython" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding PythonExecutable,UpdateSourceTrigger=LostFocus}"/></DockPanel>
+        <TextBlock Text="{DynamicResource TextToSpeech.ta31e81d5c5c5cc0f}" Style="{DynamicResource Label}"/><DockPanel><Button Content="{DynamicResource TextToSpeech.t9120df43bebb82c8}" Click="BrowseModels" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding ModelDirectory,UpdateSourceTrigger=LostFocus}"/></DockPanel>
+        <TextBlock Text="{DynamicResource TextToSpeech.tbe227194e5ecd4ed}" Style="{DynamicResource Label}"/><DockPanel><Button Content="{DynamicResource TextToSpeech.t9120df43bebb82c8}" Click="BrowseOutput" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding OutputDirectory}"/></DockPanel>
+        <UniformGrid Columns="2" Margin="0,12,0,0"><Button Content="{DynamicResource TextToSpeech.ta4dc5198b1426852}" Click="RefreshVoices" Margin="0,0,6,0"/><Button Content="{DynamicResource TextToSpeech.t0bfc8fb95144f616}" Click="SaveSettings" Margin="6,0,0,0"/></UniformGrid>
        </StackPanel></Expander>
       </StackPanel>
      </ScrollViewer>
-     <StackPanel Grid.Row="1" Margin="0,12,0,0"><ProgressBar Value="{Binding Progress,Mode=OneWay}" Maximum="100" Height="4" Visibility="{Binding IsBusy,Converter={StaticResource SpeechBoolVisibility}}" Margin="0,0,0,10"/><UniformGrid Columns="2"><Button Content="Cancelar" Click="Cancel" IsEnabled="{Binding IsBusy}" Margin="0,0,6,0"/><Button Content="Generar voz" Click="Generate" IsEnabled="{Binding CanGenerate}" Style="{DynamicResource PrimaryButton}" Height="36" Margin="6,0,0,0"/></UniformGrid></StackPanel>
+     <StackPanel Grid.Row="1" Margin="0,12,0,0"><ProgressBar Value="{Binding Progress,Mode=OneWay}" Maximum="100" Height="4" Visibility="{Binding IsBusy,Converter={StaticResource SpeechBoolVisibility}}" Margin="0,0,0,10"/><UniformGrid Columns="2"><Button Content="{DynamicResource TextToSpeech.tbb9dbb406dcbd524}" Click="Cancel" IsEnabled="{Binding IsBusy}" Margin="0,0,6,0"/><Button Content="{DynamicResource TextToSpeech.t3527844fdf4baa58}" Click="Generate" IsEnabled="{Binding CanGenerate}" Style="{DynamicResource PrimaryButton}" Height="36" Margin="6,0,0,0"/></UniformGrid></StackPanel>
     </Grid>
    </Border>
    <Border x:Name="ResultPanel" Grid.Column="2" Style="{DynamicResource Panel}">
     <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel>
-      <TextBlock Text="Resultado" Style="{DynamicResource Section}"/>
-      <TextBlock x:Name="ResultEmptyMessage" Text="Tu audio aparecerá aquí. Elige una voz, escribe el guion y pulsa Generar voz." Style="{StaticResource EmptyResult}" Margin="0,0,0,16"/>
-      <DockPanel><TextBlock x:Name="TimeLabel" DockPanel.Dock="Right" Text="00:00 / 00:00" Style="{DynamicResource Muted}"/><TextBlock Text="Audio generado" FontWeight="SemiBold"/></DockPanel>
-      <local:WaveformView x:Name="Waveform" Audio="{Binding Waveform}" Height="120" Margin="0,12,0,10" IsEnabled="{Binding CanAdjustAudio}" AutomationProperties.Name="Forma de onda del resultado"/>
+      <TextBlock Text="{DynamicResource TextToSpeech.ta71bc39fe3f33e42}" Style="{DynamicResource Section}"/>
+      <TextBlock x:Name="ResultEmptyMessage" Text="{DynamicResource TextToSpeech.tfe8ff350c251918b}" Style="{StaticResource EmptyResult}" Margin="0,0,0,16"/>
+      <DockPanel><TextBlock x:Name="TimeLabel" DockPanel.Dock="Right" Text="00:00 / 00:00" Style="{DynamicResource Muted}"/><TextBlock Text="{DynamicResource TextToSpeech.t48209b00eba83ab0}" FontWeight="SemiBold"/></DockPanel>
+      <local:WaveformView x:Name="Waveform" Audio="{Binding Waveform}" Height="120" Margin="0,12,0,10" IsEnabled="{Binding CanAdjustAudio}" AutomationProperties.Name="{DynamicResource TextToSpeech.t83001998113163c0}"/>
       <StackPanel IsEnabled="{Binding CanAdjustAudio}">
-       <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Button x:Name="PlayButton" Content="▶ Reproducir" Click="Play"/><Button Grid.Column="2" Content="■ Detener" Click="Stop"/></Grid>
-       <Slider x:Name="AudioPosition" Minimum="0" Maximum="1" ValueChanged="PositionChanged" Margin="0,12,0,16" AutomationProperties.Name="Posición del audio"/>
-       <TextBlock Text="Nivel del audio" Style="{DynamicResource Label}"/>
-       <UniformGrid Columns="2"><Button Content="Normalizar" Click="NormalizeAudio" Margin="0,0,6,0" ToolTip="Ajusta el pico a −1 dBFS sin saturar."/><Button Content="Restaurar original" Click="RestoreAudio" Margin="6,0,0,0"/></UniformGrid>
-       <Expander Header="Ganancia manual · experto" Margin="0,14,0,0"><StackPanel Margin="0,8,0,0"><DockPanel><TextBlock DockPanel.Dock="Right" Text="{Binding GainDb,StringFormat={}{0:+0.0;-0.0;0.0} dB}" Width="80" VerticalAlignment="Center"/><Slider Value="{Binding GainDb}" Minimum="-60" Maximum="30" TickFrequency="0.5" IsSnapToTickEnabled="True" AutomationProperties.Name="Ganancia manual en decibelios"/></DockPanel><Button Content="Aplicar ganancia" Click="ApplyGain" Margin="0,10,0,0"/><TextBlock Text="Se aplica sobre el original. El resultado avisa si la ganancia satura." Style="{DynamicResource Muted}" Margin="0,8,0,0"/></StackPanel></Expander>
-       <TextBlock Text="Archivo de audio" Style="{DynamicResource Label}"/><TextBlock Text="{Binding OutputPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding OutputPath}" Foreground="{DynamicResource MutedBrush}"/>
+       <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Button x:Name="PlayButton" Content="{DynamicResource TextToSpeech.taf606b3ab65e831c}" Click="Play"/><Button Grid.Column="2" Content="{DynamicResource TextToSpeech.te6dae52ed2709d50}" Click="Stop"/></Grid>
+       <Slider x:Name="AudioPosition" Minimum="0" Maximum="1" ValueChanged="PositionChanged" Margin="0,12,0,16" AutomationProperties.Name="{DynamicResource TextToSpeech.t4cf47dfc89daf1fe}"/>
+       <TextBlock Text="{DynamicResource TextToSpeech.tc125d96e32ea4384}" Style="{DynamicResource Label}"/>
+       <UniformGrid Columns="2"><Button Content="{DynamicResource TextToSpeech.tfeb6cfe3b63721e6}" Click="NormalizeAudio" Margin="0,0,6,0" ToolTip="{DynamicResource TextToSpeech.t467a87d3397cde06}"/><Button Content="{DynamicResource TextToSpeech.t6e05191b09bef208}" Click="RestoreAudio" Margin="6,0,0,0"/></UniformGrid>
+       <Expander Header="{DynamicResource TextToSpeech.tf0e61ef0db917544}" Margin="0,14,0,0"><StackPanel Margin="0,8,0,0"><DockPanel><TextBlock DockPanel.Dock="Right" Text="{Binding GainDb,StringFormat={}{0:+0.0;-0.0;0.0} dB}" Width="80" VerticalAlignment="Center"/><Slider Value="{Binding GainDb}" Minimum="-60" Maximum="30" TickFrequency="0.5" IsSnapToTickEnabled="True" AutomationProperties.Name="{DynamicResource TextToSpeech.t7e5f453409d50c2a}"/></DockPanel><Button Content="{DynamicResource TextToSpeech.t5a136619aa202075}" Click="ApplyGain" Margin="0,10,0,0"/><TextBlock Text="{DynamicResource TextToSpeech.t6efdd0b607ddf46a}" Style="{DynamicResource Muted}" Margin="0,8,0,0"/></StackPanel></Expander>
+       <TextBlock Text="{DynamicResource TextToSpeech.t5be288852f3dd4d4}" Style="{DynamicResource Label}"/><TextBlock Text="{Binding OutputPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding OutputPath}" Foreground="{DynamicResource MutedBrush}"/>
       </StackPanel>
       <Border Background="{DynamicResource InputBrush}" CornerRadius="6" Padding="10" Margin="0,18,0,0"><TextBlock Text="{Binding Status}" TextWrapping="Wrap" ToolTip="{Binding Status}" Foreground="{DynamicResource MutedBrush}"/></Border>
      </StackPanel></ScrollViewer>
-     <UniformGrid Grid.Row="1" Columns="2" Margin="0,12,0,0" IsEnabled="{Binding CanAdjustAudio}"><Button Content="Abrir carpeta" Click="OpenOutputFolder" Margin="0,0,6,0"/><Button Content="Guardar WAV…" Click="SaveAudio" Margin="6,0,0,0"/></UniformGrid>
+     <UniformGrid Grid.Row="1" Columns="2" Margin="0,12,0,0" IsEnabled="{Binding CanAdjustAudio}"><Button Content="{DynamicResource TextToSpeech.t3c9eb629c102503a}" Click="OpenOutputFolder" Margin="0,0,6,0"/><Button Content="{DynamicResource TextToSpeech.t4c3d10a904d814f7}" Click="SaveAudio" Margin="6,0,0,0"/></UniformGrid>
     </Grid>
    </Border>
   </Grid>

@@ -18,7 +18,8 @@ public partial class SpeechView : UserControl
     public SpeechViewModel Model { get; } = new();
     public SpeechView()
     {
-        InitializeComponent(); DataContext = Model;
+        Ui.Publish(); InitializeComponent(); DataContext = Model;
+        CaptionForge.Modularity.InterfaceLanguage.Changed += InterfaceLanguageChanged;
         _player.MediaOpened += (_, _) => { _opened = true; _player.Position = TimeSpan.FromSeconds(_pendingPosition); if (_playAfterOpen) { _player.Play(); _playing = true; _timer.Start(); } UpdatePosition(); };
         _player.MediaEnded += (_, _) => StopPlayback();
         _player.MediaFailed += (_, e) => { StopPlayback(); MessageBox.Show(e.ErrorException.Message, "Audio", MessageBoxButton.OK, MessageBoxImage.Error); };
@@ -27,6 +28,18 @@ public partial class SpeechView : UserControl
         _timer.Tick += (_, _) => UpdatePosition();
         Waveform.Seek += Seek;
         ReferencePlayer.PlaybackStarted += StopResultPlayback;
+    }
+    private static void RefreshChoices(DependencyObject parent)
+    {
+        if (parent is ComboBox combo) combo.Items.Refresh();
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++) RefreshChoices(VisualTreeHelper.GetChild(parent, i));
+    }
+    private void InterfaceLanguageChanged(object? sender, EventArgs e)
+    {
+        Ui.Publish(); Model.RefreshInterfaceLanguage();
+        RefreshChoices(this);
+        PlayButton.Content = Ui.T(_playing ? "Ⅱ Pausar" : "▶ Reproducir");
+        // Do not recreate the view or reset generated media on an interface change.
     }
     private void ModelChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -37,14 +50,14 @@ public partial class SpeechView : UserControl
     }
     public void StopPlayback() { StopResultPlayback(); ReferencePlayer.StopPlayback(); }
     private void StopResultPlayback() { _timer.Stop(); _player.Stop(); _player.Close(); _opened = _playing = _playAfterOpen = false; _pendingPosition = 0; if (AudioPosition is not null) UpdatePosition(); }
-    public async Task ShutdownAsync() { StopPlayback(); await Model.ShutdownAsync(); await ReferencePlayer.ShutdownAsync(); }
+    public async Task ShutdownAsync() { CaptionForge.Modularity.InterfaceLanguage.Changed -= InterfaceLanguageChanged; StopPlayback(); await Model.ShutdownAsync(); await ReferencePlayer.ShutdownAsync(); }
     private void UpdatePosition()
     {
         double position = _opened ? _player.Position.TotalSeconds : _pendingPosition;
         _updating = true; AudioPosition.Value = position; _updating = false;
         Waveform.Position = position;
         TimeLabel.Text = $"{TimeSpan.FromSeconds(position):mm\\:ss} / {TimeSpan.FromSeconds(Model.Waveform?.DurationSeconds ?? 0):mm\\:ss}";
-        PlayButton.Content = _playing ? "Ⅱ Pausar" : "▶ Reproducir";
+        PlayButton.Content = _playing ? Ui.T("Ⅱ Pausar") : Ui.T("▶ Reproducir");
     }
     private void Seek(double seconds)
     {
@@ -57,12 +70,12 @@ public partial class SpeechView : UserControl
     private void PositionChanged(object sender, RoutedPropertyChangedEventArgs<double> e) { if (!_updating && Model is not null && Model.HasOutput) Seek(e.NewValue); }
     private void BrowseReference(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFileDialog { Title = "Audio de referencia", Filter = "Audio|*.wav;*.mp3;*.flac;*.ogg;*.m4a", CheckFileExists = true };
+        var dialog = new OpenFileDialog { Title = Ui.T("Audio de referencia"), Filter = "Audio|*.wav;*.mp3;*.flac;*.ogg;*.m4a", CheckFileExists = true };
         if (dialog.ShowDialog() == true) Model.ReferencePath = dialog.FileName;
     }
     private void BrowsePython(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFileDialog { Title = "Python del entorno instalado", Filter = "Python|python.exe", CheckFileExists = true };
+        var dialog = new OpenFileDialog { Title = Ui.T("Python del entorno instalado"), Filter = "Python|python.exe", CheckFileExists = true };
         if (dialog.ShowDialog() == true) Model.PythonExecutable = dialog.FileName;
     }
     private string? Folder(string title, string initial)
@@ -71,8 +84,8 @@ public partial class SpeechView : UserControl
         if (Directory.Exists(initial)) dialog.InitialDirectory = initial;
         return dialog.ShowDialog() == true ? dialog.FolderName : null;
     }
-    private void BrowseModels(object sender, RoutedEventArgs e) { if (Folder("Carpeta del modelo", Model.ModelDirectory) is { } folder) Model.ModelDirectory = folder; }
-    private void BrowseOutput(object sender, RoutedEventArgs e) { if (Folder("Carpeta de salida", Model.OutputDirectory) is { } folder) Model.OutputDirectory = folder; }
+    private void BrowseModels(object sender, RoutedEventArgs e) { if (Folder(Ui.T("Carpeta del modelo"), Model.ModelDirectory) is { } folder) Model.ModelDirectory = folder; }
+    private void BrowseOutput(object sender, RoutedEventArgs e) { if (Folder(Ui.T("Carpeta de salida"), Model.OutputDirectory) is { } folder) Model.OutputDirectory = folder; }
     private void RefreshVoices(object sender, RoutedEventArgs e) => Model.RefreshVoices();
     private void SaveSettings(object sender, RoutedEventArgs e) => Model.SaveSettings();
     private void DetectInstallations(object sender, RoutedEventArgs e) => Model.DetectInstallations();
@@ -95,10 +108,10 @@ public partial class SpeechView : UserControl
     private void SaveAudio(object sender, RoutedEventArgs e)
     {
         if (!Model.HasOutput) return;
-        var dialog = new SaveFileDialog { Title = "Guardar audio", Filter = "Audio WAV|*.wav", FileName = Path.GetFileName(Model.OutputPath), AddExtension = true, OverwritePrompt = true };
+        var dialog = new SaveFileDialog { Title = Ui.T("Guardar audio"), Filter = "Audio WAV|*.wav", FileName = Path.GetFileName(Model.OutputPath), AddExtension = true, OverwritePrompt = true };
         if (dialog.ShowDialog() == true && !string.Equals(Path.GetFullPath(dialog.FileName), Path.GetFullPath(Model.OutputPath), StringComparison.OrdinalIgnoreCase))
             Try(() => File.Copy(Model.OutputPath, dialog.FileName, overwrite: true));
     }
     private void OpenOutputFolder(object sender, RoutedEventArgs e) { if (Model.HasOutput) Try(() => Process.Start(new ProcessStartInfo(Path.GetDirectoryName(Model.OutputPath)!) { UseShellExecute = true })); }
-    private static void Try(Action action) { try { action(); } catch (Exception e) { MessageBox.Show(e.Message, "Texto a voz", MessageBoxButton.OK, MessageBoxImage.Error); } }
+    private static void Try(Action action) { try { action(); } catch (Exception e) { MessageBox.Show(e.Message, Ui.T("Texto a voz"), MessageBoxButton.OK, MessageBoxImage.Error); } }
 }

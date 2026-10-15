@@ -12,7 +12,7 @@ public sealed class WaveformView : FrameworkElement
     public WaveformData? Audio { get => (WaveformData?)GetValue(AudioProperty); set => SetValue(AudioProperty, value); }
     public double Position { get => (double)GetValue(PositionProperty); set => SetValue(PositionProperty, value); }
     public event Action<double>? Seek;
-    public WaveformView() { Cursor = Cursors.Hand; Focusable = true; ToolTip = "Pulsa o arrastra para avanzar por el audio. Usa las flechas para mover cinco segundos."; }
+    public WaveformView() { Cursor = Cursors.Hand; Focusable = true; ToolTip = Ui.T("Pulsa o arrastra para avanzar por el audio. Usa las flechas para mover cinco segundos."); }
     protected override void OnRender(DrawingContext drawing)
     {
         Brush Resource(string key, Brush fallback) => TryFindResource(key) as Brush ?? fallback;

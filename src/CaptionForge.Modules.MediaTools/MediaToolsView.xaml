@@ -53,60 +53,60 @@
  </UserControl.Resources>
  <Grid>
   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-  <DockPanel Margin="0,0,0,16"><TextBlock DockPanel.Dock="Right" Text="LOCAL · CPU" Foreground="{DynamicResource AccentBrush}" VerticalAlignment="Center"/><StackPanel><TextBlock Text="Audio y transcripción" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="Selecciona un tramo, extrae el audio o conviértelo en texto y subtítulos." Style="{DynamicResource Muted}" Margin="0,4,0,0"/></StackPanel></DockPanel>
+  <DockPanel Margin="0,0,0,16"><TextBlock DockPanel.Dock="Right" Text="LOCAL · CPU" Foreground="{DynamicResource AccentBrush}" VerticalAlignment="Center"/><StackPanel><TextBlock Text="{DynamicResource MediaTools.t4632cf4fe3007838}" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="{DynamicResource MediaTools.ta496fe969d7620db}" Style="{DynamicResource Muted}" Margin="0,4,0,0"/></StackPanel></DockPanel>
   <Grid Grid.Row="1">
    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
    <Border x:Name="OptionsPanel" Style="{DynamicResource Panel}">
     <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,8,0">
       <StackPanel>
-       <TextBlock Text="Archivo y selección" Style="{DynamicResource Section}"/>
+       <TextBlock Text="{DynamicResource MediaTools.t561d1f01f4bfe4f5}" Style="{DynamicResource Section}"/>
        <StackPanel IsEnabled="{Binding CanEdit}">
-        <DockPanel><Button Content="Abrir archivo…" Click="BrowseSource" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBlock Text="{Binding SourceName}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip="{Binding SourcePath}"/></DockPanel>
-        <TextBlock Text="Pista de audio" Style="{DynamicResource Label}"/>
+        <DockPanel><Button Content="{DynamicResource MediaTools.t89506dc1eed67101}" Click="BrowseSource" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBlock Text="{Binding SourceName}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip="{Binding SourcePath}"/></DockPanel>
+        <TextBlock Text="{DynamicResource MediaTools.te6610e428eb42cd6}" Style="{DynamicResource Label}"/>
         <ComboBox x:Name="TrackSelector" ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
-        <local:SelectionWaveform x:Name="Waveform" Height="75" Margin="0,10,0,8" Audio="{Binding Waveform}" Start="{Binding RangeStart,Mode=TwoWay}" End="{Binding RangeEnd,Mode=TwoWay}" IsEnabled="{Binding CanSelect}" AutomationProperties.Name="Barras de audio y selección de tramo"/>
+        <local:SelectionWaveform x:Name="Waveform" Height="75" Margin="0,10,0,8" Audio="{Binding Waveform}" Start="{Binding RangeStart,Mode=TwoWay}" End="{Binding RangeEnd,Mode=TwoWay}" IsEnabled="{Binding CanSelect}" AutomationProperties.Name="{DynamicResource MediaTools.t7528bf11dfa74eb8}"/>
         <TextBlock x:Name="TimeLabel" Text="00:00:00.000 / 00:00:00.000" Style="{DynamicResource Muted}" HorizontalAlignment="Right" Margin="0,0,0,8"/>
-        <UniformGrid Columns="3" IsEnabled="{Binding CanPlay}"><Button x:Name="PlayButton" Content="▶ Escuchar" Click="Play" Margin="0,0,4,0"/><Button Content="▶ Selección" Click="PlaySelection" Margin="4,0"/><Button Content="■ Detener" Click="Stop" Margin="4,0,0,0"/></UniformGrid>
+        <UniformGrid Columns="3" IsEnabled="{Binding CanPlay}"><Button x:Name="PlayButton" Content="{DynamicResource MediaTools.t628eeac602dbb2f9}" Click="Play" Margin="0,0,4,0"/><Button Content="{DynamicResource MediaTools.t89206f429fc4b9f8}" Click="PlaySelection" Margin="4,0"/><Button Content="{DynamicResource MediaTools.te6dae52ed2709d50}" Click="Stop" Margin="4,0,0,0"/></UniformGrid>
         <Grid Margin="0,2,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-         <StackPanel><TextBlock Text="Inicio · hh:mm:ss.fff" Style="{DynamicResource Label}"/><TextBox x:Name="StartField" Text="{Binding StartTime,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="Inicio de selección"/></StackPanel>
-         <StackPanel Grid.Column="2"><TextBlock Text="Fin · hh:mm:ss.fff" Style="{DynamicResource Label}"/><TextBox x:Name="EndField" Text="{Binding EndTime,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="Fin de selección"/></StackPanel>
+         <StackPanel><TextBlock Text="{DynamicResource MediaTools.tae9993cc99909ade}" Style="{DynamicResource Label}"/><TextBox x:Name="StartField" Text="{Binding StartTime,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{DynamicResource MediaTools.t1016760e82a9bd78}"/></StackPanel>
+         <StackPanel Grid.Column="2"><TextBlock Text="{DynamicResource MediaTools.t41d5e7ed18db8bde}" Style="{DynamicResource Label}"/><TextBox x:Name="EndField" Text="{Binding EndTime,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{DynamicResource MediaTools.t8acdba2b0b43233c}"/></StackPanel>
         </Grid>
-        <DockPanel Margin="0,8,0,0"><Button Content="Todo" Click="SelectAll" DockPanel.Dock="Right" Margin="8,0,0,0" IsEnabled="{Binding CanSelect}"/><TextBlock Text="{Binding SelectionText}" Style="{DynamicResource Muted}" VerticalAlignment="Center"/></DockPanel>
-        <TextBlock Text="Arrastra sobre las barras para seleccionar y mueve los extremos para afinar." Style="{DynamicResource Muted}" FontSize="12" Margin="0,4,0,0"/>
+        <DockPanel Margin="0,8,0,0"><Button Content="{DynamicResource MediaTools.t4ff402d768211082}" Click="SelectAll" DockPanel.Dock="Right" Margin="8,0,0,0" IsEnabled="{Binding CanSelect}"/><TextBlock Text="{Binding SelectionText}" Style="{DynamicResource Muted}" VerticalAlignment="Center"/></DockPanel>
+        <TextBlock Text="{DynamicResource MediaTools.t2509eb57e86710a4}" Style="{DynamicResource Muted}" FontSize="12" Margin="0,4,0,0"/>
         <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
          <StackPanel><TextBlock Text="Audio" Style="{DynamicResource Label}"/><ComboBox ItemsSource="{Binding Formats}" SelectedItem="{Binding Format}"/></StackPanel>
-         <StackPanel Grid.Column="2"><TextBlock Text="Idioma de transcripción" Style="{DynamicResource Label}"/><ComboBox x:Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
+         <StackPanel Grid.Column="2"><TextBlock Text="{DynamicResource MediaTools.tf3af748bf936169c}" Style="{DynamicResource Label}"/><ComboBox x:Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
         </Grid>
-        <Expander Header="Whisper y opciones avanzadas" Margin="0,14,0,4"><StackPanel>
-         <TextBlock Text="Modelo Whisper · archivo GGML" Style="{DynamicResource Label}"/><DockPanel><Button Content="Buscar…" Click="BrowseModel" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding ModelPath,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ModelPath}"/></DockPanel>
+        <Expander Header="{DynamicResource MediaTools.t6a4fd1f80dc777ca}" Margin="0,14,0,4"><StackPanel>
+         <TextBlock Text="{DynamicResource MediaTools.t3eaf22bffee62997}" Style="{DynamicResource Label}"/><DockPanel><Button Content="{DynamicResource MediaTools.t9120df43bebb82c8}" Click="BrowseModel" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding ModelPath,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ModelPath}"/></DockPanel>
          <TextBlock Text="FFmpeg" Style="{DynamicResource Label}"/><TextBox Text="{Binding FfmpegPath,UpdateSourceTrigger=PropertyChanged}"/>
          <TextBlock Text="FFprobe" Style="{DynamicResource Label}"/><TextBox Text="{Binding FfprobePath,UpdateSourceTrigger=PropertyChanged}"/>
-         <TextBlock Text="Hilos de CPU" Style="{DynamicResource Label}"/><TextBox Text="{Binding CpuThreads}"/>
-         <Button Content="Guardar ajustes" Click="SaveSettings" Margin="0,12,0,0"/>
+         <TextBlock Text="{DynamicResource MediaTools.t6dc94ad224c2d30e}" Style="{DynamicResource Label}"/><TextBox Text="{Binding CpuThreads}"/>
+         <Button Content="{DynamicResource MediaTools.t0bfc8fb95144f616}" Click="SaveSettings" Margin="0,12,0,0"/>
         </StackPanel></Expander>
        </StackPanel>
       </StackPanel>
      </ScrollViewer>
      <StackPanel Grid.Row="1" Margin="0,12,0,0"><ProgressBar Value="{Binding Progress,Mode=OneWay}" IsIndeterminate="{Binding IsIndeterminate}" Maximum="100" Height="4" Visibility="{Binding IsBusy,Converter={StaticResource MediaBoolVisibility}}" Margin="0,0,0,10"/>
-      <UniformGrid Columns="2"><Button Content="Extraer audio…" Click="ExtractAudio" IsEnabled="{Binding CanProcess}" Margin="0,0,6,0"/><Button Content="Transcribir" Click="Transcribe" IsEnabled="{Binding CanTranscribe}" Style="{DynamicResource PrimaryButton}" Height="36" Margin="6,0,0,0"/></UniformGrid>
+      <UniformGrid Columns="2"><Button Content="{DynamicResource MediaTools.t88f3785105c48c5f}" Click="ExtractAudio" IsEnabled="{Binding CanProcess}" Margin="0,0,6,0"/><Button Content="{DynamicResource MediaTools.tb8e4e5ee8249b2a4}" Click="Transcribe" IsEnabled="{Binding CanTranscribe}" Style="{DynamicResource PrimaryButton}" Height="36" Margin="6,0,0,0"/></UniformGrid>
      </StackPanel>
     </Grid>
    </Border>
    <Border x:Name="ResultPanel" Grid.Column="2" Style="{DynamicResource Panel}">
     <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <StackPanel>
-      <TextBlock Text="Resultado" Style="{DynamicResource Section}"/>
-      <TextBlock x:Name="ResultEmptyMessage" Text="Tu transcripción aparecerá aquí. Puedes extraer el audio completo o seleccionar un fragmento y usarlo como muestra de voz." Style="{StaticResource EmptyTranscript}" Margin="0,0,0,12"/>
+      <TextBlock Text="{DynamicResource MediaTools.ta71bc39fe3f33e42}" Style="{DynamicResource Section}"/>
+      <TextBlock x:Name="ResultEmptyMessage" Text="{DynamicResource MediaTools.te0c8b6bbfe0acef9}" Style="{StaticResource EmptyTranscript}" Margin="0,0,0,12"/>
       <TextBlock Text="{Binding TranscriptInfo}" Style="{DynamicResource Muted}" FontSize="12" Margin="0,0,0,10"/>
      </StackPanel>
      <TextBox x:Name="TranscriptBox" Grid.Row="1" Text="{Binding TranscriptText,Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="60" Padding="12"/>
      <StackPanel Grid.Row="2" Margin="0,12,0,0">
-      <CheckBox Content="Tiempos del archivo original · SRT / VTT" IsChecked="{Binding OriginalTimestamps}" IsEnabled="{Binding CanExport}" ToolTip="Sin activar, el fragmento empieza en cero. Activado, se suma su posición en el archivo original." Margin="0,0,0,10"/>
-      <UniformGrid Columns="3" IsEnabled="{Binding CanExport}"><Button Content="Guardar TXT" Tag="txt" Click="ExportText" Margin="0,0,4,0"/><Button Content="Guardar SRT" Tag="srt" Click="ExportText" Margin="4,0"/><Button Content="Guardar VTT" Tag="vtt" Click="ExportText" Margin="4,0,0,0"/></UniformGrid>
+      <CheckBox Content="{DynamicResource MediaTools.t83dedaeb5c8171a1}" IsChecked="{Binding OriginalTimestamps}" IsEnabled="{Binding CanExport}" ToolTip="{DynamicResource MediaTools.t0cec3c1e049daa24}" Margin="0,0,0,10"/>
+      <UniformGrid Columns="3" IsEnabled="{Binding CanExport}"><Button Content="{DynamicResource MediaTools.tdfb0cffb92c922d5}" Tag="txt" Click="ExportText" Margin="0,0,4,0"/><Button Content="{DynamicResource MediaTools.tfc00ad7834cc1213}" Tag="srt" Click="ExportText" Margin="4,0"/><Button Content="{DynamicResource MediaTools.tc4183dba2b8edca6}" Tag="vtt" Click="ExportText" Margin="4,0,0,0"/></UniformGrid>
       <TextBlock Text="{Binding OutputPath}" Foreground="{DynamicResource MutedBrush}" TextTrimming="CharacterEllipsis" ToolTip="{Binding OutputPath}" Margin="0,12,0,0"/>
       <Border Background="{DynamicResource InputBrush}" CornerRadius="6" Padding="10" Margin="0,8,0,10"><TextBlock Text="{Binding Status}" TextWrapping="Wrap" MaxHeight="72" ToolTip="{Binding Status}" Foreground="{DynamicResource MutedBrush}"/></Border>
-      <UniformGrid Columns="2"><Button Content="Cancelar" Click="Cancel" IsEnabled="{Binding IsBusy}" Margin="0,0,6,0"/><Button Content="Abrir carpeta" Click="OpenFolder" IsEnabled="{Binding CanOpenOutput}" Margin="6,0,0,0"/></UniformGrid>
+      <UniformGrid Columns="2"><Button Content="{DynamicResource MediaTools.tbb9dbb406dcbd524}" Click="Cancel" IsEnabled="{Binding IsBusy}" Margin="0,0,6,0"/><Button Content="{DynamicResource MediaTools.t3c9eb629c102503a}" Click="OpenFolder" IsEnabled="{Binding CanOpenOutput}" Margin="6,0,0,0"/></UniformGrid>
      </StackPanel>
     </Grid>
    </Border>

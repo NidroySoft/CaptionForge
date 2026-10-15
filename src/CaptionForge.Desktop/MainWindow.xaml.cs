@@ -32,6 +32,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        LocalizationService.Current.LanguageChanged += RefreshModuleLanguage;
         // Fit before Show(), so even the first frame includes the native caption bar.
         var work = SystemParameters.WorkArea;
         MinWidth = Math.Min(MinimumWidth, Math.Max(1, work.Width - 32));
@@ -60,6 +61,7 @@ public partial class MainWindow : Window
         Closing += OnClosing;
         Closed += (_, _) =>
         {
+            LocalizationService.Current.LanguageChanged -= RefreshModuleLanguage;
             _tutorial?.Dispose();
             _source?.RemoveHook(WindowMessages);
             if (_appearance is not null) _appearance.ThemeChanged -= OnThemeChanged;
@@ -67,16 +69,34 @@ public partial class MainWindow : Window
         };
     }
 
+    private static string ModuleLabel(ModuleDefinition definition) => definition.LocalizedDisplayName;
+    private void RefreshModuleLanguage(object? sender, EventArgs e)
+    {
+        ModuleSelector.Items.Refresh();
+        foreach (var tab in _openTabs.Values)
+            if (tab.Tag is ModuleDefinition definition && tab.Header is StackPanel header)
+            {
+                ((TextBlock)header.Children[0]).Text = ModuleLabel(definition);
+                ((Button)header.Children[1]).ToolTip = L.T("shell.6");
+            }
+    }
     private void InitializeModules(MainViewModel vm)
     {
         // Only the built-in subtitle workflow belongs to the host. Optional tools are discovered.
         _modules = new ModuleRegistry();
         RootLayout.DataContext = vm;
-        _modules.Register(new("subtitles", "Obtener subtítulos", () => new SubtitleModule(vm, RootLayout)));
+        _modules.Register(new("subtitles", "Obtener subtítulos", () => new SubtitleModule(vm, RootLayout)) { EnglishDisplayName = "Get subtitles" });
         foreach (var error in _discovery.RegisterFrom(System.IO.Path.Combine(AppContext.BaseDirectory, "Modules"), _modules))
             Services.AppLog.Write(new InvalidOperationException(error));
         ModuleContainer.Children.Remove(RootLayout);
+        ModuleSelector.DisplayMemberPath = "";
+        var template = new DataTemplate();
+        var label = new FrameworkElementFactory(typeof(TextBlock));
+        label.SetBinding(TextBlock.TextProperty, new System.Windows.Data.Binding("LocalizedDisplayName"));
+        template.VisualTree = label;
+        ModuleSelector.ItemTemplate = template;
         ModuleSelector.ItemsSource = _modules.Definitions;
+        RefreshModuleLanguage(null, EventArgs.Empty);
         ModuleSelector.SelectedIndex = 0;
     }
 
@@ -89,8 +109,8 @@ public partial class MainWindow : Window
             {
                 if (_modules.Get(definition.Id).View is not FrameworkElement) throw new InvalidOperationException("El módulo no proporciona una vista de escritorio.");
                 var header = new StackPanel { Orientation = Orientation.Horizontal };
-                header.Children.Add(new TextBlock { Text = definition.DisplayName, VerticalAlignment = VerticalAlignment.Center });
-                var close = new Button { Content = "×", Width = 26, Height = 26, MinHeight = 0, Padding = new Thickness(0), Margin = new Thickness(12,0,0,0), ToolTip = "Cerrar pestaña" };
+                header.Children.Add(new TextBlock { Text = ModuleLabel(definition), VerticalAlignment = VerticalAlignment.Center });
+                var close = new Button { Content = "×", Width = 26, Height = 26, MinHeight = 0, Padding = new Thickness(0), Margin = new Thickness(12,0,0,0), ToolTip = L.T("shell.6") };
                 tab = new TabItem { Header = header, Tag = definition };
                 close.Click += (_, args) => { args.Handled = true; CloseModuleTab(definition.Id); };
                 header.Children.Add(close); _openTabs.Add(definition.Id, tab); ModuleTabs.Items.Add(tab);
@@ -100,7 +120,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             Services.AppLog.Write(ex);
-            MessageBox.Show(this, ex.Message, "Módulos", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(this, ex.Message, L.T("shell.7"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally { _changingModule = true; ModuleSelector.SelectedIndex = -1; _changingModule = false; }
     }
@@ -263,6 +283,7 @@ public partial class MainWindow : Window
             if ((vm.IsBusy || _modules?.IsBusy == true) && MessageBox.Show(L.T("ui.hayUnaOperacionEnCursoSeSolicitaraLaCancelacion"),
                     "CaptionForge", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
             _closing = true;
+            LocalizationService.Current.LanguageChanged -= RefreshModuleLanguage;
             _tutorial?.Dispose();
             TutorialLayer.Visibility=Visibility.Collapsed;
             IsEnabled = false;

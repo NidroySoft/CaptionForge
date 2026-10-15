@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace CaptionForge.Modularity;
 
-public sealed record ModuleManifest(string Id, string DisplayName, string Assembly, string EntryType, int ContractVersion = 1);
+public sealed record ModuleManifest(string Id, string DisplayName, string Assembly, string EntryType, int ContractVersion = 1, string? DisplayNameEn = null);
 
 /// <summary>Discovers installed modules. The host depends only on this contract, never on their implementation.</summary>
 public sealed class ModuleDiscovery
@@ -45,7 +45,7 @@ public sealed class ModuleDiscovery
                     var type = AssemblyLoadContext.Default.LoadFromAssemblyPath(assembly).GetType(manifest.EntryType, throwOnError: true)!;
                     if (!typeof(IApplicationModule).IsAssignableFrom(type)) throw new InvalidDataException("El módulo no implementa el contrato.");
                     return (IApplicationModule)(Activator.CreateInstance(type) ?? throw new InvalidDataException("No se pudo crear el módulo."));
-                }));
+                }) { EnglishDisplayName = manifest.DisplayNameEn });
             }
             catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException)
             { errors.Add($"{Path.GetFileName(folder)}: {e.Message}"); }

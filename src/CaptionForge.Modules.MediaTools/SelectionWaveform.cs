@@ -19,7 +19,7 @@ public sealed class SelectionWaveform : FrameworkElement
     private int handle;
     private double anchorX, anchorTime;
     private bool dragged;
-    public SelectionWaveform() { Focusable = true; ClipToBounds = true; Cursor = Cursors.Cross; ToolTip = "Arrastra para seleccionar · ajusta los extremos · haz clic para escuchar desde un punto"; }
+    public SelectionWaveform() { Focusable = true; ClipToBounds = true; Cursor = Cursors.Cross; ToolTip = Ui.T("Arrastra para seleccionar · ajusta los extremos · haz clic para escuchar desde un punto"); }
     private Brush Brush(string key, Color fallback) => TryFindResource(key) as Brush ?? new SolidColorBrush(fallback);
     private double X(double seconds) => Math.Clamp(seconds / Math.Max(.001, Audio?.Duration ?? 1), 0, 1) * ActualWidth;
     private double Time(double x) => Math.Clamp(x / Math.Max(1, ActualWidth), 0, 1) * (Audio?.Duration ?? 0);

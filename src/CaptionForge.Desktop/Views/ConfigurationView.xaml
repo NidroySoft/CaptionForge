@@ -7,7 +7,7 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <Border Style="{StaticResource Panel}" Margin="0,0,0,10"><DockPanel>
-      <TextBlock Text="Origen de los subtítulos" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,16,0" DockPanel.Dock="Left"/>
+      <TextBlock Text="{DynamicResource Loc.import.1}" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,16,0" DockPanel.Dock="Left"/>
       <ComboBox x:Name="CaptionSourceSelector" Width="280" HorizontalAlignment="Left" ItemsSource="{Binding CaptionSources}" SelectedItem="{Binding SelectedCaptionSource}" IsEnabled="{Binding IsIdle}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
     </DockPanel></Border>
     <c:AdaptiveGrid Grid.Row="1" StackAtWidth="700">
@@ -16,15 +16,15 @@
        <Border><Border.Style><Style TargetType="Border" BasedOn="{StaticResource Panel}"><Setter Property="Visibility" Value="Visible"/><Style.Triggers><DataTrigger Binding="{Binding UsesAudioSource}" Value="True"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style>
         <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
          <StackPanel>
-          <DockPanel><Button Content="Actualizar timeline" Command="{Binding ReloadTimeline}" DockPanel.Dock="Right" FontSize="12" Padding="9,4" MinHeight="28" Margin="8,0,0,0"/><TextBlock Text="Subtítulos existentes" Style="{StaticResource Section}"/></DockPanel>
+          <DockPanel><Button Content="{DynamicResource Loc.import.2}" Command="{Binding ReloadTimeline}" DockPanel.Dock="Right" FontSize="12" Padding="9,4" MinHeight="28" Margin="8,0,0,0"/><TextBlock Text="{DynamicResource Loc.import.3}" Style="{StaticResource Section}"/></DockPanel>
           <StackPanel Visibility="{Binding UsesTrackSource,Converter={StaticResource BoolVisibility}}" IsEnabled="{Binding IsIdle}">
-           <TextBlock Text="Pista original de CapCut" Style="{StaticResource Label}"/>
+           <TextBlock Text="{DynamicResource Loc.import.4}" Style="{StaticResource Label}"/>
            <ComboBox x:Name="SubtitleTrackSelector" ItemsSource="{Binding SubtitleTracks}" SelectedItem="{Binding SelectedSubtitleTrack}"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding UnsupportedReason}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
-           <CheckBox Content="Eliminar la pista original al aplicar" IsChecked="{Binding RemoveOriginalSubtitleTrack}" Margin="0,14,0,6"/>
-           <TextBlock Text="Desmarcado: conserva el origen para eliminarlo manualmente desde CapCut." Style="{StaticResource Muted}" FontSize="12"/>
+           <CheckBox Content="{DynamicResource Loc.import.5}" IsChecked="{Binding RemoveOriginalSubtitleTrack}" Margin="0,14,0,6"/>
+           <TextBlock Text="{DynamicResource Loc.import.6}" Style="{StaticResource Muted}" FontSize="12"/>
           </StackPanel>
           <StackPanel Visibility="{Binding UsesFileSource,Converter={StaticResource BoolVisibility}}" IsEnabled="{Binding IsIdle}">
-           <TextBlock Text="Archivo de subtítulos · SRT / WebVTT" Style="{StaticResource Label}"/>
+           <TextBlock Text="{DynamicResource Loc.import.7}" Style="{StaticResource Label}"/>
            <DockPanel><Button Content="Buscar…" Command="{Binding BrowseSubtitleFile}" DockPanel.Dock="Right" Margin="8,0,0,0"/><TextBox Text="{Binding SubtitleFilePath,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SubtitleFilePath}"/></DockPanel>
           </StackPanel>
           <TextBlock Text="{Binding SubtitleImportHint}" Style="{StaticResource Muted}" Margin="0,12,0,12"/>

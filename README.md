@@ -532,3 +532,16 @@ CaptionForge utiliza o integra tecnologías de estos proyectos:
 - [GitHub Actions](https://github.com/features/actions): automatización de compilación, pruebas y releases.
 
 Las licencias de esas dependencias corresponden a sus respectivos proyectos. CapCut y las demás marcas mencionadas pertenecen a sus respectivos titulares.
+
+### Idioma de la interfaz
+
+En **Configuración → Idioma de la interfaz** puedes elegir **Español** o **English**.
+El cambio se aplica al instante y se conserva al reiniciar. Es independiente del idioma
+del audio, de Whisper y de la voz. Los módulos de audio/transcripción y texto a voz
+mantienen sus catálogos y no dependen de la implementación del host.
+
+Los idiomas del host se distribuyen en `Languages/*.json`; las claves y los parámetros
+de formato deben coincidir con `es.json`. Los módulos reciben el idioma a través del
+contrato `InterfaceLanguage` y mantienen sus propios recursos.
+
+Los cambios importantes terminados y verificados se publican mediante push y una nueva etiqueta/release. Los pushes normales no generan releases automáticamente.

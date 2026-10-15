@@ -11,4 +11,5 @@
     <Content Include="../../licenses/Pocket-TTS-MIT.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/Pocket-TTS-MIT.txt" Link="licenses/Pocket-TTS-MIT.txt" />
     <Content Include="../../licenses/NAudio-MIT.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" TargetPath="licenses/NAudio-MIT.txt" Link="licenses/NAudio-MIT.txt" />
   </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Languages/en.json" /></ItemGroup>
 </Project>

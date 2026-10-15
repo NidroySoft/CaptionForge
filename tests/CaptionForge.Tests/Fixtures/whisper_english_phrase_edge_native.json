@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "segments": [
+    {
+      "text": " Rushing fuel creates suction that pulls air",
+      "startTicks": 88400000,
+      "endTicks": 114400000,
+      "language": "en",
+      "tokens": [
+        {
+          "id": 371,
+          "text": " R",
+          "start10Ms": 891,
+          "end10Ms": 891,
+          "dtwTimestamp": 918
+        },
+        {
+          "id": 8023,
+          "text": "ushing",
+          "start10Ms": 894,
+          "end10Ms": 933,
+          "dtwTimestamp": 930
+        },
+        {
+          "id": 5252,
+          "text": " fuel",
+          "start10Ms": 937,
+          "end10Ms": 958,
+          "dtwTimestamp": 966
+        },
+        {
+          "id": 8075,
+          "text": " creates",
+          "start10Ms": 968,
+          "end10Ms": 1002,
+          "dtwTimestamp": 1010
+        },
+        {
+          "id": 424,
+          "text": " su",
+          "start10Ms": 1018,
+          "end10Ms": 1024,
+          "dtwTimestamp": 1048
+        },
+        {
+          "id": 596,
+          "text": "ction",
+          "start10Ms": 1024,
+          "end10Ms": 1056,
+          "dtwTimestamp": 1056
+        },
+        {
+          "id": 326,
+          "text": " that",
+          "start10Ms": 1075,
+          "end10Ms": 1076,
+          "dtwTimestamp": 1078
+        },
+        {
+          "id": 16194,
+          "text": " pulls",
+          "start10Ms": 1076,
+          "end10Ms": 1112,
+          "dtwTimestamp": 1118
+        },
+        {
+          "id": 1633,
+          "text": " air",
+          "start10Ms": 1144,
+          "end10Ms": 1144,
+          "dtwTimestamp": 1146
+        },
+        {
+          "id": 50935,
+          "text": "[_TT_572]",
+          "start10Ms": 1144,
+          "end10Ms": 1144,
+          "dtwTimestamp": -1
+        }
+      ]
+    },
+    {
+      "text": " through a small hole near the spout, keeping the handle open.",
+      "startTicks": 114400000,
+      "endTicks": 150000000,
+      "language": "en",
+      "tokens": [
+        {
+          "id": 832,
+          "text": " through",
+          "start10Ms": 1154,
+          "end10Ms": 1188,
+          "dtwTimestamp": 1168
+        },
+        {
+          "id": 257,
+          "text": " a",
+          "start10Ms": 1188,
+          "end10Ms": 1194,
+          "dtwTimestamp": 1188
+        },
+        {
+          "id": 1402,
+          "text": " small",
+          "start10Ms": 1194,
+          "end10Ms": 1218,
+          "dtwTimestamp": 1220
+        },
+        {
+          "id": 7604,
+          "text": " hole",
+          "start10Ms": 1229,
+          "end10Ms": 1250,
+          "dtwTimestamp": 1248
+        },
+        {
+          "id": 1474,
+          "text": " near",
+          "start10Ms": 1250,
+          "end10Ms": 1262,
+          "dtwTimestamp": 1272
+        },
+        {
+          "id": 262,
+          "text": " the",
+          "start10Ms": 1278,
+          "end10Ms": 1293,
+          "dtwTimestamp": 1290
+        },
+        {
+          "id": 599,
+          "text": " sp",
+          "start10Ms": 1293,
+          "end10Ms": 1305,
+          "dtwTimestamp": 1316
+        },
+        {
+          "id": 448,
+          "text": "out",
+          "start10Ms": 1305,
+          "end10Ms": 1316,
+          "dtwTimestamp": 1330
+        },
+        {
+          "id": 11,
+          "text": ",",
+          "start10Ms": 1335,
+          "end10Ms": 1340,
+          "dtwTimestamp": 1330
+        },
+        {
+          "id": 5291,
+          "text": " keeping",
+          "start10Ms": 1340,
+          "end10Ms": 1372,
+          "dtwTimestamp": 1374
+        },
+        {
+          "id": 262,
+          "text": " the",
+          "start10Ms": 1408,
+          "end10Ms": 1408,
+          "dtwTimestamp": 1396
+        },
+        {
+          "id": 5412,
+          "text": " handle",
+          "start10Ms": 1411,
+          "end10Ms": 1443,
+          "dtwTimestamp": 1418
+        },
+        {
+          "id": 1280,
+          "text": " open",
+          "start10Ms": 1450,
+          "end10Ms": 1476,
+          "dtwTimestamp": 1460
+        },
+        {
+          "id": 13,
+          "text": ".",
+          "start10Ms": 1476,
+          "end10Ms": 1500,
+          "dtwTimestamp": 1518
+        },
+        {
+          "id": 51113,
+          "text": "[_TT_750]",
+          "start10Ms": 1500,
+          "end10Ms": 1500,
+          "dtwTimestamp": -1
+        }
+      ],
+      "wordTimingRecoveries": [
+        {
+          "text": "the",
+          "originalRange": {
+            "startUs": 14080000,
+            "durationUs": 0,
+            "endUs": 14080000,
+            "isEmpty": true
+          },
+          "recoveredRange": {
+            "startUs": 13960000,
+            "durationUs": 120000,
+            "endUs": 14080000,
+            "isEmpty": false
+          },
+          "dtwAnchorsUs": [
+            13960000
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -46,22 +46,22 @@ public sealed class MainViewModel : ObservableObject
     private DraftTemplateCandidate? _template;
     private LanguageItem _language=new("auto",L.T("language.auto"));
     private BackupItem? _backup;
-    private CaptionSourceChoice _captionSource = new("Audio", "Transcribir audio");
+    private CaptionSourceChoice _captionSource = new("Audio", L.T("import.8"));
     private ExistingSubtitleTrack? _subtitleTrack;
     private string _subtitleFile = "";
     private bool _removeOriginal;
-    public IReadOnlyList<CaptionSourceChoice> CaptionSources { get; } = [new("Audio", "Transcribir audio"), new("CapCutTrack", "Pista de subtítulos de CapCut"), new("SubtitleFile", "Archivo SRT / VTT")];
+    public IReadOnlyList<CaptionSourceChoice> CaptionSources { get; } = [new("Audio", L.T("import.8")), new("CapCutTrack", L.T("import.9")), new("SubtitleFile", L.T("import.10"))];
     public ObservableCollection<ExistingSubtitleTrack> SubtitleTracks { get; } = [];
     public CaptionSourceChoice SelectedCaptionSource { get => _captionSource; set { if (value is not null && Set(ref _captionSource, value)) { Preview.Stop(); InvalidateResult(); Raise(nameof(UsesAudioSource)); Raise(nameof(UsesTrackSource)); Raise(nameof(UsesFileSource)); Raise(nameof(GenerateLabel)); Raise(nameof(SubtitleImportHint)); } } }
     public bool UsesAudioSource => SelectedCaptionSource.Id == "Audio";
     public bool UsesTrackSource => SelectedCaptionSource.Id == "CapCutTrack";
     public bool UsesFileSource => SelectedCaptionSource.Id == "SubtitleFile";
-    public string GenerateLabel => UsesAudioSource ? L.T("ui.generarSubtitulos") : "Preparar subtítulos";
+    public string GenerateLabel => UsesAudioSource ? L.T("ui.generarSubtitulos") : L.T("import.11");
     public ExistingSubtitleTrack? SelectedSubtitleTrack { get => _subtitleTrack; set { if (Set(ref _subtitleTrack, value)) { InvalidateResult(); Raise(nameof(SubtitleImportHint)); Raise(nameof(ImportedPreview)); } } }
     public IEnumerable<CaptionItem> ImportedPreview => SelectedSubtitleTrack?.Captions.Select(c => new CaptionItem(c)) ?? [];
     public string SubtitleFilePath { get => _subtitleFile; set { if (Set(ref _subtitleFile, value)) InvalidateResult(); } }
     public bool RemoveOriginalSubtitleTrack { get => _removeOriginal; set { if (Set(ref _removeOriginal, value)) InvalidateResult(); } }
-    public string SubtitleImportHint => UsesTrackSource ? SelectedSubtitleTrack?.UnsupportedReason ?? "Elige la pista original y una plantilla en otra pista. Se conservarán el texto y los tiempos de cada bloque." : "Importa SRT o WebVTT con sus tiempos originales. El estilo lo determina la plantilla elegida.";
+    public string SubtitleImportHint => UsesTrackSource ? SelectedSubtitleTrack?.UnsupportedReason ?? L.T("import.12") : L.T("import.13");
     public ObservableCollection<ProjectItem> Projects {get;}=[];
     public ObservableCollection<ProjectItem> VisibleProjects {get;}=[];
     public ObservableCollection<TimelineItem> Timelines {get;}=[];
@@ -163,7 +163,7 @@ public sealed class MainViewModel : ObservableObject
         BrowseProjects=Async(async _=>{var path=_dialogs.Folder(L.T("ui.carpetaQueContieneLosProyectosDeCapcut"),ProjectsRoot);if(path is null)return;ProjectsRoot=path;await RunAsync(LoadProjectsAsync);});
         BrowseWorkspace=new RelayCommand(_=>{var path=_dialogs.Folder(L.T("ui.carpetaDeTrabajoDeCaptionforge"),WorkspaceRoot);if(path is not null)WorkspaceRoot=path;},_=>IsIdle);
         BrowseModel=new RelayCommand(_=>{var path=_dialogs.File(L.T("ui.seleccionaUnModeloWhisperGgml"),L.T("ui.modeloWhisperBinBin"));if(path is not null)ModelPath=path;},_=>IsIdle);
-        BrowseSubtitleFile = new RelayCommand(_ => { var path = _dialogs.File("Importar subtítulos", "Subtítulos SRT / WebVTT|*.srt;*.vtt"); if (path is not null) SubtitleFilePath = path; }, _ => IsIdle);
+        BrowseSubtitleFile = new RelayCommand(_ => { var path = _dialogs.File(L.T("import.14"), L.T("import.15")); if (path is not null) SubtitleFilePath = path; }, _ => IsIdle);
         BrowseFfmpeg=new RelayCommand(_=>{var p=_dialogs.File(L.T("ui.localizarFfmpeg"),L.T("ui.ffmpegFfmpegExeFfmpegExe"));if(p is not null)FfmpegPath=p;},_=>IsIdle);
         BrowseFfprobe=new RelayCommand(_=>{var p=_dialogs.File(L.T("ui.localizarFfprobe"),L.T("ui.ffprobeFfprobeExeFfprobeExe"));if(p is not null)FfprobePath=p;},_=>IsIdle);
         Next=Async(_=>RunAsync(AdvanceAsync),_=>Step==0?SelectedProject is not null:Step==1 && SelectedTimeline is not null);
@@ -350,7 +350,7 @@ public sealed class MainViewModel : ObservableObject
         CaptionImportOrigin origin; string? remove = null;
         if (UsesTrackSource)
         {
-            var selected = SelectedSubtitleTrack ?? throw new InvalidOperationException("Elige una pista de subtítulos.");
+            var selected = SelectedSubtitleTrack ?? throw new InvalidOperationException(L.T("import.16"));
             if (selected.Id == SelectedTemplate.TrackId) throw new InvalidOperationException("La plantilla debe estar en una pista distinta del origen.");
             var fresh = (await ExistingSubtitleCatalog.ReadAsync(_snapshot, _cts!.Token)).Single(t => t.Id == selected.Id);
             if (!fresh.IsSupported) throw new InvalidDataException(fresh.UnsupportedReason);
@@ -359,7 +359,7 @@ public sealed class MainViewModel : ObservableObject
         }
         else
         {
-            if (new FileInfo(SubtitleFilePath).Length > 10_000_000) throw new InvalidDataException("El archivo de subtítulos supera los 10 MB.");
+            if (new FileInfo(SubtitleFilePath).Length > 10_000_000) throw new InvalidDataException(L.T("import.17"));
             using var reader = new StreamReader(SubtitleFilePath, new System.Text.UTF8Encoding(false, true), true);
             string content = await reader.ReadToEndAsync(_cts!.Token);
             cues = SubtitleFileReader.Parse(content, Path.GetExtension(SubtitleFilePath));
@@ -368,13 +368,13 @@ public sealed class MainViewModel : ObservableObject
         await DraftTemplateCatalog.ValidateResourcesAsync(_snapshot, SelectedTemplate.SegmentId, _cts!.Token);
         InvalidateResult(); _writer = new(SelectedTemplate.SegmentId);
         _generation = new(new FfmpegAudioPreparationService(FfmpegPath,FfprobePath),_whisper,_writer,new JsonWorkspaceStore(WorkspaceRoot));
-        Step = 3; Progress = 0; Status = "Preparando los subtítulos existentes con la plantilla…";
+        Step = 3; Progress = 0; Status = L.T("import.18");
         _result = await Task.Run(() => _generation.PrepareExistingAsync(new ExistingCaptionsRequest(_snapshot,cues,WorkspaceRoot,origin,remove),_cts!.Token));
         foreach (var cue in _result.Captions) Captions.Add(new(cue));
         foreach (var file in _result.Plan.ExpectedFiles) TargetFiles.Add(file.Path);
         Warnings.Clear(); foreach (var warning in _result.Plan.Warnings) Warnings.Add(warning);
         if (origin.ApproximateWordTimings) Warnings.Add("Se conservan los tiempos de cada bloque. Los tiempos por palabra se distribuyen de forma aproximada para las animaciones de la plantilla.");
-        Raise(nameof(HasResult)); Raise(nameof(ResultSummary)); Raise(nameof(RunDirectory)); Progress=100; Status="Subtítulos preparados para revisar y aplicar.";
+        Raise(nameof(HasResult)); Raise(nameof(ResultSummary)); Raise(nameof(RunDirectory)); Progress=100; Status=L.T("import.19");
     }
     private async Task ApplyAsync()
     {
@@ -420,4 +420,4 @@ public sealed class MainViewModel : ObservableObject
         _cts?.Cancel();if(_operationDone is not null)await _operationDone.Task;Preview.Dispose();await _whisper.DisposeAsync();
     }
 }
-public sealed record CaptionSourceChoice(string Id, string Name);
+public sealed record CaptionSourceChoice(string Id, string Label) { public string Name => L.Render(Label); }

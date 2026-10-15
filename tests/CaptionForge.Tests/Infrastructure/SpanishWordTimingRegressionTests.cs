@@ -189,6 +189,30 @@ public sealed class SpanishWordTimingRegressionTests(ITestOutputHelper output) :
     }
 
     [Fact]
+    public void PalabraCortadaPorLimiteUsaContextoNativoSiguienteSinPerderTexto()
+    {
+        var original = new SegmentData(" pulls air",TimeSpan.Zero,TimeSpan.FromSeconds(1),0,0,0,0,"en",
+            [Token(" pulls",0,80,50),Token(" air",100,100,102)]);
+        var following = new SegmentData(" through a hole.",TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(2),0,0,0,0,"en",
+            [Token(" through",110,130,120),Token(" a",130,145,135),Token(" hole",150,180,170),Token(".",180,200,190)]);
+        Assert.Throws<InvalidDataException>(()=>WhisperTokenNormalizer.Normalize(original,true));
+        var recovered=Assert.IsType<TranscriptionSegment>(WhisperTokenNormalizer.RecoverWithFollowing(original,following,true));
+        var words=CaptionForge.Core.Rules.WordTimingBuilder.Build(recovered.Tokens,recovered.Range);
+        Assert.Equal("pulls air through a hole.",string.Concat(words.Select(w=>w.Text)));
+        Assert.All(words.Where(w=>!w.IsSpace),w=>Assert.True(w.EndTimeMs>w.StartTimeMs));
+        Assert.Equal(2_000_000,recovered.Range.EndUs);
+    }
+
+    [Fact]
+    public void ContextoSiguienteSinDtwValidoNoInventaDuracion()
+    {
+        var original=new SegmentData(" air",TimeSpan.Zero,TimeSpan.FromSeconds(1),0,0,0,0,"en",[Token(" air",100,100,-1)]);
+        var following=new SegmentData(" through",TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(2),0,0,0,0,"en",[Token(" through",110,180,150)]);
+        Assert.Null(WhisperTokenNormalizer.RecoverWithFollowing(original,following,true));
+        Assert.Null(WhisperTokenNormalizer.RecoverWithFollowing(original,new SegmentData(following.Text,TimeSpan.FromSeconds(3),TimeSpan.FromSeconds(4),0,0,0,0,"en",following.Tokens),true));
+    }
+
+    [Fact]
     public void ReintentoConservaTextoYRangoYDescartaLaColaReconocida()
     {
         var original=Phrase(Token(" uno",0,20,10),Token(" dos",20,20,35),Token(" tres",20,80,60));

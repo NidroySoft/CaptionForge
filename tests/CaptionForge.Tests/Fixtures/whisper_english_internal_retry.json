@@ -1,0 +1,206 @@
+{
+  "original": {
+    "text": " For a small pan fire, turn off the burner,",
+    "startTicks": 171000000,
+    "endTicks": 196600000,
+    "language": "en",
+    "tokens": [
+      {
+        "id": 1114,
+        "text": " For",
+        "start10Ms": 1721,
+        "end10Ms": 1730,
+        "dtwTimestamp": 1734
+      },
+      {
+        "id": 257,
+        "text": " a",
+        "start10Ms": 1738,
+        "end10Ms": 1738,
+        "dtwTimestamp": 1754
+      },
+      {
+        "id": 1402,
+        "text": " small",
+        "start10Ms": 1738,
+        "end10Ms": 1769,
+        "dtwTimestamp": 1778
+      },
+      {
+        "id": 3425,
+        "text": " pan",
+        "start10Ms": 1773,
+        "end10Ms": 1794,
+        "dtwTimestamp": 1806
+      },
+      {
+        "id": 2046,
+        "text": " fire",
+        "start10Ms": 1794,
+        "end10Ms": 1822,
+        "dtwTimestamp": 1840
+      },
+      {
+        "id": 11,
+        "text": ",",
+        "start10Ms": 1822,
+        "end10Ms": 1836,
+        "dtwTimestamp": 1872
+      },
+      {
+        "id": 1210,
+        "text": " turn",
+        "start10Ms": 1836,
+        "end10Ms": 1864,
+        "dtwTimestamp": 1888
+      },
+      {
+        "id": 572,
+        "text": " off",
+        "start10Ms": 1864,
+        "end10Ms": 1883,
+        "dtwTimestamp": 1908
+      },
+      {
+        "id": 262,
+        "text": " the",
+        "start10Ms": 1883,
+        "end10Ms": 1902,
+        "dtwTimestamp": 1926
+      },
+      {
+        "id": 46027,
+        "text": " burner",
+        "start10Ms": 1927,
+        "end10Ms": 1946,
+        "dtwTimestamp": 1954
+      },
+      {
+        "id": 11,
+        "text": ",",
+        "start10Ms": 1956,
+        "end10Ms": 1966,
+        "dtwTimestamp": 1970
+      },
+      {
+        "id": 51346,
+        "text": "[_TT_983]",
+        "start10Ms": 1966,
+        "end10Ms": 1966,
+        "dtwTimestamp": -1
+      }
+    ]
+  },
+  "recoveredTokens": [
+    {
+      "text": " For",
+      "range": {
+        "startUs": 17210000,
+        "durationUs": 90000,
+        "endUs": 17300000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " a",
+      "range": {
+        "startUs": 17380000,
+        "durationUs": 50000,
+        "endUs": 17430000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " small",
+      "range": {
+        "startUs": 17430000,
+        "durationUs": 410000,
+        "endUs": 17840000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " pan",
+      "range": {
+        "startUs": 17840000,
+        "durationUs": 250000,
+        "endUs": 18090000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " fire",
+      "range": {
+        "startUs": 18090000,
+        "durationUs": 330000,
+        "endUs": 18420000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": ",",
+      "range": {
+        "startUs": 18420000,
+        "durationUs": 90000,
+        "endUs": 18510000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " turn",
+      "range": {
+        "startUs": 18630000,
+        "durationUs": 200000,
+        "endUs": 18830000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " off",
+      "range": {
+        "startUs": 18830000,
+        "durationUs": 200000,
+        "endUs": 19030000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " the",
+      "range": {
+        "startUs": 19240000,
+        "durationUs": 30000,
+        "endUs": 19270000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": " burner",
+      "range": {
+        "startUs": 19270000,
+        "durationUs": 410000,
+        "endUs": 19680000,
+        "isEmpty": false
+      },
+      "isControl": false
+    },
+    {
+      "text": ",",
+      "range": {
+        "startUs": 19680000,
+        "durationUs": 20000,
+        "endUs": 19700000,
+        "isEmpty": false
+      },
+      "isControl": false
+    }
+  ]
+}

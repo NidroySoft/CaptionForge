@@ -43,7 +43,7 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
             if (options.Language=="auto" && !info.IsEnglishOnly) builder.WithLanguageDetection();
             else builder.WithLanguage(info.IsEnglishOnly?"en":options.Language);
             await using var processor=builder.Build();await using var stream=File.OpenRead(audio.Path);
-            var segments=new List<TranscriptionSegment>();var raw=new JsonArray();
+            var segments=new List<TranscriptionSegment>();var nativeSegments=new List<SegmentData>();var raw=new JsonArray();
             var pending=new List<(int Index,SegmentData Segment,InvalidDataException Error)>();string language=info.IsEnglishOnly?"en":options.Language;
             string key=JsonFiles.Hash(Encoding.UTF8.GetBytes(audio.SourceSegmentId))[..24];
             Exception? originalFailure=null;
@@ -51,7 +51,7 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
             {
                 await foreach (var segment in processor.ProcessAsync(stream,cancellationToken).ConfigureAwait(false))
                 {
-                    language=segment.Language;raw.Add(new JsonObject { ["text"]=segment.Text,["startTicks"]=segment.Start.Ticks,["endTicks"]=segment.End.Ticks,["language"]=segment.Language,
+                    nativeSegments.Add(segment);language=segment.Language;raw.Add(new JsonObject { ["text"]=segment.Text,["startTicks"]=segment.Start.Ticks,["endTicks"]=segment.End.Ticks,["language"]=segment.Language,
                         ["tokens"]=new JsonArray(segment.Tokens.Select(t=>(JsonNode)new JsonObject { ["id"]=t.Id,["text"]=t.Text,["start10Ms"]=t.Start,["end10Ms"]=t.End,["dtwTimestamp"]=t.DtwTimestamp }).ToArray()) });
                     try {
                         var normalized=WhisperTokenNormalizer.Normalize(segment,info.IsEnglishOnly,out var recoveries);
@@ -61,9 +61,21 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
                         pending.Add((segments.Count,segment,error)); segments.Add(null!);
                     }
                 }
-                // Finish the current native pass before using the same factory for a bounded retry.
-                if (pending.Count>3) throw pending[0].Error;
+                // Adjacent native context can recover a word cut by a phrase edge without another inference.
+                var merged = new HashSet<int>();
                 foreach (var failed in pending) {
+                    var next = failed.Index + 1;
+                    if (next >= nativeSegments.Count || segments[next] is null || merged.Contains(failed.Index)) continue;
+                    var recovered = WhisperTokenNormalizer.RecoverWithFollowing(failed.Segment,nativeSegments[next],info.IsEnglishOnly);
+                    if (recovered is null) continue;
+                    segments[failed.Index] = recovered; segments[next] = null!; merged.Add(next);
+                    raw[failed.Index]!["alignmentContextRecovery"] = new JsonObject { ["followingSegmentIndex"] = next,
+                        ["textPreserved"] = true, ["tokens"] = JsonFiles.Node(recovered.Tokens), ["range"] = JsonFiles.Node(recovered.Range) };
+                }
+                var retries = pending.Where(p => segments[p.Index] is null && !merged.Contains(p.Index)).ToArray();
+                // Finish the current native pass before using the same factory for a bounded retry.
+                if (retries.Length>3) throw retries[0].Error;
+                foreach (var failed in retries) {
                     cancellationToken.ThrowIfCancellationRequested();
                     var retryBuilder=_factory.CreateBuilder().WithThreads(options.CpuThreads).WithTokenTimestamps()
                         .WithLanguage(failed.Segment.Language).WithOffset(failed.Segment.Start)
@@ -77,7 +89,7 @@ public sealed class WhisperNetTranscriptionService : ITranscriptionService,IAsyn
                     raw[failed.Index]!["alignmentRetry"]=new JsonObject { ["reason"]=failed.Error.Message, ["textPreserved"]=true,
                         ["tokens"]=JsonFiles.Node(recovered.Tokens),["range"]=JsonFiles.Node(recovered.Range) };
                 }
-                var result=new TranscriptionResult(audio.SourceSegmentId,options.ModelName,language,audio.DurationUs,segments);
+                var result=new TranscriptionResult(audio.SourceSegmentId,options.ModelName,language,audio.DurationUs,segments.Where(s=>s is not null).ToArray());
                 await JsonFiles.WriteAsync(Path.Combine(run.RunDirectory,"transcription",key+".json"),JsonFiles.Node(result),cancellationToken).ConfigureAwait(false);
                 return result;
             }
