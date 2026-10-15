@@ -84,10 +84,11 @@ internal static class Program
                 Require(voiceView.Model.Languages.Count == 1 && voiceView.Model.UsesReference, "Nano language/reference controls");
                 voiceView.Model.SelectedEngine = voiceView.Model.Engines.Single(e => e.Engine == SpeechEngine.Kokoro);
                 voiceView.Model.SelectedLanguage = voiceView.Model.Languages.Single(l => l.Code == "es");
+                if(args.Contains("--no-sample")) voiceView.Model.ModelDirectory = Path.Combine(directory,"no-installed-voices");
                 Require(voiceView.Model.Voices.All(v => v.StartsWith('e')), "Spanish voices were not filtered");
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
                 var voices = (ComboBox)voiceView.FindName("VoiceSelector");
-                Require(voices.Items.Count == voiceView.Model.Voices.Count && voices.SelectedItem is not null == (voices.Items.Count > 0), "Voice selector did not load or select its items");
+                Require(voices.Items.Count == voiceView.Model.Voices.Count && voices.SelectedItem is not null == (voices.Items.Count > 0), "Voice selector did not load or select its items: count=" + voices.Items.Count + " model=" + voiceView.Model.Voices.Count + " selected=" + (voices.SelectedItem ?? "null"));
                 voices.ApplyTemplate();
                 for (int index = 0; index < voices.Items.Count; index++)
                 {
@@ -108,7 +109,7 @@ internal static class Program
                     Console.WriteLine("PASS: Automatic installation and real generation without system Python.");
                 }
                 var sample = Directory.EnumerateFiles(Path.Combine(Environment.CurrentDirectory, "artifacts", "module-checks"), "*.wav").FirstOrDefault(path => !Path.GetFileName(path).Contains("-nivel-"));
-                if (sample is not null)
+                if (sample is not null && !args.Contains("--no-sample"))
                 {
                     voiceView.Model.SelectedEngine = voiceView.Model.Engines.Single(e => e.Engine == SpeechEngine.Nano);
                     voiceView.Model.ReferencePath = sample;
@@ -155,7 +156,7 @@ internal static class Program
                 await Dispatcher.Yield(DispatcherPriority.ContextIdle);
                 Render(window, Path.Combine(directory, "text-to-speech.png"));
                 var languageDisplay = (ComboBox)voiceView.FindName("LanguageSelector");
-                Require(Descendants(languageDisplay).OfType<TextBlock>().Any(text => text.Text == voiceView.Model.SelectedLanguage.Name), "Selected language label was not rendered");
+                Require(Descendants(languageDisplay).OfType<TextBlock>().Any(text => text.Text == voiceView.Model.SelectedLanguage.Name), "Selected language label was not rendered: selected=" + (languageDisplay.SelectedItem ?? "null") + " expected=" + voiceView.Model.SelectedLanguage.Name + " rendered=" + string.Join("|",Descendants(languageDisplay).OfType<TextBlock>().Select(t=>t.Text)));
                 Render(window, Path.Combine(directory, "compact.png"), 820, 510);
                 var expert = Descendants(voiceView).OfType<Expander>().Single(expander => Equals(expander.Header, "Ganancia manual · experto"));
                 expert.IsExpanded = true;

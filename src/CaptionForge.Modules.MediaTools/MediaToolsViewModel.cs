@@ -8,7 +8,7 @@ using CaptionForge.Modules.MediaTools.Core;
 
 namespace CaptionForge.Modules.MediaTools;
 
-public sealed record MediaLanguage : INotifyPropertyChanged
+public sealed class MediaLanguage : INotifyPropertyChanged
 {
     public string Code { get; }
     private string Label { get; }

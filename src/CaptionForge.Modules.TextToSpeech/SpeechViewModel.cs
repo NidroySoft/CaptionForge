@@ -6,7 +6,7 @@ using CaptionForge.Modules.TextToSpeech.Core;
 
 namespace CaptionForge.Modules.TextToSpeech;
 
-public sealed record EngineChoice : INotifyPropertyChanged
+public sealed class EngineChoice : INotifyPropertyChanged
 {
     public SpeechEngine Engine { get; }
     private string Label { get; }
@@ -20,7 +20,7 @@ public sealed record EngineChoice : INotifyPropertyChanged
     }
     public override string ToString() => Name;
 }
-public sealed record LanguageChoice : INotifyPropertyChanged
+public sealed class LanguageChoice : INotifyPropertyChanged
 {
     public string Code { get; }
     private string Label { get; }
@@ -99,7 +99,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
     public string OutputDirectory { get => _settings.OutputDirectory; set { _settings.OutputDirectory = value; Notify(); } }
     public string ReferencePath { get => _settings.ReferencePath; set { _settings.ReferencePath = value; NotifyAll(); } }
     public string Text { get => _text; set { _text = value; Notify(); } }
-    public string SelectedVoice { get => _voice; set { _voice = value ?? ""; _settings.Voices[VoiceKey] = _voice; Notify(); } }
+    public string? SelectedVoice { get => string.IsNullOrEmpty(_voice) ? null : _voice; set { _voice = value ?? ""; _settings.Voices[VoiceKey] = _voice; Notify(); } }
     private string VoiceKey => $"{SelectedEngine.Engine}:{SelectedLanguage.Code}";
     public int Seed { get => _seed; set { _seed = value; Notify(); } }
     public double Speed { get => _speed; set { _speed = value; Notify(); } }
@@ -180,7 +180,7 @@ public sealed class SpeechViewModel : INotifyPropertyChanged
         using var cts = new CancellationTokenSource(); _cts = cts;
         try
         {
-            var request = new SpeechSynthesisRequest(SelectedEngine.Engine, SelectedLanguage.Code, Text, SelectedVoice, ReferencePath,
+            var request = new SpeechSynthesisRequest(SelectedEngine.Engine, SelectedLanguage.Code, Text, SelectedVoice ?? "", ReferencePath,
                 PythonExecutable, ModelDirectory, OutputDirectory, Seed, Speed, Exaggeration, Math.Min(4, Environment.ProcessorCount));
             SpeechEngineCatalog.Validate(request);
             _settings.Save();
