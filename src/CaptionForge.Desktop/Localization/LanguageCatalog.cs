@@ -5,7 +5,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 namespace CaptionForge.Desktop.Localization;
 
-public sealed record LanguageDocument(string Code, string Name, IReadOnlyDictionary<string,string> Translations);
+public sealed record LanguageDocument(string Code, string Name, IReadOnlyDictionary<string,string> Translations)
+{
+    // SelectionBoxItem can fall back to ToString after reloading the language catalog.
+    public override string ToString() => Name;
+}
 public sealed record LanguageScan(IReadOnlyList<LanguageDocument> Languages, IReadOnlyList<string> RejectedFiles);
 /// <summary>Catálogo independiente de WPF. Sólo acepta textos, nunca código ni rutas dentro del documento.</summary>
 public static class LanguageCatalog

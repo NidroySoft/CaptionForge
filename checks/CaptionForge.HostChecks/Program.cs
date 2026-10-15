@@ -77,6 +77,20 @@ internal static class Program
   using var englishStream=System.IO.File.OpenRead(System.IO.Path.Combine(folder,"en.json"));
   var english=CaptionForge.Desktop.Localization.LanguageCatalog.Parse(englishStream,"en");
   if(!fallback.Translations.Keys.ToHashSet().SetEquals(english.Translations.Keys)) throw new Exception("Translation keys differ");
+  var selector = new System.Windows.Controls.ComboBox { DisplayMemberPath = "Name", ItemsSource = scan.Languages, Width = 300 };
+  var selectorWindow = new Window { Content = selector };
+  foreach (var code in new[] { "en", "es", "en" })
+  {
+   var document = scan.Languages.Single(l => l.Code == code);
+   if(document.ToString() != document.Name) throw new Exception("Language selection exposes record fields");
+   selector.SelectedItem = document;
+   selector.Measure(new Size(300,80)); selector.Arrange(new Rect(0,0,300,80)); selector.UpdateLayout();
+   var texts = Descendants(selector).OfType<System.Windows.Controls.TextBlock>().Select(t=>t.Text).ToArray();
+   if(!texts.Contains(document.Name) || texts.Any(t=>t.Contains("Translations =") || t.Contains("LanguageDocument {"))) throw new Exception("Closed language selector must display the language name only");
+   selector.ItemsSource = scan.Languages.ToArray();
+  }
+  selectorWindow.Content = null; selectorWindow.Close();
+  Console.WriteLine("PASS: closed language selector displays names only after selection and catalog refresh");
   string temp=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"CaptionForge-language-"+Guid.NewGuid().ToString("N"));
   System.IO.Directory.CreateDirectory(temp);
   try
